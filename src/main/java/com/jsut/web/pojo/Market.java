@@ -11,6 +11,7 @@ public class Market implements Serializable {
     private Integer id;
     private String submitter;
     private String text;
+    private String contact;
 
     @Override
     public String toString() {
@@ -18,7 +19,16 @@ public class Market implements Serializable {
                 "id=" + id +
                 ", submitter='" + submitter + '\'' +
                 ", text='" + text + '\'' +
+                ", contact='" + contact + '\'' +
                 '}';
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public Integer getId() {
