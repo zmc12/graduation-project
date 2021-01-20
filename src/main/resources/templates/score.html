@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩管理</title>
+	<title>学生请假管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	
+	
+	#student{
+		height:230px;
+		overflow: scroll;
+	}
+
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <h1 class="display-4">学生成绩管理</h1>
+	    <p class="lead">学生名单</p>
+		<div id="student">
+			<a href="#" class="list-group-item">陈嘉豪</a>
+			<a href="#" class="list-group-item">24*7 支持</a>
+			<a href="#" class="list-group-item">免费 Window 空间托管</a>
+			<a href="#" class="list-group-item">图像的数量</a>
+			<a href="#" class="list-group-item">每年更新成本</a>
+			<a href="#" class="list-group-item">陈嘉豪</a>
+			<a href="#" class="list-group-item">24*7 支持</a>
+			<a href="#" class="list-group-item">免费 Window 空间托管</a>
+			<a href="#" class="list-group-item">图像的数量</a>
+			<a href="#" class="list-group-item">每年更新成本</a>
+			<a href="#" class="list-group-item">陈嘉豪</a>
+			<a href="#" class="list-group-item">24*7 支持</a>
+			<a href="#" class="list-group-item">免费 Window 空间托管</a>
+			<a href="#" class="list-group-item">图像的数量</a>
+			<a href="#" class="list-group-item">每年更新成本</a>
+			<a href="#" class="list-group-item">陈嘉豪</a>
+			<a href="#" class="list-group-item">24*7 支持</a>
+			<a href="#" class="list-group-item">免费 Window 空间托管</a>
+			<a href="#" class="list-group-item">图像的数量</a>
+			<a href="#" class="list-group-item">每年更新成本</a>
+		</div>
+		<br>
+		<p class="lead">成绩</p>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+			  <th scope="col">#</th>
+		      <th scope="col">学科</th>
+		      <th scope="col">分数</th>
+			  <th scope="col">操作</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">1</th>
+		      <td>Mark</td>
+		      <td>Otto</td>      
+			  <td> <a class="nav-link" href="#">删除</a></td>			 
+		    </tr>
+		    <tr>
+		      <th scope="row">2</th>
+		      <td>Jacob</td>
+		      <td>Thornton</td>
+			  <td> <a class="nav-link" href="#">删除</a></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">3</th>
+		      <td>Larry</td>
+		      <td>the Bird</td>
+			  <td> <a class="nav-link" href="#">删除</a></td>
+		    </tr>
+		  </tbody>
+		</table>
+		<br>
+		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			新增
+		</button>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<form>
+						  <div class="form-group">
+						    <label for="exampleInputEmail1">学科:</label>
+						    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						  </div>
+						  <div class="form-group">
+						    <label for="exampleInputPassword1">成绩:</label>
+						    <input type="number" max="100" min="0" class="form-control" id="exampleInputPassword1">
+						  </div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary">
+							保存
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</body>
+<script type="application/javascript">
+	$(function(){
+		$("#insert").click(function(){
+			
+		})
+	})
+</script>
+</html>
