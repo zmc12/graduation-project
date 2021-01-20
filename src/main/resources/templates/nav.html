@@ -24,10 +24,15 @@
 	#logout :hover{
 		color:red;
 	}
+	
 </style>
 <body>
-  <div>
+  <div th:fragment="header">
       <ul class="nav justify-content-center myNav">
+		  <li  class="nav-item">
+		      <a class="nav-link active" href="/user/gotoHome">首页</a>
+		  </li>
+		  
           <li class="nav-item">
               <a class="nav-link active" href="#">学生请假管理</a>
           </li>

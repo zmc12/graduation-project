@@ -18,7 +18,7 @@ public class userController {
     @PostMapping("/login")
     public String login(@RequestParam("user")String user,@RequestParam("password")String password){
        if(("admin").equals(user) && ("12345").equals(password)){
-           return "nav";
+           return "home";
        }else {
            return "index";
        }
@@ -28,6 +28,11 @@ public class userController {
     @GetMapping("/logout")
     public String loginout(){
         return "index";
+    }
+
+    @GetMapping("/gotoHome")
+    public String home(){
+        return "home";
     }
 
 }
