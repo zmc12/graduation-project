@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>宿舍管理</title>
-	<!-- 新 Bootstrap4 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
-	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>迷你校园系统</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <style>
     .myNav{
@@ -24,28 +24,27 @@
 	#logout :hover{
 		color:red;
 	}
-	
-	#dom{
+	#notice{
 		height:400px;
 		overflow: scroll;
 	}
 	
+
 </style>
 <body>
-	<div th:include="../templates/nav.html :: header"></div>
-	
-   <div class="jumbotron jumbotron-fluid">
+ <div th:include="../templates/nav.html :: header"></div>
+ <div class="jumbotron jumbotron-fluid">
    <div class="container">
-     <h1 class="display-4">学生宿舍信息</h1>
-     <p class="lead">宿舍名单</p>
-	 <div id="dom">
+     <h1 class="display-4">通知管理</h1>
+     <p class="lead">已发布通知</p>
+	 <div id="notice">
 		 <table class="table table-striped">
 		   <thead>
 		     <tr>
 		 	  <th scope="col">#</th>
-		       <th scope="col">宿舍号</th>
-		       <th scope="col">得分</th>
-		 	  <th scope="col">成员</th>
+		       <th scope="col">发布内容</th>
+		       <th scope="col">接收班级</th>
+		 	  <th scope="col">确认情况</th>
 		 	  <th scope="col">操作</th>
 		     </tr>
 		   </thead>
@@ -53,28 +52,28 @@
 		     <tr>
 		       <th scope="row">1</th>
 		       <td>Mark</td>
-		       <td>Otto</td>    
-		 	  <td>Otto</td>    
+		       <td>Otto</td>      
+		 	  <td>Otto</td>      
 		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>			 
 		     </tr>
 		     <tr>
 		       <th scope="row">2</th>
 		       <td>Jacob</td>
 		       <td>Thornton</td>
-		 	  <td>Otto</td>    
+		 	  <td>Otto</td>      
 		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
 		     </tr>
 		     <tr>
 		       <th scope="row">3</th>
 		       <td>Larry</td>
-		       <td>the Bird</td> 
-		 	  <td>Otto</td>    
+		       <td>the Bird</td>
+		 	  <td>Otto</td>      
 		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
 		     </tr>
 		   </tbody>
 		 </table>
 	 </div>
- 	
+
  	<br>
 	
 	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -83,19 +82,23 @@
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+	
 				<div class="modal-body">
 					<form>
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">宿舍号:</label>
+					    <label for="exampleInputEmail1">发布内容:</label>
 					    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					  <div class="form-group">
-					    <label for="exampleInputPassword1">得分:</label>
-					    <input type="number" max="100" min="0" class="form-control" id="exampleInputPassword1"/>
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputEmail2">宿舍成员:</label>
-					    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+					    <label for="exampleInputPassword1">接收班级:</label>
+					    <select class="form-control" id="exampleInputPassword1">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+						</select>
 					  </div>
 					</form>
 				</div>
@@ -108,8 +111,15 @@
 				</div>
 			</div>
 		</div>
-	 </div>
-    </div>
+	</div>
+ 	<br>
    </div>
+ </div>
 </body>
+<script type="application/javascript">
+	$(function(){
+		
+		
+	})
+</script>
 </html>

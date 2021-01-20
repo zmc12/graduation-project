@@ -28,8 +28,8 @@
 	
 	
 	
-	#student{
-		height:230px;
+	#book{
+		height:400px;
 		overflow: scroll;
 	}
 	
@@ -41,61 +41,40 @@
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
 	    <h1 class="display-4">图书管理</h1>
-	    <p class="lead">学生名单</p>
-		<div id="student">
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
+	    <p class="lead">图书名单</p>
+		<div id="book">
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+				  <th scope="col">#</th>
+			      <th scope="col">书名</th>
+			      <th scope="col">数量</th>
+				  <th scope="col">操作</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>Mark</td>
+			      <td>Otto</td>      
+				  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>			 
+			    </tr>
+			    <tr>
+			      <th scope="row">2</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+				  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">3</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+				  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>
+			    </tr>
+			  </tbody>
+			</table>
 		</div>
-		<br>
-		<p class="lead">已借图书</p>
-	    <table class="table table-striped">
-	      <thead>
-	        <tr>
-	    	  <th scope="col">#</th>
-	          <th scope="col">书名</th>
-	          <th scope="col">到期时间</th>
-	    	  <th scope="col">操作</th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	        <tr>
-	          <th scope="row">1</th>
-	          <td>Mark</td>
-	          <td>Otto</td>      
-	    	  <td> <a class="nav-link" href="#">删除</a></td>			 
-	        </tr>
-	        <tr>
-	          <th scope="row">2</th>
-	          <td>Jacob</td>
-	          <td>Thornton</td>
-	    	  <td> <a class="nav-link" href="#">删除</a></td>
-	        </tr>
-	        <tr>
-	          <th scope="row">3</th>
-	          <td>Larry</td>
-	          <td>the Bird</td>
-	    	  <td> <a class="nav-link" href="#">删除</a></td>
-	        </tr>
-	      </tbody>
-	    </table>
+	    
 	    <br>
 		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 			新增
@@ -104,7 +83,6 @@
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-	
 					<div class="modal-body">
 						<form>
 						  <div class="form-group">
@@ -112,8 +90,8 @@
 						    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 						  </div>
 						  <div class="form-group">
-						    <label for="exampleInputPassword1">到期时间:</label>
-						    <input type="date" class="form-control" id="exampleInputPassword1">
+						    <label for="exampleInputPassword1">数量:</label>
+						    <input type="number" min="1" class="form-control" id="exampleInputPassword1">
 						  </div>
 						</form>
 					</div>
@@ -127,7 +105,59 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<table class="table table-striped">
+						  <thead>
+						    <tr>
+							  <th scope="col">#</th>
+						      <th scope="col">借阅人</th>
+						      <th scope="col">到期时间</th>
+							  <th scope="col">操作</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">1</th>
+						      <td>Mark</td>
+						      <td>Otto</td>      
+							  <td><a class="nav-link extern"  href="#">续期</a></td>			 
+						    </tr>
+						    <tr>
+						      <th scope="row">2</th>
+						      <td>Jacob</td>
+						      <td>Thornton</td>
+							  <td><a class="nav-link extern"  href="#">续期</a></td>
+						    </tr>
+						    <tr>
+						      <th scope="row">3</th>
+						      <td>Larry</td>
+						      <td>the Bird</td>
+							  <td><a class="nav-link extern" href="#">续期</a></td>
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	  </div>
 	</div>
 </body>
+<script>
+	$(function(){
+		$(".extern").click(function(){
+			alert("已续借30天");
+		})
+	})
+</script>
 </html>
