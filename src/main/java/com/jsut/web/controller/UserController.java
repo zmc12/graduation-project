@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/user")
 @Slf4j
-public class userController {
+public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("user")String user,@RequestParam("password")String password){

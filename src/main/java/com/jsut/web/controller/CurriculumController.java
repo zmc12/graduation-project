@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author ZhangMinCong
- * @date 2021/1/20 15:23
+ * @date 2021/1/20 15:12
  */
 @Controller
 @Slf4j
-@RequestMapping("/sign")
-public class signController {
+@RequestMapping("/curriculum")
+public class CurriculumController {
 
     @GetMapping("/first")
     public String first(){
-        return "sign";
+        return "curriculum";
     }
 }

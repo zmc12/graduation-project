@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequestMapping("/dom")
-public class domController {
+public class DomController {
 
     @GetMapping("/first")
     public String first(){

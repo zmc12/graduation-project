@@ -6,17 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author ZhangMinCong
- * @date 2021/1/20 10:43
+ * @date 2021/1/20 11:09
  */
-
 @Controller
 @Slf4j
-@RequestMapping("/score")
-public class scoreController {
-
+@RequestMapping("/book")
+public class BookController {
 
     @RequestMapping("/first")
     public String first(){
-        return "score";
+        return "book";
     }
 }

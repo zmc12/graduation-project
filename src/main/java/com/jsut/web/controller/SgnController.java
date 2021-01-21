@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author ZhangMinCong
- * @date 2021/1/20 13:43
+ * @date 2021/1/20 15:23
  */
 @Controller
 @Slf4j
-@RequestMapping("/market")
-public class marketController {
+@RequestMapping("/sign")
+public class SgnController {
 
     @GetMapping("/first")
     public String first(){
-
-        return "market";
+        return "sign";
     }
 }
