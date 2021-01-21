@@ -14,4 +14,8 @@ public interface MarketMapper {
     public List<Market> selectAll();
 
     void insert(Market market);
+
+    void deleteById(Integer id);
+
+    void updateById(Market  market);
 }

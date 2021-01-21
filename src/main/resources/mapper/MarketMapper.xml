@@ -15,13 +15,20 @@
         id, submitter, text, contact
     </sql>
     <select id="selectAll"  resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List" /> from market;
+        select  <include refid="Base_Column_List" /> from market order by id desc;
     </select>
 
 
     <insert id="insert" parameterType="com.jsut.web.pojo.Market">
         insert into market(submitter,text,contact) values (#{submitter},#{text},#{contact});
     </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from market where id=#{id};
+    </delete>
+    <update id="updateById" parameterType="com.jsut.web.pojo.Market">
+        update  market set submitter=#{submitter},text=#{text},contact=#{contact} where id=#{id};
+    </update>
 
 
 </mapper>

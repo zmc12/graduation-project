@@ -27,4 +27,12 @@ public class MarketServiceImpl implements MarketService {
     public void insert(Market market) {
         marketMapper.insert(market);
     }
+
+    public void deleteById(Integer id) {
+        marketMapper.deleteById(id);
+    }
+
+    public void updateById(Market market) {
+        marketMapper.updateById(market);
+    }
 }
