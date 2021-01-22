@@ -11,6 +11,10 @@
 	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <style>
@@ -64,6 +68,7 @@
 		<button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
 		<button type="button" value="不批准" name="result" class="btn btn-secondary">不批准</button>
 	  </div>
+
 	</div>
 </body>
 <script>
@@ -77,7 +82,8 @@
 		
 		$("button[name='result']").click(function(){
 			if(id==null){
-				alert("未选择学生");
+			
+				toastr.warning('未选择学生')
 				return false;
 			}else{
 				var result=$(this).val();
@@ -85,11 +91,13 @@
 					type:"put",
 					url:"/absent/update?id="+id+"&result="+result,
 					success:function(data){
-						alert(data.message);
-						window.location.reload();
+						toastr.success(data.message);
+						setTimeout(function(){
+						　　window.location.reload();
+						},2000);
 					},
 					error:function(){
-						alert(data.message);
+						toastr.error(data.message);
 					}
 				})
 			}

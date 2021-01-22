@@ -12,6 +12,8 @@
 	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <style>
@@ -157,7 +159,7 @@
 <script>
 	$(function(){
 		$(".extern").click(function(){
-			alert("已续借30天");
+			toastr.info("已续借30天");
 			
 		})
 		
