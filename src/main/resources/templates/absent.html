@@ -29,7 +29,7 @@
 	
 	
 	#student{
-		height:230px;
+		height:120px;
 		overflow: scroll;
 	}
 	
@@ -44,38 +44,59 @@
 	  <div class="container">
 	    <h1 class="display-4">学生请假管理</h1>
 	    <p class="lead">学生请假名单</p>
-		<div id="student">
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
+		<div id="student" >
+			<ul th:each="absent:${absents}">
+				<a class="choose" href="#" th:text="${absent.name}"></a>
+				<span>请假时间:</span>&nbsp;&nbsp;
+		        <span th:text="${absent.startTime}"></span>&nbsp;&nbsp;-
+		        <span th:text="${absent.endTime}"></span>
+				<span style="display: none;" th:text="${absent.reason}" />
+				<span style="display: none;" th:text="${absent.id}" />
+			</ul>
 		</div>
 		<br>
 		<p class="lead">请假理由</p>
-		<span>时间:</span>&nbsp;&nbsp;
+		<!-- <span>时间:</span>&nbsp;&nbsp;
 		<input type="text" readonly="readonly" />&nbsp;&nbsp;-
-		<input type="text" readonly="readonly" />
+		<input type="text" readonly="readonly" /> -->
 		<textarea id="reason" class="form-control" rows="3" placeholder="请假理由" readonly="readonly"></textarea>
 		<br>
-		<button type="button" class="btn btn-primary">同意</button>
-		<button type="button" class="btn btn-secondary">不批准</button>
+		<button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
+		<button type="button" value="不批准" name="result" class="btn btn-secondary">不批准</button>
 	  </div>
 	</div>
 </body>
+<script>
+	$(function(){
+		var id=null;
+		$(".choose").click(function(){
+			id=$(this).parent().children().eq(5).text();
+			var reason=$(this).parent().children().eq(4).text();
+			$("#reason").val(reason);
+		})
+		
+		$("button[name='result']").click(function(){
+			if(id==null){
+				alert("未选择学生");
+				return false;
+			}else{
+				var result=$(this).val();
+				$.ajax({
+					type:"put",
+					url:"/absent/update?id="+id+"&result="+result,
+					success:function(data){
+						alert(data.message);
+						window.location.reload();
+					},
+					error:function(){
+						alert(data.message);
+					}
+				})
+			}
+		})
+			
+	
+		
+	})
+</script>
 </html>

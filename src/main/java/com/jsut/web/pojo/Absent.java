@@ -13,15 +13,35 @@ public class Absent implements Serializable {
     private String reason;
     private String startTime;
     private String endTime;
+    private String result;
+    private String college;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
 
     @Override
     public String toString() {
-        return "absent{" +
+        return "Absent{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", reason='" + reason + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", result='" + result + '\'' +
+                ", college='" + college + '\'' +
                 '}';
     }
 

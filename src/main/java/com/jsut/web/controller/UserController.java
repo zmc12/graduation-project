@@ -2,6 +2,7 @@ package com.jsut.web.controller;
 
 import com.jsut.web.pojo.Teacher;
 import com.jsut.web.service.UserService;
+import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class UserController {
 
         Teacher teacher=userService.selectByUser(user,password);
 
+        User.COLLEGE=teacher.getCollege();
        if("".equals(teacher) || teacher==null){
            return "index";
        }else {

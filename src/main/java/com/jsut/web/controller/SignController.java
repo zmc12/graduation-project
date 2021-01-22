@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequestMapping("/sign")
-public class SgnController {
+public class SignController {
 
     @GetMapping("/first")
     public String first(){
