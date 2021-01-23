@@ -11,7 +11,8 @@ public class Dom implements Serializable {
     private Integer id;
     private String number;
     private Integer score;
-    private String[] students;
+    private String students;
+
 
     @Override
     public String toString() {
@@ -19,7 +20,7 @@ public class Dom implements Serializable {
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", score=" + score +
-                ", students=" + Arrays.toString(students) +
+                ", students='" + students + '\'' +
                 '}';
     }
 
@@ -47,11 +48,11 @@ public class Dom implements Serializable {
         this.score = score;
     }
 
-    public String[] getStudents() {
+    public String getStudents() {
         return students;
     }
 
-    public void setStudents(String[] students) {
+    public void setStudents(String students) {
         this.students = students;
     }
 }

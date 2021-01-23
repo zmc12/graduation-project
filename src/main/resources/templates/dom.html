@@ -50,27 +50,14 @@
 		     </tr>
 		   </thead>
 		   <tbody>
-		     <tr>
-		       <th scope="row">1</th>
-		       <td>Mark</td>
-		       <td>Otto</td>    
-		 	  <td>Otto</td>    
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>			 
-		     </tr>
-		     <tr>
-		       <th scope="row">2</th>
-		       <td>Jacob</td>
-		       <td>Thornton</td>
-		 	  <td>Otto</td>    
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		     </tr>
-		     <tr>
-		       <th scope="row">3</th>
-		       <td>Larry</td>
-		       <td>the Bird</td> 
-		 	  <td>Otto</td>    
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		     </tr>
+             <tr th:each="dom:${doms}">
+				 <td th:text="${dom.id}"></td>
+				 <td th:text="${dom.number}"></td>
+				 <td th:text="${dom.score}"></td>
+				 <td th:text="${dom.students}"></td>
+                 <td><a class="nav-link"  th:href="@{/dom/delete(id=${dom.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+			 </tr>			   
+		
 		   </tbody>
 		 </table>
 	 </div>
@@ -84,32 +71,82 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form>
+					<form action="/dom/insert" method="post">
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">宿舍号:</label>
-					    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					    <input type="text" class="form-control" name="number" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					  <div class="form-group">
 					    <label for="exampleInputPassword1">得分:</label>
-					    <input type="number" max="100" min="0" class="form-control" id="exampleInputPassword1"/>
+					    <input type="number" max="100" min="0" name="score" class="form-control" id="exampleInputPassword1"/>
 					  </div>
 					  <div class="form-group">
 					    <label for="exampleInputEmail2">宿舍成员:</label>
-					    <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+					    <input type="text" class="form-control" name="students" id="exampleInputEmail2" aria-describedby="emailHelp">
+					  </div>
+					  <div class="modal-footer">
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					  	</button>
+					  	<button type="submit" class="btn btn-primary">
+					  		保存
+					  	</button>
 					  </div>
 					</form>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-					<button type="button" class="btn btn-primary">
-						保存
-					</button>
-				</div>
+
 			</div>
 		</div>
 	 </div>
+	 
+	 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	 	<div class="modal-dialog">
+	 		<div class="modal-content">
+	 			<div class="modal-body">
+	 				<form action="/dom/update" method="post">
+					  <input type="hidden" name="id" id="id">
+	 				  <div class="form-group">
+	 				    <label for="number">宿舍号:</label>
+	 				    <input type="text" class="form-control" name="number" id="number" aria-describedby="emailHelp">
+	 				  </div>
+	 				  <div class="form-group">
+	 				    <label for="score">得分:</label>
+	 				    <input type="number" max="100" min="0" name="score" class="form-control" id="score"/>
+	 				  </div>
+	 				  <div class="form-group">
+	 				    <label for="students">宿舍成员:</label>
+	 				    <input type="text" class="form-control" name="students" id="students" aria-describedby="emailHelp">
+	 				  </div>
+	 				  <div class="modal-footer">
+	 				  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+	 				  	</button>
+	 				  	<button type="submit" class="btn btn-primary">
+	 				  		保存
+	 				  	</button>
+	 				  </div>
+	 				</form>
+	 			</div>
+	 
+	 		</div>
+	 	</div>
+	  </div>
+	  <br/>
+	  
     </div>
    </div>
 </body>
+<script>
+	$(function(){
+		$(".change").click(function(){
+			var id=$(this).parent().parent().children('td').eq(0).text();
+			var number=$(this).parent().parent().children('td').eq(1).text();
+			var score=$(this).parent().parent().children('td').eq(2).text();
+			var students=$(this).parent().parent().children('td').eq(3).text();
+			
+			$("#id").val(id);
+			$("#number").val(number);
+			$("#score").val(score);
+			$("#students").val(students);
+		})
+	})
+</script>
 </html>
