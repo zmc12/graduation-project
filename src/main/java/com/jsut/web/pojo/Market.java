@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class Market implements Serializable {
 
     private Integer id;
-    private String submitter;
     private String text;
     private String contact;
 
@@ -17,7 +16,6 @@ public class Market implements Serializable {
     public String toString() {
         return "Market{" +
                 "id=" + id +
-                ", submitter='" + submitter + '\'' +
                 ", text='" + text + '\'' +
                 ", contact='" + contact + '\'' +
                 '}';
@@ -39,13 +37,6 @@ public class Market implements Serializable {
         this.id = id;
     }
 
-    public String getSubmitter() {
-        return submitter;
-    }
-
-    public void setSubmitter(String submitter) {
-        this.submitter = submitter;
-    }
 
     public String getText() {
         return text;

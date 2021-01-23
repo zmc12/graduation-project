@@ -11,16 +11,27 @@ public class Notice implements Serializable {
     private Integer id;
     private String text;
     private String grade;
-    private String stuation;
+    private String situation;
+    private String name;
+
 
     @Override
     public String toString() {
-        return "notice{" +
+        return "Notice{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", grade='" + grade + '\'' +
-                ", stuation='" + stuation + '\'' +
+                ", situation='" + situation + '\'' +
+                ", name='" + name + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -47,11 +58,11 @@ public class Notice implements Serializable {
         this.grade = grade;
     }
 
-    public String getStuation() {
-        return stuation;
+    public String getSituation() {
+        return situation;
     }
 
-    public void setStuation(String stuation) {
-        this.stuation = stuation;
+    public void setSituation(String situation) {
+        this.situation = situation;
     }
 }

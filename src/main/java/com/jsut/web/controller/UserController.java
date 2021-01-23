@@ -31,6 +31,7 @@ public class UserController {
         Teacher teacher=userService.selectByUser(user,password);
 
         User.COLLEGE=teacher.getCollege();
+        User.Name=teacher.getName();
        if("".equals(teacher) || teacher==null){
            return "index";
        }else {

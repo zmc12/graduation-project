@@ -10,4 +10,5 @@ public class User implements Serializable {
 
     public static String COLLEGE;
 
+    public static String Name;
 }

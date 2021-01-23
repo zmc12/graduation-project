@@ -42,7 +42,6 @@
 		   <thead>
 		     <tr>
 		 	  <th scope="col">#</th>
-		       <th scope="col">发布人</th>
 		       <th scope="col">信息内容</th>
 			   <th scope="col">联系方式</th>
 		 	   <th scope="col">操作</th>
@@ -51,7 +50,6 @@
 		   <tbody>
 			 <tr th:each="market:${markets}">
 				 <td th:text="${market.id}"></td>
-				 <td th:text="${market.submitter}"></td>
 				 <td th:text="${market.text}"></td>
 				 <td th:text="${market.contact}"></td>
                  <td><a class="nav-link"  th:href="@{/market/delete(id=${market.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
@@ -70,10 +68,6 @@
 			<div class="modal-content">
 				<div class="modal-body">
 					<form action="/market/insert" method="post">
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">发布人:</label>
-					    <input type="text" name="submitter"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-					  </div>
 					  <div class="form-group">
 					    <label for="exampleInputPassword1">信息内容:</label>
 					    <textarea class="form-control" name="text" id="exampleInputPassword1"></textarea>
@@ -100,11 +94,7 @@
 			<div class="modal-content">
 				<div class="modal-body">
 					<form action="/market/update" method="post">
-					  <div class="form-group">
-						<input type="hidden" name="id" id="id" />
-					    <label for="submitter">发布人:</label>
-					    <input type="text" name="submitter"  class="form-control" id="submitter" aria-describedby="emailHelp">
-					  </div>
+					   <input type="hidden" name="id" id="id" />
 					  <div class="form-group">
 					    <label for="text">信息内容:</label>
 					    <textarea class="form-control" name="text" id="text"></textarea>
@@ -133,12 +123,10 @@
 	$(function(){
 		$(".change").click(function(){
 			var id=$(this).parent().parent().children('td').eq(0).text();
-			var submitter=$(this).parent().parent().children('td').eq(1).text();
-			var text=$(this).parent().parent().children('td').eq(2).text();
-			var contact=$(this).parent().parent().children('td').eq(3).text();
+			var text=$(this).parent().parent().children('td').eq(1).text();
+			var contact=$(this).parent().parent().children('td').eq(2).text();
 			
 			$("#id").val(id);
-			$("#submitter").val(submitter);
 			$("#text").val(text);
 			$("#contact").val(contact);
 		})

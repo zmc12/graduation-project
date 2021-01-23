@@ -49,27 +49,13 @@
 		     </tr>
 		   </thead>
 		   <tbody>
-		     <tr>
-		       <th scope="row">1</th>
-		       <td>Mark</td>
-		       <td>Otto</td>      
-		 	  <td>Otto</td>      
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>			 
-		     </tr>
-		     <tr>
-		       <th scope="row">2</th>
-		       <td>Jacob</td>
-		       <td>Thornton</td>
-		 	  <td>Otto</td>      
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		     </tr>
-		     <tr>
-		       <th scope="row">3</th>
-		       <td>Larry</td>
-		       <td>the Bird</td>
-		 	  <td>Otto</td>      
-		 	  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		     </tr>
+			<tr th:each="notice:${notices}">
+				<td th:text="${notice.id}"></td>
+				<td th:text="${notice.text}"></td>
+			    <td th:text="${notice.grade}"></td>
+				<td th:text="${notice.situation}"></td>
+			    <td><a class="nav-link"  th:href="@{/notice/delete(id=${notice.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+			</tr>
 		   </tbody>
 		 </table>
 	 </div>
@@ -82,32 +68,52 @@
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-	
 				<div class="modal-body">
-					<form>
+					<form action="/notice/insert" method="post">
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">发布内容:</label>
-					    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					    <input type="text" class="form-control" name="text" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					  <div class="form-group">
 					    <label for="exampleInputPassword1">接收班级:</label>
-					    <select class="form-control" id="exampleInputPassword1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
+					    <select class="form-control" name="grade"  id="exampleInputPassword1">
+							<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
 						</select>
-					  </div>
+					  </div>	
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				     	</button>
+				     	<button type="submit" class="btn btn-primary">
+						  保存
+				     	</button>
+			          </div>							  
 					</form>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-					<button type="button" class="btn btn-primary">
-						保存
-					</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form action="/notice/update" method="post">
+					  <input type="hidden" name="id" id="id" />
+					  <div class="form-group">
+					    <label for="text">发布内容:</label>
+					    <input type="text" class="form-control" name="text" id="text" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="grade">接收班级:</label>
+					    <select class="form-control" name="grade"  id="grade">
+							<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+						</select>
+					  </div>	
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				     	<button type="submit" class="btn btn-primary">保存</button>
+			          </div>							  
+					</form>
 				</div>
 			</div>
 		</div>
@@ -118,7 +124,20 @@
 </body>
 <script type="application/javascript">
 	$(function(){
-		
+		$(".change").click(function(){
+			var id=$(this).parent().parent().children('td').eq(0).text();
+			var text=$(this).parent().parent().children('td').eq(1).text();
+			var grade=$(this).parent().parent().children('td').eq(2).text();
+			
+			$("#id").val(id);
+			$("#text").val(text);
+			
+			var selectId = document.getElementById("grade");
+			for(i=0;i<selectId.length;i++){
+			    if(selectId[i].value==grade)
+			        selectId[i].selected = true;
+			}
+		})
 		
 	})
 </script>
