@@ -47,25 +47,13 @@
 				  <th scope="col">方式</th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>Mark</td>
-			      <td>Otto</td>      
-			      <td>Otto</td>    
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-				  <td>Otto</td>    
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-				  <td>Otto</td>    
-			    </tr>
+			  <tbody th:each="list1:${list1}">
+				<tr th:each="list1:${list1}">
+				    <td th:text="${list1.id}"></td>
+				    <td th:text="${list1.name}"></td>
+				    <td th:text="${list1.location}"></td>
+				    <td th:text="${list1.stuation}"></td>
+				</tr>
 			  </tbody>
 			</table>
 		</div>
@@ -80,19 +68,13 @@
 			      <th scope="col">姓名</th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>Mark</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>Jacob</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td>Larry</td>
-			    </tr>
+              <tbody th:each="list2:${list2}">
+				<tr th:each="list2:${list2}">
+				    <td th:text="${list2.id}"></td>
+				    <td th:text="${list2.name}"></td>
+				    <td th:text="${list2.location}"></td>
+				    <td th:text="${list2.stuation}"></td>
+				</tr>
 			  </tbody>
 			</table>
 		</div>

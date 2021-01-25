@@ -8,7 +8,7 @@
         <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
         <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
         <result column="result" jdbcType="VARCHAR" property="result"/>
-        <result column="college" jdbcType="VARCHAR" property="college"/>
+<!--        <result column="college" jdbcType="VARCHAR" property="college"/>-->
     </resultMap>
     <sql id="Base_Column_List">
         <!--
@@ -20,7 +20,7 @@
 
 
     <select id="selectAll" parameterType="java.lang.String"  resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List" /> from absent where college=#{college} and result="未审批" order by id asc;
+        select  a.* from absent a,(select name from student where college=#{college}) b where a.name=b.name and  result="未审批" order by id asc;
     </select>
 
     <update id="updateById" >

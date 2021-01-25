@@ -1,9 +1,16 @@
 package com.jsut.web.controller;
 
+import com.jsut.web.pojo.Sign;
+import com.jsut.web.service.SignService;
+import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author ZhangMinCong
@@ -14,8 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sign")
 public class SignController {
 
+    @Autowired
+    private SignService signService;
+
     @GetMapping("/first")
-    public String first(){
+    public String first(Model model) {
+        List<Sign> list1=signService.selectSign(User.COLLEGE);
+        List<Sign> list2= signService.selctNoSign(User.COLLEGE);
+        System.out.println(list1.toString());
+        System.out.println(list2.toString());
+        model.addAttribute("list1",list1);
+        model.addAttribute("list2",list2);
         return "sign";
+
     }
 }

@@ -9,16 +9,18 @@ import java.io.Serializable;
 public class Sign implements Serializable {
 
     private Integer id;
-    private String text;
-    private String grade;
+    private String name;
+    private String location;
+    private String method;
     private String stuation;
 
     @Override
     public String toString() {
         return "Sign{" +
                 "id=" + id +
-                ", text='" + text + '\'' +
-                ", grade='" + grade + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", method='" + method + '\'' +
                 ", stuation='" + stuation + '\'' +
                 '}';
     }
@@ -31,20 +33,28 @@ public class Sign implements Serializable {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGrade() {
-        return grade;
+    public String getLocation() {
+        return location;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public String getStuation() {
