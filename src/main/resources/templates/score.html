@@ -29,7 +29,7 @@
 	
 	
 	#student{
-		height:400px;
+		height:250px;
 		overflow: scroll;
 	}
 
@@ -41,26 +41,11 @@
 	    <h1 class="display-4">学生成绩管理</h1>
 	    <p class="lead">学生名单</p>
 		<div id="student">
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
-			<a href="#" class="list-group-item">陈嘉豪</a>
-			<a href="#" class="list-group-item">24*7 支持</a>
-			<a href="#" class="list-group-item">免费 Window 空间托管</a>
-			<a href="#" class="list-group-item">图像的数量</a>
-			<a href="#" class="list-group-item">每年更新成本</a>
+			<ul th:each="student:${students}">
+				<a class="choose" th:href="@{/score/select(name=${student.name})}" th:text="${student.name}"></a>
+				<span>所属班级:</span>&nbsp;&nbsp;
+				<span th:text="${student.grade}"></span>
+			</ul>
 		</div>
 		<br>
 		<p class="lead">成绩</p>
@@ -68,30 +53,20 @@
 		  <thead>
 		    <tr>
 			  <th scope="col">#</th>
+			  <th scope="col">学生</th>
 		      <th scope="col">学科</th>
 		      <th scope="col">分数</th>
 			  <th scope="col">操作</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>      
-			  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>			 
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-			  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>Larry</td>
-		      <td>the Bird</td>
-			  <td><a class="nav-link" href="#">删除</a> <a class="nav-link" href="#">更改</a></td>
-		    </tr>
+             <tr th:each="score:${scores}">
+				 <td th:text="${score.id}"></td>
+				 <td th:text="${score.name}"></td>
+				 <td th:text="${score.subject}"></td>
+				 <td th:text="${score.score}"></td>
+                 <td><a class="nav-link"  th:href="@{/score/delete(id=${score.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+			 </tr>			  
 		  </tbody>
 		</table>
 		<br>
@@ -104,38 +79,81 @@
 				<div class="modal-content">
 
 					<div class="modal-body">
-						<form>
+						<form action="/score/insert" method="post">
 						  <div class="form-group">
 							<label for="exampleInputEmail2">学生:</label>
-							<input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+							<input type="text" name="name" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
 						  </div>
 						  <div class="form-group">
 						    <label for="exampleInputEmail1">学科:</label>
-						    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						    <input type="text" name="subject" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 						  </div>
 						  <div class="form-group">
 						    <label for="exampleInputPassword1">成绩:</label>
-						    <input type="number" max="100" min="0" class="form-control" id="exampleInputPassword1">
+						    <input type="number" name="score" max="100" min="0" class="form-control" id="exampleInputPassword1">
+						  </div>
+						  <div class="modal-footer">
+						  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						  	</button>
+						  	<button type="submit" class="btn btn-primary">
+						  		保存
+						  	</button>
 						  </div>
 						</form>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-						</button>
-						<button type="button" class="btn btn-primary">
-							保存
-						</button>
-					</div>
+				
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+		
+					<div class="modal-body">
+						<form action="/score/update" method="post">
+						  <input type="hidden" id="id" name="id" />
+						  <div class="form-group">
+							<label for="name">学生:</label>
+							<input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
+						  </div>
+						  <div class="form-group">
+						    <label for="subject">学科:</label>
+						    <input type="text" name="subject" class="form-control" id="subject" aria-describedby="emailHelp">
+						  </div>
+						  <div class="form-group">
+						    <label for="score">成绩:</label>
+						    <input type="number" name="score" max="100" min="0" class="form-control" id="score">
+						  </div>
+						  <div class="modal-footer">
+						  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						  	</button>
+						  	<button type="submit" class="btn btn-primary">
+						  		保存
+						  	</button>
+						  </div>
+						</form>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+		
 	  </div>
 	</div>
 </body>
 <script type="application/javascript">
 	$(function(){
-		$("#insert").click(function(){
+		$(".change").click(function(){
+			var id=$(this).parent().parent().children('td').eq(0).text();
+			var name=$(this).parent().parent().children('td').eq(1).text();
+			var subject=$(this).parent().parent().children('td').eq(2).text();
+			var score=$(this).parent().parent().children('td').eq(2).text();
 			
+			$("#id").val(id);
+			$("#name").val(name);
+			$("#subject").val(subject);
+			$("#score").val(score);
 		})
 	})
 </script>

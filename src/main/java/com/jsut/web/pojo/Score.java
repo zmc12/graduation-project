@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Score implements Serializable {
 
     private Integer id;
+    private String name;
     private Integer score;
     private String subject;
 
@@ -16,9 +17,18 @@ public class Score implements Serializable {
     public String toString() {
         return "Score{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", score=" + score +
                 ", subject='" + subject + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

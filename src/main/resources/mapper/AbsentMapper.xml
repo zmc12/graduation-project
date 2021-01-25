@@ -3,7 +3,7 @@
 <mapper namespace="com.jsut.web.mapper.AbsentMapper">
     <resultMap id="BaseResultMap" type="com.jsut.web.pojo.Absent">
         <id column="id" jdbcType="INTEGER" property="id" />
-        <id column="name" jdbcType="VARCHAR" property="name" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="reason" jdbcType="VARCHAR" property="reason"/>
         <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
         <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
