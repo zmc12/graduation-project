@@ -20,6 +20,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequestMapping("/absent")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class AbsentController {
 
     @Autowired

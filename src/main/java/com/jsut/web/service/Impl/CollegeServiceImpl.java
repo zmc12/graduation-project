@@ -18,7 +18,7 @@ public class CollegeServiceImpl implements CollegeService {
     @Autowired
     private CollegeMapper collegeMapper;
 
-    @Override
+
     public List<College> selectByCollege(String college) {
         List<College> colleges = collegeMapper.selectByCollege(college);
 
