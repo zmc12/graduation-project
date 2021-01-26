@@ -30,8 +30,6 @@ public class SignController {
     public String first(Model model) {
         List<Sign> list1=signService.selectSign(User.COLLEGE);
         List<Sign> list2= signService.selctNoSign(User.COLLEGE);
-        System.out.println(list1.toString());
-        System.out.println(list2.toString());
         model.addAttribute("list1",list1);
         model.addAttribute("list2",list2);
         return "sign";

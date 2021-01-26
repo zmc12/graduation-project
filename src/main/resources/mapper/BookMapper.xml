@@ -16,7 +16,7 @@
         id, amount, bookName ,time,studentName
     </sql>
     <select id="selectAll"  resultMap="BaseResultMap">
-        select  distinct  book_name  ,amount,time  from book order by id desc;
+        select  distinct  book_name  ,amount,time  from book;
     </select>
 
 
