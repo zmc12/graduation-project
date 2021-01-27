@@ -2,6 +2,7 @@ package com.jsut.web.controller;
 
 import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.Curriculum;
+import com.jsut.web.pojo.ResultCode;
 import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.CurriculumService;
 import com.jsut.web.service.UserService;
@@ -40,15 +41,9 @@ public class CurriculumController {
 
     @ResponseBody
     @GetMapping("/select/{grade}/{term}")
-    public Curriculum select(@PathVariable("grade")String grade,@PathVariable("term")String term){
+    public Curriculum select (@PathVariable("grade")String grade,@PathVariable("term")String term){
         Curriculum curriculum = curriculumService.select(grade,term);
-        System.out.println(curriculum.toString());
-        if(curriculum == null){
-            return new Curriculum(100);
-        }else {
-            return  curriculum;
-        }
-
+        return curriculum;
     }
 
     @PostMapping("/insert")

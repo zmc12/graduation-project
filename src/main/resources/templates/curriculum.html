@@ -145,56 +145,56 @@
 					"grade" : grade,
 					"term" : term,
 				},
-				dataType:"text",
-				success:function(data){
+				dataType:"json",
+				success:function(data){			
+						
 					
-                    var msg = eval("(" + data + ")");
-					if(msg.code== 100){
-						toastr.error("查询结果为空");
-						$("#cur11").val("");
-						$("#cur21").val("");
-						$("#cur41").val("");
-						$("#cur51").val("");
-						$("#cur12").val("");
-						$("#cur22").val("");
-						$("#cur32").val("");
-						$("#cur42").val("");
-						$("#cur52").val("");
-						$("#cur13").val("");
-						$("#cur23").val("");
-						$("#cur33").val("");
-						$("#cur43").val("");
-						$("#cur53").val("");
-						$("#cur14").val("");
-						$("#cur24").val("");
-						$("#cur34").val("");
-						$("#cur44").val("");
-						$("#cur54").val("");
-					}else{
+
 						toastr.success("查询成功");
-						$("#cur11").val(msg.cur11);
-						$("#cur21").val(msg.cur21);
-						$("#cur31").val(msg.cur31);
-						$("#cur41").val(msg.cur41);
-						$("#cur51").val(msg.cur51);
-						$("#cur12").val(msg.cur12);
-						$("#cur22").val(msg.cur22);
-						$("#cur32").val(msg.cur32);
-						$("#cur42").val(msg.cur42);
-						$("#cur52").val(msg.cur52);
-						$("#cur13").val(msg.cur13);
-						$("#cur23").val(msg.cur23);
-						$("#cur33").val(msg.cur33);
-						$("#cur43").val(msg.cur43);
-						$("#cur53").val(msg.cur53);
-						$("#cur14").val(msg.cur14);
-						$("#cur24").val(msg.cur24);
-						$("#cur34").val(msg.cur34);
-						$("#cur44").val(msg.cur44);
-						$("#cur54").val(msg.cur54);
-					}
+						$("#cur11").val(data.cur11);
+						$("#cur21").val(data.cur21);
+						$("#cur31").val(data.cur31);
+						$("#cur41").val(data.cur41);
+						$("#cur51").val(data.cur51);
+						$("#cur12").val(data.cur12);
+						$("#cur22").val(data.cur22);
+						$("#cur32").val(data.cur32);
+						$("#cur42").val(data.cur42);
+						$("#cur52").val(data.cur52);
+						$("#cur13").val(data.cur13);
+						$("#cur23").val(data.cur23);
+						$("#cur33").val(data.cur33);
+						$("#cur43").val(data.cur43);
+						$("#cur53").val(data.cur53);
+						$("#cur14").val(data.cur14);
+						$("#cur24").val(data.cur24);
+						$("#cur34").val(data.cur34);
+						$("#cur44").val(data.cur44);
+						$("#cur54").val(data.cur54);
+						
 				
-				
+				},
+				error:function(data){
+					 toastr.error("查询结果为空");
+					  $("#cur11").val("");
+					  $("#cur21").val("");
+					  $("#cur41").val("");
+					  $("#cur51").val("");
+					  $("#cur12").val("");
+					  $("#cur22").val("");
+					  $("#cur32").val("");
+					  $("#cur42").val("");
+					  $("#cur52").val("");
+					  $("#cur13").val("");
+					  $("#cur23").val("");
+					  $("#cur33").val("");
+					  $("#cur43").val("");
+					  $("#cur53").val("");
+					  $("#cur14").val("");
+					  $("#cur24").val("");
+					  $("#cur34").val("");
+					  $("#cur44").val("");
+				      $("#cur54").val("");			
 				}
 			})
 		})

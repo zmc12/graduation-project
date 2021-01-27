@@ -11,7 +11,6 @@ public class Curriculum implements Serializable {
     private Integer id;
     private String grade;
     private String term;
-    private Integer code;
 
     private String cur11;
     private String cur12;
@@ -33,6 +32,7 @@ public class Curriculum implements Serializable {
     private String cur52;
     private String cur53;
     private String cur54;
+
 
     @Override
     public String toString() {
@@ -61,21 +61,6 @@ public class Curriculum implements Serializable {
                 ", cur53='" + cur53 + '\'' +
                 ", cur54='" + cur54 + '\'' +
                 '}';
-    }
-
-    public Curriculum(Integer code) {
-        this.code = code;
-    }
-
-    public Curriculum() {
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public Integer getId() {
