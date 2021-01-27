@@ -45,6 +45,7 @@
 			      <th scope="col">姓名</th>
 			      <th scope="col">签到地点</th>
 				  <th scope="col">方式</th>
+				  <th scope="col">体温</th>
 			    </tr>
 			  </thead>
 			  <tbody th:each="list1:${list1}">
@@ -53,6 +54,7 @@
 				    <td th:text="${list1.name}"></td>
 				    <td th:text="${list1.location}"></td>
 				    <td th:text="${list1.stuation}"></td>
+					<td th:text="${list1.temperature}"></td>
 				</tr>
 			  </tbody>
 			</table>
@@ -66,14 +68,14 @@
 			    <tr>
 				  <th scope="col">#</th>
 			      <th scope="col">姓名</th>
+				  <th scope="col">体温</th>
 			    </tr>
 			  </thead>
               <tbody th:each="list2:${list2}">
 				<tr th:each="list2:${list2}">
 				    <td th:text="${list2.id}"></td>
 				    <td th:text="${list2.name}"></td>
-				    <td th:text="${list2.location}"></td>
-				    <td th:text="${list2.stuation}"></td>
+					<td th:text="${list2.temperature}"></td>
 				</tr>
 			  </tbody>
 			</table>

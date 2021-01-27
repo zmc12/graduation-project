@@ -11,6 +11,9 @@
 	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <style>
     .myNav{
@@ -30,44 +33,171 @@
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
 	    <h1 class="display-4">课表管理</h1>
-	    <p class="lead">班级名单</p>
-	    <table class="table table-striped">
-	      <thead>
-	        <tr>
-	    	  <th scope="col">#</th>
-	          <th scope="col">书名</th>
-	          <th scope="col">数量</th>
-	    	  <th scope="col">操作</th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	        <tr>
-	          <th scope="row">1</th>
-	          <td>Mark</td>
-	          <td>Otto</td>      
-	    	  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>			 
-	        </tr>
-	        <tr>
-	          <th scope="row">2</th>
-	          <td>Jacob</td>
-	          <td>Thornton</td>
-	    	  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>
-	        </tr>
-	        <tr>
-	          <th scope="row">3</th>
-	          <td>Larry</td>
-	          <td>the Bird</td>
-	    	  <td><a class="nav-link" href="#">更改</a><a class="nav-link" href="#">删除</a><a class="nav-link" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>
-	        </tr>
-	      </tbody>
-	    </table>
-	    <br>
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-			新增
-		</button>
-
+	    <p class="lead">班级选择</p>
+ 	   <select class="form-control"  id="grade">
+ 	   	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+ 	   </select>
+	   <br>
+		<p class="lead">学期选择</p>
+		<select class="form-control" id="term">
+		   <option>2020-2021-1</option>
+		   <option>2020-2021-2</option>
+		   <option>2021-2022-1</option>
+		   <option>2021-2022-2</option>
+		   <option>2022-2023-1</option>
+		   <option>2022-2023-2</option>
+		   <option>2023-2024-1</option>
+		   <option>2023-2024-2</option>
+		   <option>2024-2025-1</option>
+		   <option>2024-2025-2</option>
+		</select>
+		<br>
+		<br>
+		<button type="button" id="select" class="btn btn-primary">查询</button>
+		<br>
+		
+		<form action="/curriculum/insert" method="post">
+			<input type="hidden" name="grade" id="grade1" />
+			<input type="hidden" name="term" id="term1" />
+			
+			<table class="table table-bordered">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">星期一</th>
+			      <th scope="col">星期二</th>
+			      <th scope="col">星期三</th>
+				  <th scope="col">星期四</th>
+				  <th scope="col">星期五</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">1-2节课</th>
+			      <td><input class="form-control" id="cur11" name="cur11"/></td>
+			      <td><input class="form-control" id="cur21" name="cur21"/></td>
+			      <td><input class="form-control" id="cur31" name="cur31"/></td>
+				  <td><input class="form-control" id="cur41" name="cur41"/></td>
+				  <td><input class="form-control" id="cur51" name="cur51"/></td>
+				  
+			    </tr>
+			    <tr>
+			      <th scope="row">3-4节课</th>
+			      <td><input class="form-control" id="cur12" name="cur12"/></td>
+			      <td><input class="form-control" id="cur22" name="cur22"/></td>
+			      <td><input class="form-control" id="cur32" name="cur32"/></td>
+				  <td><input class="form-control" id="cur42" name="cur42"/></td>
+				  <td><input class="form-control" id="cur52" name="cur52"/></td>
+				  
+			    </tr>
+			    <tr>
+			      <th scope="row">5-6节课</th>
+			      <td><input class="form-control" id="cur13" name="cur13"/></td>
+			      <td><input class="form-control" id="cur23" name="cur23"/></td>
+				  <td><input class="form-control" id="cur33" name="cur33"/></td>
+				  <td><input class="form-control" id="cur43" name="cur43"/></td>
+				  <td><input class="form-control" id="cur53" name="cur53"/></td>
+				  
+			    </tr>
+				<tr>
+				  <th scope="row">7-8节课</th>
+				  <td><input class="form-control" id="cur14" name="cur14"/></td>
+				  <td><input class="form-control" id="cur24" name="cur24"/></td>
+				  <td><input class="form-control" id="cur34" name="cur34"/></td>
+				  <td><input class="form-control" id="cur44" name="cur44"/></td>
+				  <td><input class="form-control" id="cur54" name="cur54"/></td>
+				  
+				</tr>
+				<!-- <tr>
+				  <th scope="row">9-10节课</th>
+				  <td><input class="form-control"/></td>
+				  <td><input class="form-control"/></td>
+				  <td><input class="form-control"/></td>
+				  <td><input class="form-control"/></td>
+				  <td><input class="form-control"/></td> 
+				</tr> -->
+			  </tbody>
+			</table>
+			<button type="submit" id="save" class="btn btn-primary">保存</button>
+		</form>
 		
 	  </div>
 	</div>
 </body>
+<script>
+	$(function(){
+		$("#save").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+			
+			$("#grade1").val(grade);
+			$("#term1").val(term);
+		})
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+		
+			$.ajax({
+				type:"GET",
+				url:"/curriculum/select/"+grade+"/"+term,
+				data:{
+					"grade" : grade,
+					"term" : term,
+				},
+				dataType:"text",
+				success:function(data){
+					
+                    var msg = eval("(" + data + ")");
+					if(msg.code== 100){
+						toastr.error("查询结果为空");
+						$("#cur11").val("");
+						$("#cur21").val("");
+						$("#cur41").val("");
+						$("#cur51").val("");
+						$("#cur12").val("");
+						$("#cur22").val("");
+						$("#cur32").val("");
+						$("#cur42").val("");
+						$("#cur52").val("");
+						$("#cur13").val("");
+						$("#cur23").val("");
+						$("#cur33").val("");
+						$("#cur43").val("");
+						$("#cur53").val("");
+						$("#cur14").val("");
+						$("#cur24").val("");
+						$("#cur34").val("");
+						$("#cur44").val("");
+						$("#cur54").val("");
+					}else{
+						toastr.success("查询成功");
+						$("#cur11").val(msg.cur11);
+						$("#cur21").val(msg.cur21);
+						$("#cur31").val(msg.cur31);
+						$("#cur41").val(msg.cur41);
+						$("#cur51").val(msg.cur51);
+						$("#cur12").val(msg.cur12);
+						$("#cur22").val(msg.cur22);
+						$("#cur32").val(msg.cur32);
+						$("#cur42").val(msg.cur42);
+						$("#cur52").val(msg.cur52);
+						$("#cur13").val(msg.cur13);
+						$("#cur23").val(msg.cur23);
+						$("#cur33").val(msg.cur33);
+						$("#cur43").val(msg.cur43);
+						$("#cur53").val(msg.cur53);
+						$("#cur14").val(msg.cur14);
+						$("#cur24").val(msg.cur24);
+						$("#cur34").val(msg.cur34);
+						$("#cur44").val(msg.cur44);
+						$("#cur54").val(msg.cur54);
+					}
+				
+				
+				}
+			})
+		})
+	})
+</script>
 </html>

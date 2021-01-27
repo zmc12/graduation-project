@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsut.web.mapper.CurriculumMapper">
+    <resultMap id="BaseResultMap" type="com.jsut.web.pojo.Curriculum">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="term" jdbcType="VARCHAR" property="term"/>
+        <result column="cur11" jdbcType="VARCHAR" property="cur11"/>
+        <result column="cur12" jdbcType="VARCHAR" property="cur12"/>
+        <result column="cur13" jdbcType="VARCHAR" property="cur13"/>
+        <result column="cur14" jdbcType="VARCHAR" property="cur14"/>
+        <result column="cur21" jdbcType="VARCHAR" property="cur21"/>
+        <result column="cur22" jdbcType="VARCHAR" property="cur22"/>
+        <result column="cur23" jdbcType="VARCHAR" property="cur23"/>
+        <result column="cur24" jdbcType="VARCHAR" property="cur24"/>
+        <result column="cur31" jdbcType="VARCHAR" property="cur31"/>
+        <result column="cur32" jdbcType="VARCHAR" property="cur32"/>
+        <result column="cur33" jdbcType="VARCHAR" property="cur33"/>
+        <result column="cur34" jdbcType="VARCHAR" property="cur34"/>
+        <result column="cur41" jdbcType="VARCHAR" property="cur41"/>
+        <result column="cur42" jdbcType="VARCHAR" property="cur42"/>
+        <result column="cur43" jdbcType="VARCHAR" property="cur43"/>
+        <result column="cur44" jdbcType="VARCHAR" property="cur44"/>
+        <result column="cur51" jdbcType="VARCHAR" property="cur51"/>
+        <result column="cur52" jdbcType="VARCHAR" property="cur52"/>
+        <result column="cur53" jdbcType="VARCHAR" property="cur53"/>
+        <result column="cur54" jdbcType="VARCHAR" property="cur54"/>
+    </resultMap>
+
+
+    <select id="select"  resultMap="BaseResultMap">
+        select * from curriculum  where grade=#{grade} and term=#{term};
+    </select>
+
+    <update id="update" parameterType="com.jsut.web.pojo.Curriculum">
+        update  curriculum set cur11=#{cur11},cur12=#{cur12},cur13=#{cur13},cur14=#{cur14},cur21=#{cur21},cur22=#{cur22},cur23=#{cur23},cur24=#{cur24},cur31=#{cur31},cur32=#{cur32},cur33=#{cur33},cur34=#{cur34},cur41=#{cur41},cur42=#{cur42},cur43=#{cur43},cur44=#{cur44},cur51=#{cur51},cur52=#{cur52},cur53=#{cur53},cur54=#{cur54} where grade=#{grade} and term=#{term};
+    </update>
+
+
+
+    <insert id="insert" parameterType="com.jsut.web.pojo.Curriculum">
+        insert into curriculum (grade,term,cur11,cur12,cur13,cur14,cur21,cur22,cur23,cur24,cur31,cur32,cur33,cur34,cur41,cur42,cur43,cur44,cur51,cur52,cur53,cur54) values (#{grade},#{term},#{cur11},#{cur12},#{cur13},#{cur14},#{cur21},#{cur22},#{cur23},#{cur24},#{cur31},#{cur32},#{cur33},#{cur34},#{cur41},#{cur42},#{cur43},#{cur44},#{cur51},#{cur52},#{cur53},#{cur54});
+    </insert>
+
+
+
+</mapper>

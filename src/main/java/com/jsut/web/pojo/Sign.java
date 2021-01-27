@@ -13,6 +13,7 @@ public class Sign implements Serializable {
     private String location;
     private String method;
     private String stuation;
+    private String temperature;
 
     @Override
     public String toString() {
@@ -22,7 +23,16 @@ public class Sign implements Serializable {
                 ", location='" + location + '\'' +
                 ", method='" + method + '\'' +
                 ", stuation='" + stuation + '\'' +
+                ", temperature='" + temperature + '\'' +
                 '}';
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
     }
 
     public Integer getId() {
