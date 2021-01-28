@@ -40,7 +40,9 @@ public class BookServiceImpl implements BookService {
         return bookMapper.selectByName(bookName);
     }
 
-    public void updateTime(String bookName) {
-        bookMapper.selectByName(bookName);
+    public void updateTime(String bookName, String studentName,String time) {
+        bookMapper.updateTime(bookName,studentName,time);
     }
+
+
 }

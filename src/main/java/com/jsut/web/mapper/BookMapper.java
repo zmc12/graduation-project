@@ -2,6 +2,7 @@ package com.jsut.web.mapper;
 
 import com.jsut.web.pojo.Book;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,5 +23,7 @@ public interface BookMapper {
 
     List<Book> selectByName(String bookName);
 
-    void updateTime(String bookName);
+
+
+    void updateTime(@Param("bookName") String bookName,@Param("studentName") String studentName,@Param("time") String time);
 }

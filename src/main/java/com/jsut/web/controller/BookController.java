@@ -3,12 +3,15 @@ package com.jsut.web.controller;
 import com.jsut.web.pojo.Book;
 import com.jsut.web.pojo.ResultCode;
 import com.jsut.web.service.BookService;
+import com.jsut.web.utils.Time;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,6 +67,21 @@ public class BookController {
     }
 
 
+    @ResponseBody
+    @PutMapping("/updateTime")
+    public Book updateTime(@RequestParam("bookName")String bookName,@RequestParam("studentName")String studentName,@RequestParam("time")String time){
+        String newTime = new String();
+        try {
+           newTime = Time.subMonth(time);
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(newTime);
+        time=newTime;
+        bookService.updateTime(bookName,studentName,time);
+        List<Book> books=bookService.selectByName(bookName);
+        return books.get(0);
 
+    }
 }

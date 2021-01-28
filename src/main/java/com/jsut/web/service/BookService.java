@@ -20,5 +20,6 @@ public interface BookService {
 
     List<Book> selectByName(String bookName);
 
-    void updateTime(String bookName);
+
+    void updateTime(String bookName, String studentName, String time);
 }

@@ -35,8 +35,9 @@
         select  book_name,studentName,time  from book where book_name=#{bookName};
     </select>
 
-    <select id="updateTime"  parameterType="java.lang.String">
-        update  book set amount=#{amount} where book_name=#{bookName} and studentName=#{studentName};
-    </select>
 
+
+    <update id="updateTime" parameterType="java.lang.String">
+        update  book set time=#{time} where book_name=#{bookName} and studentName=#{studentName};
+    </update>
 </mapper>
