@@ -4,6 +4,7 @@ import com.jsut.web.mapper.UserMapper;
 import com.jsut.web.pojo.Teacher;
 import com.jsut.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+@EnableAutoConfiguration
+
+
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;

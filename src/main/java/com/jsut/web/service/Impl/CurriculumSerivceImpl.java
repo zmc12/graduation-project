@@ -4,6 +4,7 @@ import com.jsut.web.mapper.CurriculumMapper;
 import com.jsut.web.pojo.Curriculum;
 import com.jsut.web.service.CurriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
  * @Date: 2021/1/27 15:58
  */
 @Service
+@EnableAutoConfiguration
+
 public class CurriculumSerivceImpl implements CurriculumService {
 
     @Autowired

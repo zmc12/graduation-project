@@ -1,11 +1,15 @@
 package com.jsut.web.pojo;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.io.Serializable;
 
 /**
  * @author ZhangMinCong
  * @date 2021/1/20 16:15
  */
+@EnableAutoConfiguration
+
 public class Market implements Serializable {
 
     private Integer id;

@@ -4,6 +4,7 @@ import com.jsut.web.mapper.DomMapper;
 import com.jsut.web.pojo.Dom;
 import com.jsut.web.service.DomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  */
 
 @Service
+@EnableAutoConfiguration
+
 public class DomServiceImpl implements DomService {
 
     @Autowired

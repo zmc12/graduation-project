@@ -4,6 +4,7 @@ import com.jsut.web.mapper.BookMapper;
 import com.jsut.web.pojo.Book;
 import com.jsut.web.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  * @date 2021/1/26 9:45
  */
 @Service
+@EnableAutoConfiguration
+
 public class BookServiceImpl implements BookService {
 
     @Autowired

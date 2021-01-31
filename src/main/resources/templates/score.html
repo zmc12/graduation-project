@@ -79,7 +79,7 @@
 				<div class="modal-content">
 
 					<div class="modal-body">
-						<form action="/score/insert" method="post">
+						<form th:action="@{/score/insert}" method="post">
 						  <div class="form-group">
 							<label for="exampleInputEmail2">学生:</label>
 							<input type="text" name="name" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
@@ -110,7 +110,7 @@
 				<div class="modal-content">
 		
 					<div class="modal-body">
-						<form action="/score/update" method="post">
+						<form th:action="@{/score/update}" method="post">
 						  <input type="hidden" id="id" name="id" />
 						  <div class="form-group">
 							<label for="name">学生:</label>
@@ -148,7 +148,7 @@
 			var id=$(this).parent().parent().children('td').eq(0).text();
 			var name=$(this).parent().parent().children('td').eq(1).text();
 			var subject=$(this).parent().parent().children('td').eq(2).text();
-			var score=$(this).parent().parent().children('td').eq(2).text();
+			var score=$(this).parent().parent().children('td').eq(3).text();
 			
 			$("#id").val(id);
 			$("#name").val(name);

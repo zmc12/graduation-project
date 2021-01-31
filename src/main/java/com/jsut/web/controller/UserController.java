@@ -5,6 +5,7 @@ import com.jsut.web.service.UserService;
 import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author ZhangMinCong
  * @date 2021/1/19 16:10
  */
-
+@EnableAutoConfiguration
 @Controller
 @RequestMapping("/user")
 @Slf4j

@@ -1,5 +1,7 @@
 package com.jsut.web.pojo;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -7,6 +9,8 @@ import java.util.Arrays;
  * @author ZhangMinCong
  * @date 2021/1/20 16:12
  */
+@EnableAutoConfiguration
+
 public class Dom implements Serializable {
     private Integer id;
     private String number;

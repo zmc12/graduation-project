@@ -56,7 +56,7 @@
 		<button type="button" id="select" class="btn btn-primary">查询</button>
 		<br>
 		
-		<form action="/curriculum/insert" method="post">
+		<form th:action="@{/curriculum/insert}" method="post">
 			<input type="hidden" name="grade" id="grade1" />
 			<input type="hidden" name="term" id="term1" />
 			
@@ -143,7 +143,7 @@
 				url:"/curriculum/select/"+grade+"/"+term,
 				data:{
 					"grade" : grade,
-					"term" : term,
+					"term" : term
 				},
 				dataType:"json",
 				success:function(data){			
@@ -178,6 +178,7 @@
 					 toastr.error("查询结果为空");
 					  $("#cur11").val("");
 					  $("#cur21").val("");
+					  $("#cur31").val("");
 					  $("#cur41").val("");
 					  $("#cur51").val("");
 					  $("#cur12").val("");

@@ -1,11 +1,15 @@
 package com.jsut.web.pojo;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.io.Serializable;
 
 /**
  * @author ZhangMinCong
  * @date 2021/1/20 15:54
  */
+@EnableAutoConfiguration
+
 public class Teacher implements Serializable {
 
     private Integer id;

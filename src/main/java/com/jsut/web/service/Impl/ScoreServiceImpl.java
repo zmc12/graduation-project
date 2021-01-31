@@ -4,6 +4,7 @@ import com.jsut.web.mapper.ScoreMapper;
 import com.jsut.web.pojo.Score;
 import com.jsut.web.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.List;
  * @date 2021/1/25 13:40
  */
 @Service
+@EnableAutoConfiguration
+
+
 public class ScoreServiceImpl implements ScoreService {
 
     @Autowired

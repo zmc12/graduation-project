@@ -1,11 +1,14 @@
 package com.jsut.web.pojo;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.io.Serializable;
 
 /**
  * @Author: ZhangMinCong
  * @Date: 2021/1/22 16:43
  */
+@EnableAutoConfiguration
 public class ResultCode implements Serializable {
     private Integer code;
     private String message;

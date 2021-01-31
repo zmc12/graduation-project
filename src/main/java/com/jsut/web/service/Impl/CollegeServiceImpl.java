@@ -4,6 +4,7 @@ import com.jsut.web.mapper.CollegeMapper;
 import com.jsut.web.pojo.College;
 import com.jsut.web.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  * @Date: 2021/1/23 12:02
  */
 @Service
+@EnableAutoConfiguration
+
 public class CollegeServiceImpl implements CollegeService {
 
     @Autowired

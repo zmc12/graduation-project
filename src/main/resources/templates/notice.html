@@ -69,7 +69,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="/notice/insert" method="post">
+					<form th:action="@{/notice/insert}" method="post">
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">发布内容:</label>
 					    <input type="text" class="form-control" name="text" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -97,7 +97,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="/notice/update" method="post">
+					<form th:action="@{/notice/update}" method="post">
 					  <input type="hidden" name="id" id="id" />
 					  <div class="form-group">
 					    <label for="text">发布内容:</label>

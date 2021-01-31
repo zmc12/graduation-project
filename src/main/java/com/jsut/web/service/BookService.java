@@ -1,6 +1,7 @@
 package com.jsut.web.service;
 
 import com.jsut.web.pojo.Book;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * @author ZhangMinCong
  * @date 2021/1/26 9:45
  */
+@EnableAutoConfiguration
 
 public interface BookService {
     List<Book> selectAll();

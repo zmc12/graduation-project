@@ -4,6 +4,7 @@ import com.jsut.web.mapper.AbsentMapper;
 import com.jsut.web.pojo.Absent;
 import com.jsut.web.service.AbsentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  * @Date: 2021/1/22 15:20
  */
 @Service
+@EnableAutoConfiguration
+
 public class AbsentServiceImpl implements AbsentService {
     @Autowired
     private AbsentMapper absentMapper;

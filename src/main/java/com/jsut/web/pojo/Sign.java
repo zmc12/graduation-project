@@ -1,11 +1,15 @@
 package com.jsut.web.pojo;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.io.Serializable;
 
 /**
  * @author ZhangMinCong
  * @date 2021/1/20 16:20
  */
+@EnableAutoConfiguration
+
 public class Sign implements Serializable {
 
     private Integer id;

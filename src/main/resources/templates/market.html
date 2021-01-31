@@ -67,7 +67,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="/market/insert" method="post">
+					<form th:action="@{/market/insert}" method="post">
 					  <div class="form-group">
 					    <label for="exampleInputPassword1">信息内容:</label>
 					    <textarea class="form-control" name="text" id="exampleInputPassword1"></textarea>
@@ -93,7 +93,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form action="/market/update" method="post">
+					<form th:action="@{/market/update}" method="post">
 					   <input type="hidden" name="id" id="id" />
 					  <div class="form-group">
 					    <label for="text">信息内容:</label>

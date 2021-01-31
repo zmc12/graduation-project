@@ -7,6 +7,7 @@ import com.jsut.web.service.StudentService;
 import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author ZhangMinCong
  * @date 2021/1/20 10:43
  */
-
+@EnableAutoConfiguration
 @Controller
 @Slf4j
 @RequestMapping("/score")

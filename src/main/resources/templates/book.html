@@ -20,18 +20,18 @@
     .myNav{
         background-color: black;
     }
-	
+
 	#logout{
 		padding-left: 120px;
-		
+
 	}
 	#logout :hover{
 		color:red;
 	}
+
 	
 	
-	
-	#book{
+	#book1{
 		height:400px;
 		overflow: scroll;
 	}
@@ -59,7 +59,7 @@
 
 			$.ajax({
 			type:"put",
-			url:"/book/updateTime?bookName="+bookName+"&studentName="+studentName+"&time="+time,
+			url:"/graduation/book/updateTime?bookName="+bookName+"&studentName="+studentName+"&time="+time,
 			success:function(data){
 				 $(this).parent().parent().children('td').eq(2).text(data.time);
 			     toastr.success("已经续期1个月");
@@ -100,7 +100,7 @@
 	  <div class="container">
 	    <h1 class="display-4">图书管理</h1>
 	    <p class="lead">图书名单</p>
-		<div id="book">
+		<div id="book1">
 			<table id="book" class="table table-striped">
 			  <thead>
 			    <tr>
@@ -128,7 +128,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
-						<form action="/book/insert" method="post">
+						<form th:action="@{/book/insert}" method="post">
 						  <div class="form-group">
 						    <label for="exampleInputEmail1">书名:</label>
 						    <input type="text" class="form-control" name="bookName" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -155,7 +155,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
-						<form action="/book/update" method="post">
+						<form th:action="@{/book/update}" method="post">
 						  <div class="form-group">
 						    <label for="bookName">书名:</label>
 						    <input type="text" readonly="readonly" class="form-control" name="bookName" id="bookName" aria-describedby="emailHelp">

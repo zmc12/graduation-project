@@ -3,6 +3,7 @@ package com.jsut.web.mapper;
 import com.jsut.web.pojo.Book;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author ZhangMinCong
  * @date 2021/1/26 9:45
  */
+@EnableAutoConfiguration
 @Mapper
 public interface BookMapper {
 

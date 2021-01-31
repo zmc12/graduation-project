@@ -1,5 +1,7 @@
 package com.jsut.web.utils;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,6 +11,8 @@ import java.util.Date;
  * @author zmc
  * @date $(DATE) $(TIME)
  */
+@EnableAutoConfiguration
+
 public class Time {
 
     public static String dateToString(Date date){
