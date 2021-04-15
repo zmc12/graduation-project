@@ -11,6 +11,10 @@
 	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <style>
     .myNav{
@@ -30,22 +34,57 @@
 		overflow: scroll;
 	}
 	
+	.a1{
+		display: inline;
+	}
+	
+	.a2{
+		float: right;
+	}
+	
 </style>
 <body>
 	<div th:include="../templates/nav.html :: header"></div>
 	
    <div class="jumbotron jumbotron-fluid">
    <div class="container">
-     <h1 class="display-4">学生宿舍信息</h1>
-     <p class="lead">宿舍名单</p>
-	 <div id="dom">
-		 <table class="table table-striped">
+    <!-- <h1 class="display-4">学生宿舍信息</h1> -->
+     <p class="lead a1">宿舍名单</p>
+	 <button class="btn btn-primary btn-lg a2" data-toggle="modal" data-target="#myModal">
+	 	新增
+	 </button>
+	 <br>
+	 <br>
+	 <select class="form-control"  id="grade">
+	 	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+	 </select>
+	 <br>
+	    <p class="lead">学期选择</p>
+	 	<select class="form-control" id="term">
+	 	<option>2020-2021-1</option>
+	 	<option>2020-2021-2</option>
+	 	<option>2021-2022-1</option>
+	 	<option>2021-2022-2</option>
+	 	<option>2022-2023-1</option>
+	 	<option>2022-2023-2</option>
+	 	<option>2023-2024-1</option>
+	 	<option>2023-2024-2</option>
+	 	<option>2024-2025-1</option>
+	 	<option>2024-2025-2</option>
+	 	</select>
+	 <br>
+	 <button type="button" id="select" class="btn btn-primary">查询</button>
+	 <br>
+	 <div>
+		 <table class="table table-striped" id="table">
 		   <thead>
 		     <tr>
 		 	  <th scope="col">#</th>
-		       <th scope="col">宿舍号</th>
-		       <th scope="col">得分</th>
+		      <th scope="col">宿舍号</th>
+		      <th scope="col">得分</th>
 		 	  <th scope="col">成员</th>
+			  <th scope="col">维修项目</th>
+			  <th scope="col">维修进展</th>
 		 	  <th scope="col">操作</th>
 		     </tr>
 		   </thead>
@@ -55,7 +94,9 @@
 				 <td th:text="${dom.number}"></td>
 				 <td th:text="${dom.score}"></td>
 				 <td th:text="${dom.students}"></td>
-                 <td><a class="nav-link"  th:href="@{/dom/delete(id=${dom.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+				 <td th:text="${dom.fix}"></td>
+				 <td th:text="${dom.process}"></td>
+                 <td><a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
 			 </tr>			   
 		
 		   </tbody>
@@ -64,14 +105,33 @@
  	
  	<br>
 	
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		新增
-	</button>
+	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
 					<form th:action="@{/dom/insert}" method="post">
+                      <div class="form-group">
+					    <label for="exampleInputEmail11">班级:</label>
+					    <select class="form-control" name="grade"  id="exampleInputEmail11">
+					    	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+					    </select>
+					  </div>	
+                       <div class="form-group">
+					    <label for="exampleInputEmail12">学期:</label>
+					    <select class="form-control" name="term" id="exampleInputEmail12">
+					    <option>2020-2021-1</option>
+					    <option>2020-2021-2</option>
+					    <option>2021-2022-1</option>
+					    <option>2021-2022-2</option>
+					    <option>2022-2023-1</option>
+					    <option>2022-2023-2</option>
+					    <option>2023-2024-1</option>
+					    <option>2023-2024-2</option>
+					    <option>2024-2025-1</option>
+					    <option>2024-2025-2</option>
+					    </select>
+					  </div>										  
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">宿舍号:</label>
 					    <input type="text" class="form-control" name="number" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -84,6 +144,14 @@
 					    <label for="exampleInputEmail2">宿舍成员:</label>
 					    <input type="text" class="form-control" name="students" id="exampleInputEmail2" aria-describedby="emailHelp">
 					  </div>
+<!-- 					  <div class="form-group">
+					    <label for="exampleInputEmail3">维修项目:</label>
+					    <input type="text" class="form-control" name="fix" id="exampleInputEmail3" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputEmail4">维修进展:</label>
+					    <input type="text" class="form-control" name="process" id="exampleInputEmail4" aria-describedby="emailHelp">
+					  </div> -->
 					  <div class="modal-footer">
 					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 					  	</button>
@@ -116,6 +184,18 @@
 	 				    <label for="students">宿舍成员:</label>
 	 				    <input type="text" class="form-control" name="students" id="students" aria-describedby="emailHelp">
 	 				  </div>
+					  <div class="form-group">
+					    <label for="fix">维修项目:</label>
+					    <input type="text" class="form-control" name="fix" id="fix" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="process">维修进展:</label>
+						<select class="form-control" name="process" id="process">
+							<option selected="selected">未保修</option>
+							<option>保修中</option>
+							<option>已完成</option>
+						</select>
+					  </div>
 	 				  <div class="modal-footer">
 	 				  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 	 				  	</button>
@@ -136,16 +216,70 @@
 </body>
 <script>
 	$(function(){
-		$(".change").click(function(){
+		
+		$("#table").on("click",".change",function(){
 			var id=$(this).parent().parent().children('td').eq(0).text();
 			var number=$(this).parent().parent().children('td').eq(1).text();
 			var score=$(this).parent().parent().children('td').eq(2).text();
 			var students=$(this).parent().parent().children('td').eq(3).text();
+			var fix=$(this).parent().parent().children('td').eq(4).text();
+			var process=$(this).parent().parent().children('td').eq(5).text();
 			
 			$("#id").val(id);
 			$("#number").val(number);
 			$("#score").val(score);
 			$("#students").val(students);
+			$("#fix").val(fix);
+		});
+
+		// $(".change").click(function(){
+		// 	var id=$(this).parent().parent().children('td').eq(0).text();
+		// 	var number=$(this).parent().parent().children('td').eq(1).text();
+		// 	var score=$(this).parent().parent().children('td').eq(2).text();
+		// 	var students=$(this).parent().parent().children('td').eq(3).text();
+		// 	var fix=$(this).parent().parent().children('td').eq(4).text();
+		// 	var process=$(this).parent().parent().children('td').eq(5).text();
+			
+		// 	$("#id").val(id);
+		// 	$("#number").val(number);
+		// 	$("#score").val(score);
+		// 	$("#students").val(students);
+		// 	$("#fix").val(fix);
+		// })
+		
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+	
+			$.ajax({
+				type:"GET",
+				url:"/dom/select?grade="+grade+"&term="+term,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						   if(val.fix==null || val.process==null){
+							   val.fix="";
+							   val.process="";
+						   }
+					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table tbody").append(tbody);  
+						
+					}
+					
+				}
+			})
 		})
 	})
 </script>

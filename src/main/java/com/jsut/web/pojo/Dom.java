@@ -16,6 +16,10 @@ public class Dom implements Serializable {
     private String number;
     private Integer score;
     private String students;
+    private String fix;
+    private String process;
+    private String grade;
+    private String term;
 
 
     @Override
@@ -25,7 +29,43 @@ public class Dom implements Serializable {
                 ", number='" + number + '\'' +
                 ", score=" + score +
                 ", students='" + students + '\'' +
+                ", fix='" + fix + '\'' +
+                ", process='" + process + '\'' +
+                ", grade='" + grade + '\'' +
+                ", term='" + term + '\'' +
                 '}';
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public String getFix() {
+        return fix;
+    }
+
+    public void setFix(String fix) {
+        this.fix = fix;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
     }
 
     public Integer getId() {

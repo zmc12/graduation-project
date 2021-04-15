@@ -42,4 +42,9 @@ public class DomServiceImpl implements DomService {
     public void updateById(Dom dom) {
         domMapper.updateById(dom);
     }
+
+    @Override
+    public List<Dom> select(String grade,String term) {
+        return domMapper.select(grade,term);
+    }
 }

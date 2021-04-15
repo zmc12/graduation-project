@@ -20,4 +20,7 @@ public interface DomService  {
     void insert(Dom dom);
 
     void updateById(Dom dom);
+
+
+    List<Dom> select(String grade,String term);
 }

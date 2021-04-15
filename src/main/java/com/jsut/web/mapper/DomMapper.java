@@ -2,6 +2,7 @@ package com.jsut.web.mapper;
 
 import com.jsut.web.pojo.Dom;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface DomMapper {
     void insert(Dom dom);
 
     void updateById(Dom dom);
+
+    List<Dom> select(@Param("grade") String grade,@Param("term") String term);
 }

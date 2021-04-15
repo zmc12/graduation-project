@@ -1,7 +1,9 @@
 package com.jsut.web.controller;
 
+import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.Dom;
 import com.jsut.web.pojo.Notice;
+import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.DomService;
 import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +29,26 @@ public class DomController {
     @Autowired
     private DomService domService;
 
+    @Autowired
+    private CollegeService collegeService;
+
     @GetMapping("/first")
     public String first(Model model){
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
+
+
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
         return "dom";
+    }
+
+    @ResponseBody
+    @GetMapping("/select")
+    public List<Dom> select(@RequestParam("grade")String grade,@RequestParam("term")String term){
+        List<Dom> doms = domService.select(grade, term);
+        //System.out.println(doms.toString());
+        return doms;
     }
 
     @GetMapping("/delete")
@@ -39,6 +56,9 @@ public class DomController {
         domService.deleteById(id);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
+
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
         return "dom";
     }
 
@@ -48,6 +68,9 @@ public class DomController {
         domService.insert(dom);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
+
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
         return "dom";
     }
 
@@ -57,6 +80,9 @@ public class DomController {
         domService.updateById(dom);
         List<Dom> list=domService.selectAll();
         model.addAttribute("doms",list);
+
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
         return "dom";
     }
 }

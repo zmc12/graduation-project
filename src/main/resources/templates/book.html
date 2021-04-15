@@ -30,12 +30,19 @@
 	}
 
 	
-	
+/* 	
 	#book1{
 		height:400px;
 		overflow: scroll;
+	} */
+	
+	.a1{
+		display : inline;
 	}
 	
+	.a2{
+		float: right;
+	}
 
 </style>
 <script>
@@ -98,9 +105,12 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	    <h1 class="display-4">图书管理</h1>
-	    <p class="lead">图书名单</p>
-		<div id="book1">
+	    <!-- <h1 class="display-4">图书管理</h1> -->
+	    <p class="lead a1">图书名单</p>
+		<button class="btn btn-primary btn-lg a1 a2" data-toggle="modal" data-target="#myModal">
+			新增
+		</button>
+		<div >
 			<table id="book" class="table table-striped">
 			  <thead>
 			    <tr>
@@ -113,16 +123,14 @@
                 <tr th:each="book:${books}">
 				 <td th:text="${book.bookName}"></td>
 				 <td th:text="${book.amount}"></td>
-                 <td><a class="nav-link"   th:href="@{/book/delete(bookName=${book.bookName})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a><a class="nav-link selectBroswer" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a></td>			 			 
+                 <td><a class="nav-link a1"   th:href="@{/book/delete(bookName=${book.bookName})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a> <a class="nav-link selectBroswer a1" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a> </td>		
 			    </tr>				  	 
 			  </tbody>
 			</table>
 		</div>
 	    
 	    <br>
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-			新增
-		</button>
+		
 		<!-- 模态框（Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

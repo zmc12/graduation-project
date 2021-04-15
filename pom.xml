@@ -61,10 +61,10 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet.api</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet.api</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>

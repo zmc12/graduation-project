@@ -32,7 +32,7 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	    <h1 class="display-4">课表管理</h1>
+	    <!-- <h1 class="display-4">课表管理</h1> -->
 	    <p class="lead">班级选择</p>
  	   <select class="form-control"  id="grade">
  	   	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
@@ -74,38 +74,38 @@
 			  <tbody>
 			    <tr>
 			      <th scope="row">1-2节课</th>
-			      <td><input class="form-control" id="cur11" name="cur11"/></td>
-			      <td><input class="form-control" id="cur21" name="cur21"/></td>
-			      <td><input class="form-control" id="cur31" name="cur31"/></td>
-				  <td><input class="form-control" id="cur41" name="cur41"/></td>
-				  <td><input class="form-control" id="cur51" name="cur51"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur11" name="cur11"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur21" name="cur21"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur31" name="cur31"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur41" name="cur41"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur51" name="cur51"/></td>
 				  
 			    </tr>
 			    <tr>
 			      <th scope="row">3-4节课</th>
-			      <td><input class="form-control" id="cur12" name="cur12"/></td>
-			      <td><input class="form-control" id="cur22" name="cur22"/></td>
-			      <td><input class="form-control" id="cur32" name="cur32"/></td>
-				  <td><input class="form-control" id="cur42" name="cur42"/></td>
-				  <td><input class="form-control" id="cur52" name="cur52"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur12" name="cur12"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur22" name="cur22"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur32" name="cur32"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur42" name="cur42"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur52" name="cur52"/></td>
 				  
 			    </tr>
 			    <tr>
 			      <th scope="row">5-6节课</th>
-			      <td><input class="form-control" id="cur13" name="cur13"/></td>
-			      <td><input class="form-control" id="cur23" name="cur23"/></td>
-				  <td><input class="form-control" id="cur33" name="cur33"/></td>
-				  <td><input class="form-control" id="cur43" name="cur43"/></td>
-				  <td><input class="form-control" id="cur53" name="cur53"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur13" name="cur13"/></td>
+			      <td><input class="form-control" readonly="readonly" id="cur23" name="cur23"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur33" name="cur33"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur43" name="cur43"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur53" name="cur53"/></td>
 				  
 			    </tr>
 				<tr>
 				  <th scope="row">7-8节课</th>
-				  <td><input class="form-control" id="cur14" name="cur14"/></td>
-				  <td><input class="form-control" id="cur24" name="cur24"/></td>
-				  <td><input class="form-control" id="cur34" name="cur34"/></td>
-				  <td><input class="form-control" id="cur44" name="cur44"/></td>
-				  <td><input class="form-control" id="cur54" name="cur54"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur14" name="cur14"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur24" name="cur24"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur34" name="cur34"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur44" name="cur44"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur54" name="cur54"/></td>
 				  
 				</tr>
 				<!-- <tr>
@@ -118,7 +118,7 @@
 				</tr> -->
 			  </tbody>
 			</table>
-			<button type="submit" id="save" class="btn btn-primary">保存</button>
+			<!-- <button type="submit" id="save" class="btn btn-primary">保存</button> -->
 		</form>
 		
 	  </div>
