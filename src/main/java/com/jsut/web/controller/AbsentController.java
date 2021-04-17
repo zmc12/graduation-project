@@ -1,8 +1,10 @@
 package com.jsut.web.controller;
 
 import com.jsut.web.pojo.Absent;
+import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.ResultCode;
 import com.jsut.web.service.AbsentService;
+import com.jsut.web.service.CollegeService;
 import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,16 @@ public class AbsentController {
     @Autowired
     private AbsentService absentService;
 
+    @Autowired
+    private CollegeService collegeService;
+
     @GetMapping("/first")
     public String first(Model model){
         List<Absent> list=absentService.selectAll(User.COLLEGE);
         model.addAttribute("absents",list);
+
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
 
         return "absent";
     }
@@ -38,9 +46,14 @@ public class AbsentController {
 
     @ResponseBody
     @PutMapping("/update")
-    public ResultCode update(@RequestParam("id")String id, @RequestParam("result")String result){
-
-        int i=absentService.updateById(id,result);
+    public ResultCode update(@RequestParam("id")String id, @RequestParam("result")String result,@RequestParam(value = "reply",required = false)String reply){
+        int i;
+        if(reply==null){
+            i=absentService.updateById(id,result);
+        }
+        else {
+            i=absentService.updateById(id,result,reply);
+        }
         if(i==1){
             return new ResultCode(200,"提交成功");
         }else {
@@ -48,5 +61,14 @@ public class AbsentController {
         }
 
 
+    }
+
+
+
+    @ResponseBody
+    @GetMapping("/select")
+    public List<Absent> select(@RequestParam("grade")String grade){
+        List<Absent> absents = absentService.select(grade);
+        return absents;
     }
 }

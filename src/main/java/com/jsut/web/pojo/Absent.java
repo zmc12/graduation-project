@@ -18,23 +18,8 @@ public class Absent implements Serializable {
     private String startTime;
     private String endTime;
     private String result;
-    private String college;
+    private String reply;
 
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getCollege() {
-        return college;
-    }
-
-    public void setCollege(String college) {
-        this.college = college;
-    }
 
     @Override
     public String toString() {
@@ -45,9 +30,28 @@ public class Absent implements Serializable {
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", result='" + result + '\'' +
-                ", college='" + college + '\'' +
+                ", reply='" + reply + '\'' +
                 '}';
     }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+
+
 
     public Integer getId() {
         return id;

@@ -46,9 +46,18 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	    <h1 class="display-4">学生请假管理</h1>
-	    <p class="lead">学生请假名单</p>
-		<div id="student" >
+	   <!-- <h1 class="display-4">学生请假管理</h1> -->
+	   
+		<label for="exampleInputEmail11">班级选择:</label>
+		<select class="form-control" id="grade">
+		  <option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+		</select>
+        <br>
+		<button type="button" id="select" class="btn btn-primary">查询</button>
+		<br>
+		<br>
+		<p class="lead">学生请假名单</p>
+		<!-- <div id="student" >
 			<ul th:each="absent:${absents}">
 				<a class="choose" href="#" th:text="${absent.name}"></a>
 				<span>请假时间:</span>&nbsp;&nbsp;
@@ -59,51 +68,172 @@
 			</ul>
 		</div>
 		<br>
-		<p class="lead">请假理由</p>
+		<p class="lead">请假理由</p> -->
 		<!-- <span>时间:</span>&nbsp;&nbsp;
 		<input type="text" readonly="readonly" />&nbsp;&nbsp;-
 		<input type="text" readonly="readonly" /> -->
-		<textarea id="reason" class="form-control" rows="3" placeholder="请假理由" readonly="readonly"></textarea>
+<!-- 		<textarea id="reason" class="form-control" rows="3" placeholder="请假理由" readonly="readonly"></textarea>
 		<br>
 		<button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
-		<button type="button" value="不批准" name="result" class="btn btn-secondary">不批准</button>
+		<button type="button" value="不批准" name="result" class="btn btn-secondary">不批准</button> -->
+		<table class="table table-striped" id="table">
+           <thead>
+		     <tr>
+		 	  <th scope="col">#</th>
+		      <th scope="col">学生姓名</th>
+		      <th scope="col">请假时间(起)</th>
+			  <th scope="col">请假时间(终)</th>
+		 	  <th scope="col">请假理由</th>
+			  <th scope="col">操作</th>
+		     </tr>
+		   </thead>	
+		   <tbody>
+			   <tr th:each="absent:${absents}">
+				   <td th:text="${absent.id}"</td>
+				   <td th:text="${absent.name}"</td>
+				   <td th:text="${absent.startTime}"></td>
+				   <td th:text="${absent.endTime}"></td>
+				   <td th:text="${absent.reason}"></td>
+				   <td><button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
+		               <button type="button" value="不批准" name="result2" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">不批准</button>
+				   </td>
+			   </tr>
+		   </tbody>
+		</table>
 	  </div>
-
+	  
+	  <!-- 模态框（Modal） -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	  		<div class="modal-content">
+	  			<div class="modal-body">
+	  				  <div class="form-group">
+	  				    <label for="exampleInputEmail1">批复:</label>
+	  				    <input type="text" class="form-control" id="reply" aria-describedby="emailHelp">
+	  				  </div>
+					  <div class="modal-footer">
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					  	</button>
+					  	<button type="button" id="sub" class="btn btn-primary" data-dismiss="modal">
+					  		提交
+					  	</button>
+					  </div>
+	  			</div>			
+	  		</div>
+	  	</div>
+	  </div>
+	  
+	  
+	  
 	</div>
 </body>
 <script>
 	$(function(){
+
+		// $(".choose").click(function(){
+		// 	id=$(this).parent().children().eq(5).text();
+		// 	var reason=$(this).parent().children().eq(4).text();
+		// 	$("#reason").val(reason);
+		// })
 		var id=null;
-		$(".choose").click(function(){
-			id=$(this).parent().children().eq(5).text();
-			var reason=$(this).parent().children().eq(4).text();
-			$("#reason").val(reason);
-		})
+		var reply=null;
+		var parent=null;
 		
-		$("button[name='result']").click(function(){
-			if(id==null){
+		$("#table").on("click","button[name='result']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			$(this).parent().parent().remove();
+			$.ajax({
+				type:"put",
+				url:"/graduation/absent/update?id="+id+"&result=批准",
+				success:function(data){
+					// toastr.success(data.message);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		});
+		
+		$("#table").on("click","button[name='result2']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			parent=$(this).parent().parent();
+		});
+		
+		// $("button[name='result']").click(function(){
+		// 	id=$(this).parent().parent().children().eq(0).text();
+		// 	$(this).parent().parent().remove();
+		// 	$.ajax({
+		// 		type:"put",
+		// 		url:"/absent/update?id="+id+"&result=批准",
+		// 		success:function(data){
+		// 			// toastr.success(data.message);
+		// 			// setTimeout(function(){
+		// 			// 　　window.location.reload();
+		// 			// },2000);
+		// 		},
+		// 		error:function(){
+		// 			toastr.error(data.message);
+		// 		}
+		// 	})					
+		// })
+		
+		
+		// $("button[name='result2']").click(function(){
+		// 	id=$(this).parent().parent().children().eq(0).text();
+		// 	parent=$(this).parent().parent();
+		// })
 			
-				toastr.warning('未选择学生')
-				return false;
-			}else{
-				var result=$(this).val();
-				$.ajax({
-					type:"put",
-					url:"/absent/update?id="+id+"&result="+result,
-					success:function(data){
-						toastr.success(data.message);
-						setTimeout(function(){
-						　　window.location.reload();
-						},2000);
-					},
-					error:function(){
-						toastr.error(data.message);
+		$("#sub").click(function(){
+			reply=$("#reply").val();
+			parent.remove();
+			$.ajax({
+				type:"put",
+				url:"/graduation/absent/update?id="+id+"&result=不批准&reply="+reply,
+				success:function(data){
+					$(this).parent().parent().remove();
+					// toastr.success(data.message);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		})	
+		
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			
+			$.ajax({
+				type:"GET",
+				url:"/graduation/absent/select?grade="+grade,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
 					}
-				})
-			}
+					else{
+						toastr.success("查询成功");
+						$("#table tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+					       trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table tbody").append(tbody);  
+						
+					}
+					
+				}
+			})
 		})
-			
-	
 		
 	})
 </script>

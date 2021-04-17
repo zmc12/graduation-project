@@ -79,7 +79,7 @@
 			var bookName=$(this).parent().parent().children('td').eq(0).text();
 			$.ajax({
 				type:"get",
-				url:"/book/selectBroswer?bookName="+bookName,
+				url:"/graduation/book/selectBroswer?bookName="+bookName,
 				success:function(data){
 				 $('#broswer tr:not(#first)').empty();
 				 var groupTable = $('#broswer');

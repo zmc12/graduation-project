@@ -254,7 +254,7 @@
 	
 			$.ajax({
 				type:"GET",
-				url:"/dom/select?grade="+grade+"&term="+term,
+				url:"/graduation/dom/select?grade="+grade+"&term="+term,
 				dataType:"json",
 				success:function(data){
 					if(data==null || data==""){
@@ -271,7 +271,7 @@
 							   val.fix="";
 							   val.process="";
 						   }
-					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  

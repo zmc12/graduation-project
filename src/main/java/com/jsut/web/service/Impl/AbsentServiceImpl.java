@@ -32,5 +32,16 @@ public class AbsentServiceImpl implements AbsentService {
         return i;
     }
 
+    @Override
+    public int updateById(String id, String result, String reply) {
+        int i=absentMapper.updateById2(id,result,reply);
+        return i;
+    }
+
+    @Override
+    public List<Absent> select(String grade) {
+        return absentMapper.select(grade);
+    }
+
 
 }
