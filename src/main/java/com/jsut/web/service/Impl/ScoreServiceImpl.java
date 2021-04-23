@@ -40,4 +40,10 @@ public class ScoreServiceImpl implements ScoreService {
     public void updateById(Score score) {
         scoreMapper.updateById(score);
     }
+
+    @Override
+    public List<Score> ifHas(Score score) {
+        List<Score> scores = scoreMapper.ifHas(score);
+        return scores;
+    }
 }

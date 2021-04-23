@@ -15,4 +15,6 @@ import java.util.List;
 public interface StudentMapper {
 
     List<Student> selectAll(String college);
+
+    List<Student> selectByGrade(String grade);
 }

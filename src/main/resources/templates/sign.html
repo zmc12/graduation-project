@@ -12,6 +12,10 @@
 	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <style>
     .myNav{
@@ -35,26 +39,37 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	    <h1 class="display-4">签到管理</h1>
+	   <!-- <h1 class="display-4">签到管理</h1> -->
+	   <label for="grade">班级选择:</label>
+	   <select class="form-control"  id="grade">
+	       <option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+	   </select>
+	   <br>
+	   <label for="time">发起时间选择:</label>
+	   <select class="form-control"  id="time">
+	       <option th:each="sign:${signs}" th:value="${sign.time}" th:text="${sign.time}"></option>
+	   </select>
+	   <br>
+	   <button type="button" id="select" class="btn btn-primary">查询</button>
+	   <br>
+	   <br>
 	    <p class="lead">已签到学生名单</p>
-		<div class="sign">
-			<table class="table table-striped">
+		<div>
+			<table id="table1" class="table table-striped">
 			  <thead>
 			    <tr>
 				  <th scope="col">#</th>
 			      <th scope="col">姓名</th>
-			      <th scope="col">签到地点</th>
-				  <th scope="col">方式</th>
-				  <th scope="col">体温</th>
+				  <th scope="col">签到方式</th>
+				  <!-- <th scope="col">体温</th> -->
 			    </tr>
 			  </thead>
-			  <tbody th:each="list1:${list1}">
+			  <tbody >
 				<tr th:each="list1:${list1}">
 				    <td th:text="${list1.id}"></td>
 				    <td th:text="${list1.name}"></td>
-				    <td th:text="${list1.location}"></td>
-				    <td th:text="${list1.stuation}"></td>
-					<td th:text="${list1.temperature}"></td>
+				    <td th:text="${list1.method}"></td>
+<!-- 					<td th:text="${list1.temperature}"></td> -->
 				</tr>
 			  </tbody>
 			</table>
@@ -62,20 +77,18 @@
 		
 		<br>
 		<p class="lead">未签到学生名单</p>
-		<div class="sign">
-			<table class="table table-striped">
+		<div>
+			<table id="table2" class="table table-striped">
 			  <thead>
 			    <tr>
 				  <th scope="col">#</th>
 			      <th scope="col">姓名</th>
-				  <th scope="col">体温</th>
 			    </tr>
 			  </thead>
-              <tbody th:each="list2:${list2}">
+              <tbody>
 				<tr th:each="list2:${list2}">
-				    <td th:text="${list2.id}"></td>
-				    <td th:text="${list2.name}"></td>
-					<td th:text="${list2.temperature}"></td>
+				  <td th:text="${list2.id}"></td>
+				  <td th:text="${list2.name}"></td>
 				</tr>
 			  </tbody>
 			</table>
@@ -84,4 +97,49 @@
 	  </div>
 	</div>
 </body>
+
+
+<script>
+	$(function(){
+		
+		$("#select").click(function(){
+			var grade=$("#grade").val();
+			var time=$("#time").val();
+			
+			$.ajax({
+				type:"get",
+				url:"/graduation/sign/select?grade="+grade+"&time="+time,
+				success:function(data){
+                    if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table1 tbody").empty();
+						$("#table2 tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table1 tbody").empty();
+						$("#table2 tbody").empty();
+						var tbody1="";
+						var tbody2=""
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						   if(val.stuation == "已签到"){
+							  trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.method +"</td> </tr>";
+							  tbody1 += trs;    
+						   }else{
+							  trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td>  </tr>";   
+							  tbody2 += trs;    
+						   }
+					      
+						       
+						 });  
+						 $("#table1 tbody").append(tbody1);
+						 $("#table2 tbody").append(tbody2);  
+						
+					}				
+				}
+			})
+		})
+	})
+</script>
 </html>

@@ -1,7 +1,12 @@
 package com.jsut.web.controller;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jsut.web.pojo.College;
+import com.jsut.web.pojo.ResultCode;
 import com.jsut.web.pojo.Score;
 import com.jsut.web.pojo.Student;
+import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.ScoreService;
 import com.jsut.web.service.StudentService;
 import com.jsut.web.utils.User;
@@ -12,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,55 +37,69 @@ public class ScoreController {
     @Autowired
     private StudentService studentService;
 
-    String name=new String();
+    @Autowired
+    private CollegeService collegeService;
+
 
     @RequestMapping("/first")
     public String first(Model model){
-        List<Student> students=studentService.selectAll(User.COLLEGE);
-        model.addAttribute("students",students);
+        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        model.addAttribute("colleges",colleges);
         return "score";
     }
 
+
+    @ResponseBody
     @GetMapping("/select")
-    public String select(Model model, @RequestParam("name")String name){
-        this.name=name;
-        List<Score> scores=scoreService.selectByName(name);
-        List<Student> students=studentService.selectAll(User.COLLEGE);
-        model.addAttribute("students",students);
-        model.addAttribute("scores",scores);
-        return "score";
+    public List<Student> select(@RequestParam("grade")String grade){
+
+        List<Student> students=studentService.selectByGrade(grade);
+        return students;
     }
 
-    @GetMapping("/delete")
-    public String delete(Model model,@RequestParam("id")Integer id){
-        scoreService.deleteById(id);
-        List<Score> scores=scoreService.selectByName(this.name);
-        List<Student> students=studentService.selectAll(User.COLLEGE);
-        model.addAttribute("students",students);
-        model.addAttribute("scores",scores);
-        return "score";
-    }
+//    @GetMapping("/delete")
+//    public String delete(Model model,@RequestParam("id")Integer id){
+//        scoreService.deleteById(id);
+//        List<Score> scores=scoreService.selectByName(this.name);
+//        List<Student> students=studentService.selectAll(User.COLLEGE);
+//        model.addAttribute("students",students);
+//        model.addAttribute("scores",scores);
+//        return "score";
+//    }
 
+
+    @ResponseBody
     @PostMapping("/insert")
-    public String insert(Score score,Model model){
+    public ResultCode insert(@RequestParam("scores") String scores,Model model) throws IOException {
 
-        scoreService.insert(score);
-        List<Score> scores=scoreService.selectByName(this.name);
+        ObjectMapper mapper = new ObjectMapper();
+        JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, Score.class);
+        List<Score> sc =  (List<Score>)mapper.readValue(scores, jt);
+        for (int i = 0; i < sc.size(); i++) {
+
+
+            scoreService.insert(sc.get(i));
+
+
+
+        }
+
         List<Student> students=studentService.selectAll(User.COLLEGE);
         model.addAttribute("students",students);
-        model.addAttribute("scores",scores);
-        return "score";
+
+
+        return new ResultCode(200,"保存成绩成功");
     }
 
-    @PostMapping("/update")
-    public String update(Score score,Model model){
-
-        scoreService.updateById(score);
-        List<Score> scores=scoreService.selectByName(this.name);
-        List<Student> students=studentService.selectAll(User.COLLEGE);
-        model.addAttribute("students",students);
-        model.addAttribute("scores",scores);
-        return "score";
-    }
+//    @PostMapping("/update")
+//    public String update(Score score,Model model){
+//
+//        scoreService.updateById(score);
+//        List<Score> scores=scoreService.selectByName(this.name);
+//        List<Student> students=studentService.selectAll(User.COLLEGE);
+//        model.addAttribute("students",students);
+//        model.addAttribute("scores",scores);
+//        return "score";
+//    }
 
 }

@@ -20,9 +20,12 @@
 
 
     <select id="selectAll" parameterType="java.lang.String"  resultMap="BaseResultMap">
-        select  name,grade from student where college=#{college};
+        select  <include refid="Base_Column_List" /> from student where college=#{college};
     </select>
 
 
+    <select id="selectByGrade" parameterType="java.lang.String"  resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List" /> from student where grade=#{grade};
+    </select>
 
 </mapper>

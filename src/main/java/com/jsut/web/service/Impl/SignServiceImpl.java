@@ -22,11 +22,21 @@ public class SignServiceImpl implements SignService {
     private SignMapper signMapper;
 
 
-    public List<Sign> selectSign(String college) {
-        return signMapper.selectSign(college);
+    public List<Sign> selectSign( ) {
+        return signMapper.selectSign();
     }
 
-    public List<Sign> selctNoSign(String college) {
-        return signMapper.selctNoSign(college);
+    public List<Sign> selctNoSign( ) {
+        return signMapper.selctNoSign();
+    }
+
+    @Override
+    public List<Sign> selectAll() {
+        return signMapper.selectAll();
+    }
+
+    @Override
+    public List<Sign> select(String grade, String time) {
+        return signMapper.select(grade,time);
     }
 }

@@ -19,4 +19,6 @@ public interface ScoreService {
     void insert(Score score);
 
     void updateById(Score score);
+
+    List<Score> ifHas(Score score);
 }

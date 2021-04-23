@@ -14,7 +14,12 @@ import java.util.List;
 public interface SignService {
 
 
-    List<Sign> selectSign(String college);
+    List<Sign> selectSign();
 
-    List<Sign> selctNoSign(String college);
+    List<Sign> selctNoSign();
+
+
+    List<Sign> selectAll();
+
+    List<Sign> select(String grade,String time);
 }

@@ -22,7 +22,7 @@
     </select>
 
     <update id="updateById" parameterType="com.jsut.web.pojo.Score">
-        update  score set name=#{name},subject=#{subject},score=#{score} where id=#{id};
+        update  score set score=#{score} where name=#{name} and subject=#{subject};
     </update>
 
     <delete id="deleteById" >
@@ -32,5 +32,9 @@
     <insert id="insert" parameterType="com.jsut.web.pojo.Score">
         insert into score (name,score,subject) values (#{name},#{score},#{subject});
     </insert>
+
+    <select id="ifHas" parameterType="com.jsut.web.pojo.Score" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from score where name=#{name} and subject=#{subject};
+    </select>
 
 </mapper>

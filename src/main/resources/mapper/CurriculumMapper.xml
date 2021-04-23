@@ -25,6 +25,20 @@
         <result column="cur52" jdbcType="VARCHAR" property="cur52"/>
         <result column="cur53" jdbcType="VARCHAR" property="cur53"/>
         <result column="cur54" jdbcType="VARCHAR" property="cur54"/>
+        <result column="cur61" jdbcType="VARCHAR" property="cur61"/>
+        <result column="cur62" jdbcType="VARCHAR" property="cur62"/>
+        <result column="cur63" jdbcType="VARCHAR" property="cur63"/>
+        <result column="cur64" jdbcType="VARCHAR" property="cur64"/>
+        <result column="cur65" jdbcType="VARCHAR" property="cur65"/>
+        <result column="cur71" jdbcType="VARCHAR" property="cur71"/>
+        <result column="cur72" jdbcType="VARCHAR" property="cur72"/>
+        <result column="cur73" jdbcType="VARCHAR" property="cur73"/>
+        <result column="cur74" jdbcType="VARCHAR" property="cur74"/>
+        <result column="cur15" jdbcType="VARCHAR" property="cur15"/>
+        <result column="cur25" jdbcType="VARCHAR" property="cur25"/>
+        <result column="cur35" jdbcType="VARCHAR" property="cur35"/>
+        <result column="cur45" jdbcType="VARCHAR" property="cur45"/>
+        <result column="cur55" jdbcType="VARCHAR" property="cur55"/>
     </resultMap>
 
 

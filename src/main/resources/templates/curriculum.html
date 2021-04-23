@@ -69,6 +69,8 @@
 			      <th scope="col">星期三</th>
 				  <th scope="col">星期四</th>
 				  <th scope="col">星期五</th>
+				  <th scope="col">星期六</th>
+				  <th scope="col">星期日</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -79,6 +81,8 @@
 			      <td><input class="form-control" readonly="readonly" id="cur31" name="cur31"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur41" name="cur41"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur51" name="cur51"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur61" name="cur61"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur71" name="cur71"/></td>
 				  
 			    </tr>
 			    <tr>
@@ -88,7 +92,8 @@
 			      <td><input class="form-control" readonly="readonly" id="cur32" name="cur32"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur42" name="cur42"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur52" name="cur52"/></td>
-				  
+				  <td><input class="form-control" readonly="readonly" id="cur62" name="cur62"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur72" name="cur72"/></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">5-6节课</th>
@@ -97,7 +102,8 @@
 				  <td><input class="form-control" readonly="readonly" id="cur33" name="cur33"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur43" name="cur43"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur53" name="cur53"/></td>
-				  
+				  <td><input class="form-control" readonly="readonly" id="cur63" name="cur63"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur73" name="cur73"/></td>
 			    </tr>
 				<tr>
 				  <th scope="row">7-8节课</th>
@@ -106,16 +112,19 @@
 				  <td><input class="form-control" readonly="readonly" id="cur34" name="cur34"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur44" name="cur44"/></td>
 				  <td><input class="form-control" readonly="readonly" id="cur54" name="cur54"/></td>
-				  
+				  <td><input class="form-control" readonly="readonly" id="cur64" name="cur64"/></td>
+				  <td><input class="form-control" readonly="readonly" id="cur74" name="cur74"/></td>
 				</tr>
-				<!-- <tr>
-				  <th scope="row">9-10节课</th>
-				  <td><input class="form-control"/></td>
-				  <td><input class="form-control"/></td>
-				  <td><input class="form-control"/></td>
-				  <td><input class="form-control"/></td>
-				  <td><input class="form-control"/></td> 
-				</tr> -->
+				<tr>
+				  <th scope="row">9-10、11节课</th>
+				 <td><input class="form-control" readonly="readonly" id="cur15" name="cur15"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur25" name="cur25"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur35" name="cur35"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur45" name="cur45"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur55" name="cur55"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur65" name="cur65"/></td>
+				 <td><input class="form-control" readonly="readonly" id="cur75" name="cur75"/></td>
+				</tr>
 			  </tbody>
 			</table>
 			<!-- <button type="submit" id="save" class="btn btn-primary">保存</button> -->
@@ -172,6 +181,22 @@
 						$("#cur44").val(data.cur44);
 						$("#cur54").val(data.cur54);
 						
+						$("#cur61").val(data.cur61);
+						$("#cur62").val(data.cur62);
+						$("#cur63").val(data.cur63);
+						$("#cur64").val(data.cur64);
+						$("#cur65").val(data.cur65);
+						$("#cur71").val(data.cur71);
+						$("#cur72").val(data.cur72);
+						$("#cur73").val(data.cur73);
+						$("#cur74").val(data.cur74);
+						$("#cur75").val(data.cur75);
+						$("#cur15").val(data.cur15);
+						$("#cur25").val(data.cur25);
+						$("#cur35").val(data.cur35);
+						$("#cur45").val(data.cur45);
+						$("#cur55").val(data.cur55);
+						
 				
 				},
 				error:function(data){
@@ -196,6 +221,23 @@
 					  $("#cur34").val("");
 					  $("#cur44").val("");
 				      $("#cur54").val("");			
+					  
+					  
+					  $("#cur61").val("");
+					  $("#cur62").val("");
+					  $("#cur63").val("");
+					  $("#cur64").val("");
+					  $("#cur65").val("");
+					  $("#cur71").val("");
+					  $("#cur72").val("");
+					  $("#cur73").val("");
+					  $("#cur74").val("");
+					  $("#cur75").val("");
+					  $("#cur15").val("");
+					  $("#cur25").val("");
+					  $("#cur35").val("");
+					  $("#cur45").val("");
+					  $("#cur55").val("");
 				}
 			})
 		})

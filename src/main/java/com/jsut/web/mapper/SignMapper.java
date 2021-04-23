@@ -2,7 +2,9 @@ package com.jsut.web.mapper;
 
 import com.jsut.web.pojo.Sign;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,7 +16,11 @@ import java.util.List;
 @Mapper
 public interface SignMapper {
 
-    List<Sign> selectSign(String college);
+    List<Sign> selectSign( );
 
-    List<Sign> selctNoSign(String college);
+    List<Sign> selctNoSign( );
+
+    List<Sign> selectAll();
+
+    List<Sign> select(@Param("grade") String grade,@Param("time") String time);
 }

@@ -14,22 +14,34 @@ public class Sign implements Serializable {
 
     private Integer id;
     private String name;
-    private String location;
+    //private String location;
     private String method;
     private String stuation;
     private String temperature;
+
+    private String time;
+
 
     @Override
     public String toString() {
         return "Sign{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
                 ", method='" + method + '\'' +
                 ", stuation='" + stuation + '\'' +
                 ", temperature='" + temperature + '\'' +
+                ", time='" + time + '\'' +
                 '}';
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 
     public String getTemperature() {
         return temperature;
@@ -55,13 +67,13 @@ public class Sign implements Serializable {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
 
     public String getMethod() {
         return method;
@@ -70,6 +82,7 @@ public class Sign implements Serializable {
     public void setMethod(String method) {
         this.method = method;
     }
+
 
     public String getStuation() {
         return stuation;
