@@ -1,8 +1,10 @@
 package com.jsut.web.pojo;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author ZhangMinCong
@@ -15,6 +17,8 @@ public class Market implements Serializable {
     private Integer id;
     private String text;
     private String contact;
+    private MultipartFile file;
+    private String path;
 
     @Override
     public String toString() {
@@ -22,7 +26,25 @@ public class Market implements Serializable {
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", contact='" + contact + '\'' +
+                ", file=" + file +
+                ", path='" + path + '\'' +
                 '}';
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getContact() {

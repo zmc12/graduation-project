@@ -3,6 +3,7 @@ package com.jsut.web.pojo;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author ZhangMinCong
@@ -18,6 +19,7 @@ public class Notice implements Serializable {
     private String situation;
     private String name;
 
+    private String[] grades;
 
     @Override
     public String toString() {
@@ -27,7 +29,16 @@ public class Notice implements Serializable {
                 ", grade='" + grade + '\'' +
                 ", situation='" + situation + '\'' +
                 ", name='" + name + '\'' +
+                ", grades=" + Arrays.toString(grades) +
                 '}';
+    }
+
+    public String[] getGrades() {
+        return grades;
+    }
+
+    public void setGrades(String[] grades) {
+        this.grades = grades;
     }
 
     public String getName() {

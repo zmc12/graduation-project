@@ -24,35 +24,45 @@
 	#logout :hover{
 		color:red;
 	}
-	#market{
+/* 	#market{
 		height:400px;
 		overflow: scroll;
+	} */
+	
+	.a1{
+		display : inline;
 	}
 	
-
+	.a2{
+		float: right;
+	}
+	
 </style>
 <body>
  <div th:include="../templates/nav.html :: header"></div>
  <div class="jumbotron jumbotron-fluid">
    <div class="container">
-     <h1 class="display-4">跳蚤市场</h1>
-     <p class="lead">已发布信息</p>
+   <!--  <h1 class="display-4">跳蚤市场</h1> -->
+     <p class="lead a1">已发布信息</p>
+	 <button class="btn btn-primary btn-lg a1 a2" data-toggle="modal" data-target="#myModal">新增</button>
 	 <div>
 		 <table class="table table-striped">
 		   <thead>
 		     <tr>
 		 	  <th scope="col">#</th>
-		       <th scope="col">信息内容</th>
-			   <th scope="col">联系方式</th>
-		 	   <th scope="col">操作</th>
+			  <th scope="col">物品图片</th>
+		      <th scope="col">信息内容</th>
+			  <th scope="col">联系方式</th>
+<!-- 		 	   <th scope="col">操作</th> -->
 		     </tr>
 		   </thead>
 		   <tbody>
 			 <tr th:each="market:${markets}">
-				 <td th:text="${market.id}"></td>z
+				 <td th:text="${market.id}"></td>
+				 <td><img alt="未上传图片" width="50px" height="50px" th:src="@{'/static/images/'+${market.path}}"/></td>
 				 <td th:text="${market.text}"></td>
 				 <td th:text="${market.contact}"></td>
-                 <td><a class="nav-link"  th:href="@{/market/delete(id=${market.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+               <!--  <td><a class="nav-link"  th:href="@{/market/delete(id=${market.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 -->
 			 </tr>
 		   </tbody>
 		 </table>
@@ -60,14 +70,16 @@
 
  	<br>
 	
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		新增
-	</button>
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<di v class="modal-content">
 				<div class="modal-body">
-					<form th:action="@{/market/insert}" method="post">
+					<form th:action="@{/market/insert}" method="post" enctype="multipart/form-data">
+                     <div class="form-group" >
+                        <label for="exampleFormControlFile1">物品图片:</label>
+                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                      </div>						
 					  <div class="form-group">
 					    <label for="exampleInputPassword1">信息内容:</label>
 					    <textarea class="form-control" name="text" id="exampleInputPassword1"></textarea>

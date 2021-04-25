@@ -55,8 +55,11 @@ public class NoticeController {
 
     @PostMapping("/insert")
     public String insert(Notice notice,Model model){
-        notice.setName(User.Name);
-        noticeService.insert(notice);
+        for(int i=0;i<notice.getGrades().length;i++){
+            notice.setName(User.Name);
+            notice.setGrade(notice.getGrades()[i]);
+            noticeService.insert(notice);
+        }
 
         List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
         List<Notice> list=noticeService.selectAll(User.Name);

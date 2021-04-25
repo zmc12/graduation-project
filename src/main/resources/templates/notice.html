@@ -29,14 +29,22 @@
 		overflow: scroll;
 	}
 	
+	.a1{
+		display : inline;
+	}
+	
+	.a2{
+		float: right;
+	}
 
 </style>
 <body>
  <div th:include="../templates/nav.html :: header"></div>
  <div class="jumbotron jumbotron-fluid">
    <div class="container">
-     <h1 class="display-4">通知管理</h1>
-     <p class="lead">已发布通知</p>
+<!--     <h1 class="display-4">通知管理</h1> -->
+     <p class="lead a1">已发布通知</p>
+	 <button class="btn btn-primary btn-lg a1 a2"  data-toggle="modal" data-target="#myModal">新增</button>
 	 <div >
 		 <table class="table table-striped">
 		   <thead>
@@ -54,7 +62,7 @@
 				<td th:text="${notice.text}"></td>
 			    <td th:text="${notice.grade}"></td>
 				<td th:text="${notice.situation}"></td>
-			    <td><a class="nav-link"  th:href="@{/notice/delete(id=${notice.id})}">删除</a> <a class="nav-link change" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+			    <td><a class="nav-link a1"  th:href="@{/notice/delete(id=${notice.id})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
 			</tr>
 		   </tbody>
 		 </table>
@@ -62,20 +70,16 @@
 
  	<br>
 	
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		新增
-	</button>
+	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
 					<form th:action="@{/notice/insert}" method="post">
-                      <div class="form-group">
-					    <label for="exampleInputPassword1">接收班级:</label>
-					    <select class="form-control" name="grade"  id="exampleInputPassword1">
-							<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
-						</select>
-					  </div>							
+					  <div>
+						<label  for="inlineCheckbox1">班级选择:</label>
+					    <input style="margin: 10px;"  name="grades"  type="checkbox" id="inlineCheckbox1" th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}">
+					  </div>						
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">发布内容:</label>
 					    <input type="text" class="form-control" name="text" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -100,12 +104,13 @@
 				<div class="modal-body">
 					<form th:action="@{/notice/update}" method="post">
 					  <input type="hidden" name="id" id="id" />
+					 
                       <div class="form-group">
 					    <label for="grade">接收班级:</label>
 					    <select class="form-control" name="grade"  id="grade">
 							<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
 						</select>
-					  </div>						  
+					  </div>				 		  
 					  <div class="form-group">
 					    <label for="text">发布内容:</label>
 					    <input type="text" class="form-control" name="text" id="text" aria-describedby="emailHelp">
