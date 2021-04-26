@@ -16,7 +16,6 @@ public class Notice implements Serializable {
     private Integer id;
     private String text;
     private String grade;
-    private String situation;
     private String name;
 
     private String[] grades;
@@ -27,7 +26,6 @@ public class Notice implements Serializable {
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", grade='" + grade + '\'' +
-                ", situation='" + situation + '\'' +
                 ", name='" + name + '\'' +
                 ", grades=" + Arrays.toString(grades) +
                 '}';
@@ -73,11 +71,5 @@ public class Notice implements Serializable {
         this.grade = grade;
     }
 
-    public String getSituation() {
-        return situation;
-    }
 
-    public void setSituation(String situation) {
-        this.situation = situation;
-    }
 }

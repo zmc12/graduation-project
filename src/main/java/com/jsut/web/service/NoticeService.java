@@ -19,4 +19,7 @@ public interface NoticeService {
     void insert(Notice notice);
 
     void updateById(Notice notice);
+
+
+    int  selectById(Notice notice);
 }

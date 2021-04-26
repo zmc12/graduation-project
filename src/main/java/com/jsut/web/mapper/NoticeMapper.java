@@ -20,4 +20,6 @@ public interface NoticeMapper {
     void insert(Notice notice);
 
     void updateById(Notice notice);
+
+    int  selectById(Notice notice);
 }

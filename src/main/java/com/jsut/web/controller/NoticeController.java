@@ -1,10 +1,10 @@
 package com.jsut.web.controller;
 
-import com.jsut.web.pojo.College;
-import com.jsut.web.pojo.Market;
-import com.jsut.web.pojo.Notice;
+import com.jsut.web.pojo.*;
 import com.jsut.web.service.CollegeService;
+import com.jsut.web.service.KnowService;
 import com.jsut.web.service.NoticeService;
+import com.jsut.web.service.StudentService;
 import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,12 @@ public class NoticeController {
     @Autowired
     private CollegeService collegeService;
 
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private KnowService knowService;
+
     @GetMapping("/first")
     public String first(Model model){
         List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
@@ -45,6 +51,7 @@ public class NoticeController {
     @GetMapping("/delete")
     public String delete(Model model,@RequestParam("id")Integer id){
         noticeService.deleteById(id);
+        knowService.deleteById(id);
         List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
         List<Notice> list=noticeService.selectAll(User.Name);
         model.addAttribute("notices",list);
@@ -59,6 +66,12 @@ public class NoticeController {
             notice.setName(User.Name);
             notice.setGrade(notice.getGrades()[i]);
             noticeService.insert(notice);
+            //int id = noticeService.selectById(notice);
+            Integer id = notice.getId();
+            List<Student> students = studentService.selectByGrade(notice.getGrade());
+            for(int j=0;j<students.size();j++){
+                knowService.insert(new Know(id,students.get(j).getName(),"未确认"));
+            }
         }
 
         List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
@@ -72,10 +85,21 @@ public class NoticeController {
     public String update(Model model,Notice notice){
         notice.setName(User.Name);
         noticeService.updateById(notice);
+
         List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
         List<Notice> list=noticeService.selectAll(User.Name);
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
+    }
+
+    @ResponseBody
+    @GetMapping("/selectStudent")
+    public List<Know> selectStudent(@RequestParam("id")Integer id,@RequestParam("grade")String grade){
+
+        List<Know> knows = knowService.selectStudent(id,grade);
+
+        return knows;
+
     }
 }

@@ -52,7 +52,7 @@
 		 	  <th scope="col">#</th>
 		       <th scope="col">发布内容</th>
 		       <th scope="col">接收班级</th>
-		 	   <th scope="col">确认情况</th>
+		 	   <th scope="col">未确认名单</th> 
 		 	   <th scope="col">操作</th>
 		     </tr>
 		   </thead>
@@ -61,7 +61,7 @@
 				<td th:text="${notice.id}"></td>
 				<td th:text="${notice.text}"></td>
 			    <td th:text="${notice.grade}"></td>
-				<td th:text="${notice.situation}"></td>
+ 				<td><a class="nav-link selectStudent" href="#" data-toggle="modal" data-target="#myModal1">点击查看未签到名单</a></td> 
 			    <td><a class="nav-link a1"  th:href="@{/notice/delete(id=${notice.id})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
 			</tr>
 		   </tbody>
@@ -125,6 +125,34 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p>未签到人数:<span id="count"></span></p>
+					<table id="students" class="table table-striped">
+					  <thead>
+					    <tr id="first">
+					      <th scope="col">#</th>
+					      <th scope="col">姓名</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  </tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
  	<br>
    </div>
  </div>
@@ -145,6 +173,35 @@
 			        selectId[i].selected = true;
 			}
 		})
+		
+		$(".selectStudent").click(function(){
+			var id=$(this).parent().parent().children('td').eq(0).text();
+			var grade=$(this).parent().parent().children('td').eq(2).text();
+			var count = 0;
+			
+			$.ajax({
+				type:"get",
+				url:"/graduation/notice/selectStudent?id="+id+"&grade="+grade,
+				success:function(data){
+				 $('#students tr:not(#first)').empty();
+				 var groupTable = $('#students');
+				 $.each(data,function(key,val){
+					 count++;
+					 if(val.name!=null && val.name!=""){
+						 groupTable.append('<tr> ' +
+						        '<td>' + val.id + '</td>' + 
+						 		'<td>' + val.name + '</td>' + 
+						 		'</tr>')
+					 }
+				 	
+				  })
+				  document.getElementById("count").innerHTML=count;
+				}
+			})
+			
+			
+		})
+		
 		
 	})
 </script>
