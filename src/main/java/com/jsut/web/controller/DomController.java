@@ -64,7 +64,7 @@ public class DomController {
 
     @PostMapping("/insert")
     public String insert(Dom dom,Model model){
-
+        System.out.println(dom.toString());
         domService.insert(dom);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
@@ -76,7 +76,7 @@ public class DomController {
 
     @PostMapping("/update")
     public String update(Model model, Dom dom){
-
+        System.out.println(dom.toString());
         domService.updateById(dom);
         List<Dom> list=domService.selectAll();
         model.addAttribute("doms",list);

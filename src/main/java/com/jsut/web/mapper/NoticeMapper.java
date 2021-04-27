@@ -21,5 +21,4 @@ public interface NoticeMapper {
 
     void updateById(Notice notice);
 
-    int  selectById(Notice notice);
 }

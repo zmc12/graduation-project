@@ -21,5 +21,4 @@ public interface NoticeService {
     void updateById(Notice notice);
 
 
-    int  selectById(Notice notice);
 }

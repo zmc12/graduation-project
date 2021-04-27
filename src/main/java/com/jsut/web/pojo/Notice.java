@@ -17,8 +17,10 @@ public class Notice implements Serializable {
     private String text;
     private String grade;
     private String name;
+    private String title;
 
     private String[] grades;
+
 
     @Override
     public String toString() {
@@ -27,8 +29,17 @@ public class Notice implements Serializable {
                 ", text='" + text + '\'' +
                 ", grade='" + grade + '\'' +
                 ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", grades=" + Arrays.toString(grades) +
                 '}';
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String[] getGrades() {

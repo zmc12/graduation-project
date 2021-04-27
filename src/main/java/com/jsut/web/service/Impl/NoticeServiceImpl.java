@@ -59,8 +59,4 @@ public class NoticeServiceImpl implements NoticeService {
         }
     }
 
-    @Override
-    public int selectById(Notice notice) {
-        return noticeMapper.selectById(notice);
-    }
 }

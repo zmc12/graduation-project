@@ -123,7 +123,7 @@
                 <tr th:each="book:${books}">
 				 <td th:text="${book.bookName}"></td>
 				 <td th:text="${book.amount}"></td>
-                 <td><a class="nav-link a1"   th:href="@{/book/delete(bookName=${book.bookName})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a> <a class="nav-link selectBroswer a1" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a> </td>		
+                 <td><a class=" a1"   th:href="@{/book/delete(bookName=${book.bookName})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a> <a class="nav-link selectBroswer a1" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a> </td>		
 			    </tr>				  	 
 			  </tbody>
 			</table>

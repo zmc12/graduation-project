@@ -66,7 +66,6 @@ public class NoticeController {
             notice.setName(User.Name);
             notice.setGrade(notice.getGrades()[i]);
             noticeService.insert(notice);
-            //int id = noticeService.selectById(notice);
             Integer id = notice.getId();
             List<Student> students = studentService.selectByGrade(notice.getGrade());
             for(int j=0;j<students.size();j++){

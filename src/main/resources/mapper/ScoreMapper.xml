@@ -6,7 +6,6 @@
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="score" jdbcType="INTEGER" property="score"/>
         <result column="subject" jdbcType="VARCHAR" property="subject"/>
-        <!--        <result column="college" jdbcType="VARCHAR" property="college"/>-->
     </resultMap>
     <sql id="Base_Column_List">
         <!--

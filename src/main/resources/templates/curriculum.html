@@ -33,13 +33,13 @@
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
 	    <!-- <h1 class="display-4">课表管理</h1> -->
-	    <p class="lead">班级选择</p>
- 	   <select class="form-control"  id="grade">
+	   <label>班级选择:</label>
+ 	   <select class=""  id="grade">
  	   	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
  	   </select>
 	   <br>
-		<p class="lead">学期选择</p>
-		<select class="form-control" id="term">
+		<label>学期选择:</label>
+		<select class="" id="term">
 		   <option>2020-2021-1</option>
 		   <option>2020-2021-2</option>
 		   <option>2021-2022-1</option>

@@ -44,13 +44,14 @@
 	  <div class="container">
 	  <!--  <h1 class="display-4">学生成绩管理</h1> -->
 	  
-        <label for="grade">班级选择:</label>	
+       
 	    <div class="form-group">
 		  <label for="exampleInputEmail1">输入课程名称:</label>
 		  <input type="text" class="form-control" name="number" id="subject" aria-describedby="emailHelp">
 		</div>	  
 		 <br>
-		<select class="form-control"  id="grade">
+		<label for="grade">班级选择:</label>	
+		<select class=""  id="grade">
 			<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
 		</select>	 
 		<br>

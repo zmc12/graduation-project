@@ -55,12 +55,13 @@
 	 </button>
 	 <br>
 	 <br>
-	 <select class="form-control"  id="grade">
+	 <label class="lead">班级选择:</label>
+	 <select class=""  id="grade">
 	 	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
 	 </select>
 	 <br>
-	 <p class="lead">学期选择</p>
-	 <select class="form-control" id="term">
+	 <label class="lead">学期选择:</label>
+	 <select class="" id="term">
 	 	<option>2020-2021-1</option>
 	 	<option>2020-2021-2</option>
 	 	<option>2021-2022-1</option>
@@ -96,7 +97,9 @@
 				 <td th:text="${dom.students}"></td>
 				 <td th:text="${dom.fix}"></td>
 				 <td th:text="${dom.process}"></td>
-                 <td><a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+                 <td><a class="change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>		
+				 <td style="display: none;" th:text="${dom.grade}"></td>
+				 <td style="display: none;" th:text="${dom.term}"></td>				  
 			 </tr>			   
 		
 		   </tbody>
@@ -172,6 +175,8 @@
 	 			<div class="modal-body">
 	 				<form th:action="@{/dom/update}" method="post">
 					  <input type="hidden" name="id" id="id">
+					  <input type="hidden" name="grade" id="grade">
+					  <input type="hidden" name="term" id="term">
 	 				  <div class="form-group">
 	 				    <label for="number">宿舍号:</label>
 	 				    <input type="text" class="form-control" name="number" id="number" aria-describedby="emailHelp">
@@ -190,8 +195,9 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="process">维修进展:</label>
-						<select class="form-control" name="process" id="process" disabled="disabled">
-							<option selected="selected">未保修</option>
+						<select class="form-control" name="process" id="process">
+							<option selected="selected">无</option>
+							<option>未保修</option>
 							<option>保修中</option>
 							<option>已完成</option>
 						</select>
@@ -224,12 +230,17 @@
 			var students=$(this).parent().parent().children('td').eq(3).text();
 			var fix=$(this).parent().parent().children('td').eq(4).text();
 			var process=$(this).parent().parent().children('td').eq(5).text();
+			var grade=$(this).parent().parent().children('td').eq(6).text();
+			var term=$(this).parent().parent().children('td').eq(7).text();
+			
 			
 			$("#id").val(id);
 			$("#number").val(number);
 			$("#score").val(score);
 			$("#students").val(students);
 			$("#fix").val(fix);
+			$("#grade").val(grade);
+			$("#term").val(term);
 		});
 
 		// $(".change").click(function(){

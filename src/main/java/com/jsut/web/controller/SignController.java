@@ -34,13 +34,13 @@ public class SignController {
 
     @GetMapping("/first")
     public String first(Model model) {
-        List<Sign> list1=signService.selectSign();
-        List<Sign> list2= signService.selctNoSign();
+//        List<Sign> list1=signService.selectSign();
+//        List<Sign> list2= signService.selctNoSign();
         List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
         List<Sign> signs = signService.selectAll();
 
-        model.addAttribute("list1",list1);
-        model.addAttribute("list2",list2);
+//        model.addAttribute("list1",list1);
+//        model.addAttribute("list2",list2);
         model.addAttribute("colleges",colleges);
         model.addAttribute("signs",signs);
         return "sign";

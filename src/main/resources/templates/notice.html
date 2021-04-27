@@ -42,7 +42,6 @@
  <div th:include="../templates/nav.html :: header"></div>
  <div class="jumbotron jumbotron-fluid">
    <div class="container">
-<!--     <h1 class="display-4">通知管理</h1> -->
      <p class="lead a1">已发布通知</p>
 	 <button class="btn btn-primary btn-lg a1 a2"  data-toggle="modal" data-target="#myModal">新增</button>
 	 <div >
@@ -50,7 +49,7 @@
 		   <thead>
 		     <tr>
 		 	  <th scope="col">#</th>
-		       <th scope="col">发布内容</th>
+		       <th scope="col">通知标题</th>
 		       <th scope="col">接收班级</th>
 		 	   <th scope="col">未确认名单</th> 
 		 	   <th scope="col">操作</th>
@@ -59,10 +58,11 @@
 		   <tbody>
 			<tr th:each="notice:${notices}">
 				<td th:text="${notice.id}"></td>
-				<td th:text="${notice.text}"></td>
+				<td class="ck" style="color: blue;cursor: pointer;" href="#" data-toggle="modal" data-target="#myModal3" th:text="${notice.title}"></td>
 			    <td th:text="${notice.grade}"></td>
- 				<td><a class="nav-link selectStudent" href="#" data-toggle="modal" data-target="#myModal1">点击查看未签到名单</a></td> 
-			    <td><a class="nav-link a1"  th:href="@{/notice/delete(id=${notice.id})}">删除</a> <a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>			 			 
+ 				<td><a class="selectStudent" href="#" data-toggle="modal" data-target="#myModal1">点击查看未签到名单</a></td> 
+			    <td><a class="a1"  th:href="@{/notice/delete(id=${notice.id})}">删除</a><a class="nav-link change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>	
+				<td style="display: none;" th:text="${notice.text}"></td>					 
 			</tr>
 		   </tbody>
 		 </table>
@@ -79,9 +79,13 @@
 					  <div>
 						<label  for="inlineCheckbox1">班级选择:</label>
 					    <input style="margin: 10px;"  name="grades"  type="checkbox" id="inlineCheckbox1" th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}">
-					  </div>						
+					  </div>	
+                      <div class="form-group">
+					    <label for="exampleInputEmail2">通知标题:</label>
+					    <input type="text" class="form-control" name="title" id="exampleInputEmail2" aria-describedby="emailHelp">
+					  </div>										  
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">发布内容:</label>
+					    <label for="exampleInputEmail1">通知内容:</label>
 					    <input type="text" class="form-control" name="text" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					 
@@ -110,7 +114,11 @@
 					    <select class="form-control" name="grade"  id="grade">
 							<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
 						</select>
-					  </div>				 		  
+					  </div>
+					  <div class="form-group">
+					    <label for="title">发布标题:</label>
+					    <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+					  </div>							
 					  <div class="form-group">
 					    <label for="text">发布内容:</label>
 					    <input type="text" class="form-control" name="text" id="text" aria-describedby="emailHelp">
@@ -153,19 +161,43 @@
 	</div>
 	
 	
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">		
+					<div class="form-group">
+					  <label for="text">通知内容:</label>
+					  <textarea class="form-control" id="text1" readonly="readonly" ></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
  	<br>
    </div>
  </div>
 </body>
 <script type="application/javascript">
 	$(function(){
+		
+		
+		$(".ck").click(function(){
+			var text1 = $(this).parent().children('td').eq(5).text();
+			
+			$("#text1").val(text1);
+		})
+		
 		$(".change").click(function(){
 			var id=$(this).parent().parent().children('td').eq(0).text();
-			var text=$(this).parent().parent().children('td').eq(1).text();
+			var title=$(this).parent().parent().children('td').eq(1).text();
 			var grade=$(this).parent().parent().children('td').eq(2).text();
+			var text2=$(this).parent().parent().children('td').eq(5).text();
 			
 			$("#id").val(id);
-			$("#text").val(text);
+			$("#title").val(title);
+			$("#text").val(text2);
 			
 			var selectId = document.getElementById("grade");
 			for(i=0;i<selectId.length;i++){
