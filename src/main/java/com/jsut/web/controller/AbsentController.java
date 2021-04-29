@@ -40,6 +40,9 @@ public class AbsentController {
         List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
         model.addAttribute("colleges",colleges);
 
+        List<Absent> absents = absentService.selectByResult();
+        model.addAttribute("hasConfirms",absents);
+
         return "absent";
     }
 

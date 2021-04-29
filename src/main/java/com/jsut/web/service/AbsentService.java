@@ -21,4 +21,6 @@ public interface AbsentService {
     int updateById(String id, String result,String reply);
 
     List<Absent> select(String grade);
+
+    List<Absent> selectByResult();
 }

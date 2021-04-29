@@ -100,6 +100,30 @@
 			   </tr>
 		   </tbody>
 		</table>
+		
+		
+		
+		<p class="lead">未销假名单</p>
+		<table class="table table-striped" id="table1">
+		   <thead>
+		     <tr>
+		 	  <th scope="col">#</th>
+		      <th scope="col">学生姓名</th>
+		      <th scope="col">请假时间(起)</th>
+			  <th scope="col">请假时间(终)</th>
+		 	  <th scope="col">请假理由</th>
+		     </tr>
+		   </thead>	
+		   <tbody>
+			   <tr th:each="hasConfirm:${hasConfirms}">
+				   <td th:text="${hasConfirm.id}"</td>
+				   <td th:text="${hasConfirm.name}"</td>
+				   <td th:text="${hasConfirm.startTime}"></td>
+				   <td th:text="${hasConfirm.endTime}"></td>
+				   <td th:text="${hasConfirm.reason}"></td>
+			   </tr>
+		   </tbody>
+		</table>
 	  </div>
 	  
 	  <!-- 模态框（Modal） -->
@@ -108,7 +132,7 @@
 	  		<div class="modal-content">
 	  			<div class="modal-body">
 	  				  <div class="form-group">
-	  				    <label for="exampleInputEmail1">批复:</label>
+	  				    <label for="reply">批复:</label>
 	  				    <input type="text" class="form-control" id="reply" aria-describedby="emailHelp">
 	  				  </div>
 					  <div class="modal-footer">
@@ -217,17 +241,27 @@
 					if(data==null || data==""){
 						toastr.error("查询结果为空");
 						$("#table tbody").empty();
+						$("#table1 tbody").empty();
 					}
 					else{
 						toastr.success("查询成功");
 						$("#table tbody").empty();
+						$("#table1 tbody").empty();
 						var tbody="";
-						$.each(data,function(n,val) {   
-						   var trs = "";  
-					       trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
-						   tbody += trs;         
+						var tbody1="";
+						$.each(data,function(n,val) {
+							var trs = "";
+							if(val.result=="未审批"){					
+								trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
+								tbody += trs;    
+							}else{
+								trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+								tbody1 += trs;    
+							}
+						       
 						 });  
 						 $("#table tbody").append(tbody);  
+						 $("#table1 tbody").append(tbody1);  
 						
 					}
 					

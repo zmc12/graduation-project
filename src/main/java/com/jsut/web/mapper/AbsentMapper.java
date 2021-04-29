@@ -22,4 +22,6 @@ public interface AbsentMapper {
     int updateById2(@Param("id") String id,@Param("result") String result,@Param("reply")String reply);
 
     List<Absent> select(String grade);
+
+    List<Absent> selectByResult();
 }
