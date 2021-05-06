@@ -44,7 +44,9 @@ public class ScoreController {
     @RequestMapping("/first")
     public String first(Model model){
         List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<Score> scoreList = scoreService.selectSubject();
         model.addAttribute("colleges",colleges);
+        model.addAttribute("scores",scoreList);
         return "score";
     }
 
@@ -55,6 +57,14 @@ public class ScoreController {
 
         List<Student> students=studentService.selectByGrade(grade);
         return students;
+    }
+
+    @ResponseBody
+    @GetMapping("/selectScore")
+    public List<Score> selectScore(@RequestParam("grade")String grade,@RequestParam("subject")String subject){
+
+        List<Score> scores=scoreService.selectByGrade(grade,subject);
+        return scores;
     }
 
 //    @GetMapping("/delete")
@@ -75,13 +85,15 @@ public class ScoreController {
         ObjectMapper mapper = new ObjectMapper();
         JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, Score.class);
         List<Score> sc =  (List<Score>)mapper.readValue(scores, jt);
-        for (int i = 0; i < sc.size(); i++) {
+        //System.out.println(sc.toString());
 
+        for(Score scoreList:sc){
+            if(scoreService.ifHas(scoreList) == null){
+                scoreService.insert(scoreList);
 
-            scoreService.insert(sc.get(i));
-
-
-
+            }else{
+                scoreService.updateById(scoreList);
+            }
         }
 
         List<Student> students=studentService.selectAll(User.COLLEGE);

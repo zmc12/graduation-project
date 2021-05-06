@@ -20,5 +20,9 @@ public interface ScoreService {
 
     void updateById(Score score);
 
-    List<Score> ifHas(Score score);
+    Score ifHas(Score score);
+
+    List<Score> selectSubject();
+
+    List<Score> selectByGrade(String grade, String subject);
 }

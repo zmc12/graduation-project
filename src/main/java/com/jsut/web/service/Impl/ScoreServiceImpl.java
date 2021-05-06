@@ -42,8 +42,18 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score> ifHas(Score score) {
-        List<Score> scores = scoreMapper.ifHas(score);
+    public Score ifHas(Score score) {
+        Score scores = scoreMapper.ifHas(score);
         return scores;
+    }
+
+    @Override
+    public List<Score> selectSubject() {
+        return scoreMapper.selectSubject();
+    }
+
+    @Override
+    public List<Score> selectByGrade(String grade, String subject) {
+        return scoreMapper.selectByGrade(grade,subject);
     }
 }

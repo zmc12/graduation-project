@@ -36,4 +36,12 @@
         select <include refid="Base_Column_List"/> from score where name=#{name} and subject=#{subject};
     </select>
 
+    <select id="selectSubject" resultMap="BaseResultMap">
+        select distinct subject from score;
+    </select>
+
+
+    <select id="selectByGrade" resultMap="BaseResultMap">
+        select  a.* from score a,(select name from student where grade=#{grade}) b where a.name=b.name and  subject=#{subject} order by id asc;
+    </select>
 </mapper>

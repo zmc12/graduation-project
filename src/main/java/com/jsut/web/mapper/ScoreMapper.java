@@ -2,6 +2,7 @@ package com.jsut.web.mapper;
 
 import com.jsut.web.pojo.Score;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public interface ScoreMapper {
 
     void updateById(Score score);
 
-    List<Score> ifHas(Score score);
+    Score ifHas(Score score);
+
+    List<Score> selectSubject();
+
+    List<Score> selectByGrade(@Param("grade") String grade,@Param("subject") String subject);
 }
