@@ -2,10 +2,8 @@ package com.jsut.web.controller;
 
 import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.Dom;
-import com.jsut.web.pojo.Notice;
 import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.DomService;
-import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -33,12 +33,13 @@ public class DomController {
     private CollegeService collegeService;
 
     @GetMapping("/first")
-    public String first(Model model){
+    public String first(Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
 
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "dom";
     }
@@ -52,36 +53,39 @@ public class DomController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("id")Integer id,Model model){
+    public String delete(@RequestParam("id")Integer id,Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         domService.deleteById(id);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @PostMapping("/insert")
-    public String insert(Dom dom,Model model){
-        System.out.println(dom.toString());
+    public String insert(Dom dom,Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+
         domService.insert(dom);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @PostMapping("/update")
-    public String update(Model model, Dom dom){
+    public String update(Model model, Dom dom, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         System.out.println(dom.toString());
         domService.updateById(dom);
         List<Dom> list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "dom";
     }

@@ -9,7 +9,6 @@ import com.jsut.web.pojo.Student;
 import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.ScoreService;
 import com.jsut.web.service.StudentService;
-import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +43,9 @@ public class ScoreController {
 
 
     @RequestMapping("/first")
-    public String first(Model model){
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+    public String first(Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         List<Score> scoreList = scoreService.selectSubject();
         model.addAttribute("colleges",colleges);
         model.addAttribute("scores",scoreList);
@@ -80,8 +82,8 @@ public class ScoreController {
 
     @ResponseBody
     @PostMapping("/insert")
-    public ResultCode insert(@RequestParam("scores") String scores,Model model) throws IOException {
-
+    public ResultCode insert(@RequestParam("scores") String scores,Model model, HttpServletRequest request) throws IOException {
+        Cookie[] cookies = request.getCookies();
         ObjectMapper mapper = new ObjectMapper();
         JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, Score.class);
         List<Score> sc =  (List<Score>)mapper.readValue(scores, jt);
@@ -96,7 +98,7 @@ public class ScoreController {
             }
         }
 
-        List<Student> students=studentService.selectAll(User.COLLEGE);
+        List<Student> students=studentService.selectAll(cookies[1].getValue());
         model.addAttribute("students",students);
 
 

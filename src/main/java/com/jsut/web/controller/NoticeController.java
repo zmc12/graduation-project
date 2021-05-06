@@ -5,7 +5,6 @@ import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.KnowService;
 import com.jsut.web.service.NoticeService;
 import com.jsut.web.service.StudentService;
-import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -40,20 +41,22 @@ public class NoticeController {
     private KnowService knowService;
 
     @GetMapping("/first")
-    public String first(Model model){
-        List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
-        List<Notice> list=noticeService.selectAll(User.Name);
+    public String first(Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
+        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
     }
 
     @GetMapping("/delete")
-    public String delete(Model model,@RequestParam("id")Integer id){
+    public String delete(Model model,@RequestParam("id")Integer id, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         noticeService.deleteById(id);
         knowService.deleteById(id);
-        List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
-        List<Notice> list=noticeService.selectAll(User.Name);
+        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
+        List<Notice> list=noticeService.selectAll(cookies[1].getValue());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
@@ -61,9 +64,10 @@ public class NoticeController {
 
 
     @PostMapping("/insert")
-    public String insert(Notice notice,Model model){
+    public String insert(Notice notice,Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         for(int i=0;i<notice.getGrades().length;i++){
-            notice.setName(User.Name);
+            notice.setName(cookies[0].getName());
             notice.setGrade(notice.getGrades()[i]);
             noticeService.insert(notice);
             Integer id = notice.getId();
@@ -73,20 +77,21 @@ public class NoticeController {
             }
         }
 
-        List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
-        List<Notice> list=noticeService.selectAll(User.Name);
+        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
+        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
     }
 
     @PostMapping("/update")
-    public String update(Model model,Notice notice){
-        notice.setName(User.Name);
+    public String update(Model model,Notice notice, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        notice.setName(cookies[0].getValue());
         noticeService.updateById(notice);
 
-        List <College> colleges= collegeService.selectByCollege(User.COLLEGE);
-        List<Notice> list=noticeService.selectAll(User.Name);
+        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
+        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";

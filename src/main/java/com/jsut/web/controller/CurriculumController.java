@@ -2,11 +2,8 @@ package com.jsut.web.controller;
 
 import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.Curriculum;
-import com.jsut.web.pojo.ResultCode;
 import com.jsut.web.service.CollegeService;
 import com.jsut.web.service.CurriculumService;
-import com.jsut.web.service.UserService;
-import com.jsut.web.utils.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,8 +33,9 @@ public class CurriculumController {
     private CurriculumService curriculumService;
 
     @GetMapping("/first")
-    public String first(Model model){
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+    public String first(Model model, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "curriculum";
     }
@@ -49,14 +49,15 @@ public class CurriculumController {
     }
 
     @PostMapping("/insert")
-    public String insert(Curriculum curriculum,Model model){
+    public String insert(Curriculum curriculum,Model model,HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
         if(curriculumService.select(curriculum.getGrade(),curriculum.getTerm())==null){
             curriculumService.insert(curriculum);
         }else {
             curriculumService.update(curriculum);
         }
 
-        List<College> colleges = collegeService.selectByCollege(User.COLLEGE);
+        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
         model.addAttribute("colleges",colleges);
         return "curriculum";
     }
