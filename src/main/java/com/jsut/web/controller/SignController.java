@@ -35,14 +35,13 @@ public class SignController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request) {
-//        List<Sign> list1=signService.selectSign();
-//        List<Sign> list2= signService.selctNoSign();
-        Cookie[] cookies = request.getCookies();
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+
+        Object college = request.getSession().getAttribute("college");
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         List<Sign> signs = signService.selectAll();
 
-//        model.addAttribute("list1",list1);
-//        model.addAttribute("list2",list2);
+
+
         model.addAttribute("colleges",colleges);
         model.addAttribute("signs",signs);
         return "sign";

@@ -73,7 +73,7 @@
 	   </div>				
 		
 		
-		<br>
+<!-- 		<br>
 		<br>
 		<br>
 		<br>
@@ -83,36 +83,36 @@
 
 				   
 		
-        <p>录入管理</p>  
+        <p>录入管理</p>
 		<br>
-		<label for="grade">班级选择:</label>	
+		<label for="grade">班级选择:</label>
 		<select class=""  id="grade">
 			<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
-		</select>	 
+		</select>
 		<br>
 		<button type="button" id="select" class="btn btn-primary">查询</button>
 		<br>
 		<div class="form-group">
 		  <label for="exampleInputEmail1">输入课程名称:</label>
 		  <input type="text" name="number" id="subject">
-		</div>	  
+		</div>
 		<br>
         <div>
 		   <table  class="table table-striped" id="table">
 			  <thead>
 			    <tr>
 			 	 <th scope="col">#</th>
-			 	 <th scope="col">班级</th>    
-			     <th scope="col">姓名</th>    
-			 	 <th scope="col">学号</th>   
-			 	 <th scope="col">成绩</th> 
+			 	 <th scope="col">班级</th>
+			     <th scope="col">姓名</th>
+			 	 <th scope="col">学号</th>
+			 	 <th scope="col">成绩</th>
 			    </tr>
 			  </thead>
-			  <tbody id="tbody">		   
+			  <tbody id="tbody">
 			  </tbody>
 			</table>
 		<button type="button" class="btn btn-primary btn-lg" id="save">保存</button>
-	   </div>		
+	   </div> -->
 
 		
 	  </div>
@@ -120,6 +120,17 @@
 </body>
 <script type="application/javascript">
 	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
 		
 		$("#select").click(function(){
 			var grade=$("#grade").val();
@@ -191,7 +202,7 @@
 
 	       function Person(name,score,subject) {
 	         this.name = name;
-	         this.score = score;
+	         this.score = scoreSearch;
 	         this.subject = subject;
 	     
 	       }
@@ -202,10 +213,10 @@
 			 	 var name=$(this).children().eq(2).text();
 				 var score=$(this).children().eq(4).children().eq(0).val();
 				 var subject = $("#subject").val();
-				 if(subject == "" || score == ""){
+				 if(subject == "" || scoreSearch == ""){
 					 toastr.error("课程、成绩不能为空");
 				 }else{
-					 _list.push(new Person(name,score,subject));
+					 _list.push(new Person(name,scoreSearch,subject));
 				 }
 				
 		      })

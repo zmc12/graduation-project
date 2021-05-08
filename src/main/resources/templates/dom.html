@@ -222,6 +222,17 @@
 </body>
 <script>
 	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
 		
 		$("#table").on("click",".change",function(){
 			var id=$(this).parent().parent().children('td').eq(0).text();

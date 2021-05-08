@@ -42,14 +42,23 @@ public class ScoreController {
     private CollegeService collegeService;
 
 
-    @RequestMapping("/first")
-    public String first(Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+    @RequestMapping("/search/first")
+    public String searchFirst(Model model, HttpServletRequest request){
+        Object college = request.getSession().getAttribute("college");
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         List<Score> scoreList = scoreService.selectSubject();
         model.addAttribute("colleges",colleges);
         model.addAttribute("scores",scoreList);
-        return "score";
+        return "scoreSearch";
+    }
+
+    @RequestMapping("/insert/first")
+    public String insertFirst(Model model, HttpServletRequest request){
+        Object college = request.getSession().getAttribute("college");
+        List<College> colleges = collegeService.selectByCollege(college.toString());
+
+        model.addAttribute("colleges",colleges);
+        return "scoreInsert";
     }
 
 
@@ -69,25 +78,16 @@ public class ScoreController {
         return scores;
     }
 
-//    @GetMapping("/delete")
-//    public String delete(Model model,@RequestParam("id")Integer id){
-//        scoreService.deleteById(id);
-//        List<Score> scores=scoreService.selectByName(this.name);
-//        List<Student> students=studentService.selectAll(User.COLLEGE);
-//        model.addAttribute("students",students);
-//        model.addAttribute("scores",scores);
-//        return "score";
-//    }
 
 
     @ResponseBody
     @PostMapping("/insert")
     public ResultCode insert(@RequestParam("scores") String scores,Model model, HttpServletRequest request) throws IOException {
-        Cookie[] cookies = request.getCookies();
+        Object college = request.getSession().getAttribute("college");
         ObjectMapper mapper = new ObjectMapper();
         JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, Score.class);
         List<Score> sc =  (List<Score>)mapper.readValue(scores, jt);
-        //System.out.println(sc.toString());
+
 
         for(Score scoreList:sc){
             if(scoreService.ifHas(scoreList) == null){
@@ -98,22 +98,13 @@ public class ScoreController {
             }
         }
 
-        List<Student> students=studentService.selectAll(cookies[1].getValue());
+        List<Student> students=studentService.selectAll(college.toString());
         model.addAttribute("students",students);
 
 
         return new ResultCode(200,"保存成绩成功");
     }
 
-//    @PostMapping("/update")
-//    public String update(Score score,Model model){
-//
-//        scoreService.updateById(score);
-//        List<Score> scores=scoreService.selectByName(this.name);
-//        List<Student> students=studentService.selectAll(User.COLLEGE);
-//        model.addAttribute("students",students);
-//        model.addAttribute("scores",scores);
-//        return "score";
-//    }
+
 
 }

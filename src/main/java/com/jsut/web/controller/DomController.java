@@ -34,58 +34,69 @@ public class DomController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
+
+        Object college = request.getSession().getAttribute("college");
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
 
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "dom";
+    }
+
+    @GetMapping("/first1")
+    public String first1(Model model, HttpServletRequest request){
+        Object college = request.getSession().getAttribute("college");
+        List<Dom>list=domService.selectAll();
+        model.addAttribute("doms",list);
+
+
+        List<College> colleges = collegeService.selectByCollege(college.toString());
+        model.addAttribute("colleges",colleges);
+        return "dom1";
     }
 
     @ResponseBody
     @GetMapping("/select")
     public List<Dom> select(@RequestParam("grade")String grade,@RequestParam("term")String term){
         List<Dom> doms = domService.select(grade, term);
-        //System.out.println(doms.toString());
         return doms;
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id")Integer id,Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
+
+        Object college = request.getSession().getAttribute("college");
         domService.deleteById(id);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @PostMapping("/insert")
     public String insert(Dom dom,Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-
+        Object college = request.getSession().getAttribute("college");
         domService.insert(dom);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @PostMapping("/update")
     public String update(Model model, Dom dom, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        System.out.println(dom.toString());
+        Object college = request.getSession().getAttribute("college");
         domService.updateById(dom);
         List<Dom> list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "dom";
     }

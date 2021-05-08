@@ -42,9 +42,10 @@ public class NoticeController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
-        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
+        Object college = request.getSession().getAttribute("college");
+        Object name = request.getSession().getAttribute("name");
+        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
@@ -52,11 +53,11 @@ public class NoticeController {
 
     @GetMapping("/delete")
     public String delete(Model model,@RequestParam("id")Integer id, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
+        Object college = request.getSession().getAttribute("college");
         noticeService.deleteById(id);
         knowService.deleteById(id);
-        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
-        List<Notice> list=noticeService.selectAll(cookies[1].getValue());
+        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List<Notice> list=noticeService.selectAll(college.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
@@ -65,9 +66,11 @@ public class NoticeController {
 
     @PostMapping("/insert")
     public String insert(Notice notice,Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
+        Object college = request.getSession().getAttribute("college");
+        Object name = request.getSession().getAttribute("name");
+
         for(int i=0;i<notice.getGrades().length;i++){
-            notice.setName(cookies[0].getName());
+            notice.setName(name.toString());
             notice.setGrade(notice.getGrades()[i]);
             noticeService.insert(notice);
             Integer id = notice.getId();
@@ -77,8 +80,8 @@ public class NoticeController {
             }
         }
 
-        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
-        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
+        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
@@ -86,12 +89,14 @@ public class NoticeController {
 
     @PostMapping("/update")
     public String update(Model model,Notice notice, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        notice.setName(cookies[0].getValue());
+        Object college = request.getSession().getAttribute("college");
+        Object name = request.getSession().getAttribute("name");
+
+        notice.setName(name.toString());
         noticeService.updateById(notice);
 
-        List <College> colleges= collegeService.selectByCollege(cookies[1].getValue());
-        List<Notice> list=noticeService.selectAll(cookies[0].getValue());
+        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";

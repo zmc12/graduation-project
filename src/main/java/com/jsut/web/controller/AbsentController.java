@@ -35,12 +35,12 @@ public class AbsentController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        System.out.println(cookies.toString());
+        Object college = request.getSession().getAttribute("college");
 
 
-        List<Absent> list=absentService.selectAll(cookies[1].getValue());
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+
+        List<Absent> list=absentService.selectAll(college.toString());
+        List<College> colleges = collegeService.selectByCollege(college.toString());
 
         model.addAttribute("absents",list);
         model.addAttribute("colleges",colleges);

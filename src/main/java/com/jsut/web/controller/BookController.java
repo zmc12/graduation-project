@@ -36,6 +36,13 @@ public class BookController {
         return "book";
     }
 
+    @RequestMapping("/first1")
+    public String first1(Model model){
+        List<Book> books=bookService.selectAll();
+        model.addAttribute("books",books);
+        return "book1";
+    }
+
     @GetMapping("/delete")
     public String delete(Model model, @RequestParam("bookName")String bookName){
         bookService.delete(bookName);

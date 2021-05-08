@@ -181,6 +181,17 @@
 </body>
 <script type="application/javascript">
 	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
 		
 		
 		$(".ck").click(function(){

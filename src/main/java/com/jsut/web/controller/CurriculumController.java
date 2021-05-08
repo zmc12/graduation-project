@@ -34,8 +34,8 @@ public class CurriculumController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        Object college = request.getSession().getAttribute("college");
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "curriculum";
     }
@@ -57,7 +57,8 @@ public class CurriculumController {
             curriculumService.update(curriculum);
         }
 
-        List<College> colleges = collegeService.selectByCollege(cookies[1].getValue());
+        Object college = request.getSession().getAttribute("college");
+        List<College> colleges = collegeService.selectByCollege(college.toString());
         model.addAttribute("colleges",colleges);
         return "curriculum";
     }
