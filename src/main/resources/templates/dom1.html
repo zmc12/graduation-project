@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>宿舍管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	#dom{
+		height:400px;
+		overflow: scroll;
+	}
+	
+	.a1{
+		display: inline;
+	}
+	
+	.a2{
+		float: right;
+	}
+	
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	
+   <div class="jumbotron jumbotron-fluid">
+   <div class="container">
+    <!-- <h1 class="display-4">学生宿舍信息</h1> -->
+     <p class="lead a1">宿舍名单</p>
+	 <br>
+	 <br>
+	 <label class="lead">班级选择:</label>
+	 <select class=""  id="grade">
+	 	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+	 </select>
+	 <br>
+	 <label class="lead">学期选择:</label>
+	 <select class="" id="term">
+	 	<option>2020-2021-1</option>
+	 	<option>2020-2021-2</option>
+	 	<option>2021-2022-1</option>
+	 	<option>2021-2022-2</option>
+	 	<option>2022-2023-1</option>
+	 	<option>2022-2023-2</option>
+	 	<option>2023-2024-1</option>
+	 	<option>2023-2024-2</option>
+	 	<option>2024-2025-1</option>
+	 	<option>2024-2025-2</option>
+	 </select>
+	 <br>
+	 <button type="button" id="select" class="btn btn-primary">查询</button>
+	 <br>
+	 <div>
+		 <table class="table table-striped" id="table">
+		   <thead>
+		     <tr>
+		 	  <th scope="col">#</th>
+		      <th scope="col">宿舍号</th>
+		      <th scope="col">得分</th>
+		 	  <th scope="col">成员</th>
+			  <th scope="col">维修项目</th>
+			  <th scope="col">维修进展</th>
+		     </tr>
+		   </thead>
+		   <tbody>
+             <tr th:each="dom:${doms}">
+				 <td th:text="${dom.id}"></td>
+				 <td th:text="${dom.number}"></td>
+				 <td th:text="${dom.score}"></td>
+				 <td th:text="${dom.students}"></td>
+				 <td th:text="${dom.fix}"></td>
+				 <td th:text="${dom.process}"></td>
+				 <td style="display: none;" th:text="${dom.grade}"></td>
+				 <td style="display: none;" th:text="${dom.term}"></td>				  
+			 </tr>			   
+		   </tbody>
+		 </table>
+	 </div>
+ 	
+ 	<br>
+	
+	
+	
+	  
+    </div>
+   </div>
+</body>
+<script>
+	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+	
+			$.ajax({
+				type:"GET",
+				url:"/graduation/dom/select?grade="+grade+"&term="+term,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						   if(val.fix==null || val.process==null){
+							   val.fix="";
+							   val.process="";
+						   }
+					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table tbody").append(tbody);  
+						
+					}
+					
+				}
+			})
+		})
+	})
+</script>
+</html>

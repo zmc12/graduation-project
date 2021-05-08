@@ -5,12 +5,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author ZhangMinCong
  * @date 2020/12/18 10:57
  */
 @SpringBootApplication
+@ComponentScan("com.jsut.web.config")
 public class JSUTApplication extends SpringBootServletInitializer {
 
 
