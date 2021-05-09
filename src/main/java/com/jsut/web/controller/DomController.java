@@ -35,24 +35,23 @@ public class DomController {
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
 
-        Object college = request.getSession().getAttribute("college");
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
 
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @GetMapping("/first1")
     public String first1(Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
+
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
 
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         model.addAttribute("colleges",colleges);
         return "dom1";
     }
@@ -67,24 +66,23 @@ public class DomController {
     @GetMapping("/delete")
     public String delete(@RequestParam("id")Integer id,Model model, HttpServletRequest request){
 
-        Object college = request.getSession().getAttribute("college");
         domService.deleteById(id);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         model.addAttribute("colleges",colleges);
         return "dom";
     }
 
     @PostMapping("/insert")
     public String insert(Dom dom,Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
+
         domService.insert(dom);
         List<Dom>list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         model.addAttribute("colleges",colleges);
         return "dom";
     }
@@ -96,7 +94,7 @@ public class DomController {
         List<Dom> list=domService.selectAll();
         model.addAttribute("doms",list);
 
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         model.addAttribute("colleges",colleges);
         return "dom";
     }

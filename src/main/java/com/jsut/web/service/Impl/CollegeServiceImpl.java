@@ -22,9 +22,19 @@ public class CollegeServiceImpl implements CollegeService {
     private CollegeMapper collegeMapper;
 
 
-    public List<College> selectByCollege(String college) {
-        List<College> colleges = collegeMapper.selectByCollege(college);
+    public List<College> selectByCollege() {
+        List<College> colleges = collegeMapper.selectByCollege();
 
         return colleges;
+    }
+
+    @Override
+    public List<College> selectGrade(String college) {
+        return collegeMapper.selectGrade(college);
+    }
+
+    @Override
+    public List<College> selectAll() {
+        return collegeMapper.selectAll();
     }
 }

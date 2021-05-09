@@ -44,8 +44,8 @@ public class ScoreController {
 
     @RequestMapping("/search/first")
     public String searchFirst(Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+
+        List<College> colleges = collegeService.selectByCollege();
         List<Score> scoreList = scoreService.selectSubject();
         model.addAttribute("colleges",colleges);
         model.addAttribute("scores",scoreList);
@@ -54,8 +54,7 @@ public class ScoreController {
 
     @RequestMapping("/insert/first")
     public String insertFirst(Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
 
         model.addAttribute("colleges",colleges);
         return "scoreInsert";
@@ -73,7 +72,6 @@ public class ScoreController {
     @ResponseBody
     @GetMapping("/selectScore")
     public List<Score> selectScore(@RequestParam("grade")String grade,@RequestParam("subject")String subject){
-
         List<Score> scores=scoreService.selectByGrade(grade,subject);
         return scores;
     }

@@ -224,7 +224,7 @@
 			
 			$.ajax({
 				type:"get",
-				url:"/graduation/notice/selectStudent?id="+id+"&grade="+grade,
+				url:"/notice/selectStudent?id="+id+"&grade="+grade,
 				success:function(data){
 				 $('#students tr:not(#first)').empty();
 				 var groupTable = $('#students');

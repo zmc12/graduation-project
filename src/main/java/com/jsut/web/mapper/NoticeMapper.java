@@ -1,5 +1,6 @@
 package com.jsut.web.mapper;
 
+import com.jsut.web.pojo.College;
 import com.jsut.web.pojo.Notice;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -21,4 +22,5 @@ public interface NoticeMapper {
 
     void updateById(Notice notice);
 
+    List<College> selectAll();
 }

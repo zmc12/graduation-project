@@ -55,10 +55,14 @@
 	 </button>
 	 <br>
 	 <br>
-	 <label class="lead">班级选择:</label>
-	 <select class=""  id="grade">
-	 	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
-	 </select>
+	<label for="exampleInputEmail11">学院选择:</label>
+	<select id="college">
+	  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	</select>
+	<label for="exampleInputEmail11">班级选择:</label>
+	<select class="" id="grade">
+	  
+	</select>
 	 <br>
 	 <label class="lead">学期选择:</label>
 	 <select class="" id="term">
@@ -234,6 +238,27 @@
 			$(".fixer").css("display","none");
 		}
 		
+		var x = document.getElementById("college");
+		x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		
 		$("#table").on("click",".change",function(){
 			var id=$(this).parent().parent().children('td').eq(0).text();
 			var number=$(this).parent().parent().children('td').eq(1).text();
@@ -276,7 +301,7 @@
 	
 			$.ajax({
 				type:"GET",
-				url:"/graduation/dom/select?grade="+grade+"&term="+term,
+				url:"/dom/select?grade="+grade+"&term="+term,
 				dataType:"json",
 				success:function(data){
 					if(data==null || data==""){

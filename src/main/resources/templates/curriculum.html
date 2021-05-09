@@ -34,8 +34,11 @@
 	  <div class="container">
 	    <!-- <h1 class="display-4">课表管理</h1> -->
 	   <label>班级选择:</label>
- 	   <select class=""  id="grade">
- 	   	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+	   <select id="college">
+	     <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	   </select>
+ 	   <select id="grade">
+ 	   
  	   </select>
 	   <br>
 		<label>学期选择:</label>
@@ -149,6 +152,29 @@
 		}
 		
 		
+		
+		var x = document.getElementById("college");
+		 x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		 		
+		
 		$("#save").click(function(){
 			var grade = $("#grade").val();
 			var term = $("#term").val();
@@ -163,7 +189,7 @@
 		
 			$.ajax({
 				type:"GET",
-				url:"/graduation/curriculum/select/"+grade+"/"+term,
+				url:"/curriculum/select/"+grade+"/"+term,
 				data:{
 					"grade" : grade,
 					"term" : term

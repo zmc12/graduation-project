@@ -12,5 +12,9 @@ import java.util.List;
 @EnableAutoConfiguration
 
 public interface CollegeService {
-    List<College> selectByCollege(String college);
+    List<College> selectByCollege();
+
+    List<College> selectGrade(String college);
+
+    List<College> selectAll();
 }

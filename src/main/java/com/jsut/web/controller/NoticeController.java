@@ -42,9 +42,8 @@ public class NoticeController {
 
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
         Object name = request.getSession().getAttribute("name");
-        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List <College> colleges= collegeService.selectAll();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
@@ -53,11 +52,11 @@ public class NoticeController {
 
     @GetMapping("/delete")
     public String delete(Model model,@RequestParam("id")Integer id, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
+        Object name = request.getSession().getAttribute("name");
         noticeService.deleteById(id);
         knowService.deleteById(id);
-        List <College> colleges= collegeService.selectByCollege(college.toString());
-        List<Notice> list=noticeService.selectAll(college.toString());
+        List <College> colleges= collegeService.selectAll();
+        List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
         return "notice";
@@ -66,7 +65,6 @@ public class NoticeController {
 
     @PostMapping("/insert")
     public String insert(Notice notice,Model model, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
         Object name = request.getSession().getAttribute("name");
 
         for(int i=0;i<notice.getGrades().length;i++){
@@ -80,7 +78,7 @@ public class NoticeController {
             }
         }
 
-        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List <College> colleges= collegeService.selectAll();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
@@ -89,13 +87,12 @@ public class NoticeController {
 
     @PostMapping("/update")
     public String update(Model model,Notice notice, HttpServletRequest request){
-        Object college = request.getSession().getAttribute("college");
         Object name = request.getSession().getAttribute("name");
 
         notice.setName(name.toString());
         noticeService.updateById(notice);
 
-        List <College> colleges= collegeService.selectByCollege(college.toString());
+        List <College> colleges= collegeService.selectAll();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);

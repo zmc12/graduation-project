@@ -77,7 +77,7 @@
 
 			$.ajax({
 			type:"put",
-			url:"/graduation/book/updateTime?bookName="+bookName+"&studentName="+studentName+"&time="+time,
+			url:"/book/updateTime?bookName="+bookName+"&studentName="+studentName+"&time="+time,
 			success:function(data){
 				 $(this).parent().parent().children('td').eq(2).text(data.time);
 			     toastr.success("已经续期1个月");
@@ -90,7 +90,7 @@
 			var bookName=$(this).parent().parent().children('td').eq(0).text();
 			$.ajax({
 				type:"get",
-				url:"/graduation/book/selectBroswer?bookName="+bookName,
+				url:"/book/selectBroswer?bookName="+bookName,
 				success:function(data){
 				 $('#broswer tr:not(#first)').empty();
 				 var groupTable = $('#broswer');

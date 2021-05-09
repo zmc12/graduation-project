@@ -85,10 +85,14 @@
 		
         <p>录入管理</p>  
 		<br>
-		<label for="grade">班级选择:</label>	
-		<select class=""  id="grade">
-			<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
-		</select>	 
+		<label for="exampleInputEmail11">学院选择:</label>
+		<select id="college">
+		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+		</select>
+		<label for="exampleInputEmail11">班级选择:</label>
+		<select class="" id="grade">
+		  
+		</select>
 		<br>
 		<button type="button" id="select" class="btn btn-primary">查询</button>
 		<br>
@@ -132,6 +136,28 @@
 			$(".fixer").css("display","none");
 		}
 		
+		var x = document.getElementById("college");
+		x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		 		
+		
 		
 		$("#select").click(function(){
 			var grade=$("#grade").val();
@@ -140,7 +166,7 @@
 			
 		    $.ajax({
 				type:"GET",
-				url:"/graduation/score/select?grade="+grade,
+				url:"/score/select?grade="+grade,
 				dataType:"json",
 				success:function(data){
 					if(data==null || data==""){
@@ -173,7 +199,7 @@
 			
 		    $.ajax({
 				type:"GET",
-				url:"/graduation/score/selectScore?grade="+grade1+"&subject="+subject1,
+				url:"/score/selectScore?grade="+grade1+"&subject="+subject1,
 				dataType:"json",
 				success:function(data){
 					if(data==null || data==""){
@@ -224,7 +250,7 @@
 			
 		     if(_list.length != 0){
 				 $.ajax({
-				 	url : '/graduation/score/insert',
+				 	url : '/score/insert',
 				 	data : "scores="+JSON.stringify(_list),
 				 	dataType : "json",
 				 	type : "POST",

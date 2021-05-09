@@ -38,9 +38,8 @@ public class AbsentController {
         Object college = request.getSession().getAttribute("college");
 
 
-
-        List<Absent> list=absentService.selectAll(college.toString());
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<Absent> list = absentService.selectAll(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
 
         model.addAttribute("absents",list);
         model.addAttribute("colleges",colleges);
@@ -78,4 +77,6 @@ public class AbsentController {
         List<Absent> absents = absentService.select(grade);
         return absents;
     }
+
+
 }

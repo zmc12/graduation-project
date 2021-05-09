@@ -37,7 +37,7 @@ public class SignController {
     public String first(Model model, HttpServletRequest request) {
 
         Object college = request.getSession().getAttribute("college");
-        List<College> colleges = collegeService.selectByCollege(college.toString());
+        List<College> colleges = collegeService.selectByCollege();
         List<Sign> signs = signService.selectAll();
 
 

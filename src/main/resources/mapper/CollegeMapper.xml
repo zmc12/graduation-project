@@ -15,12 +15,17 @@
     </sql>
 
 
-    <select id="selectByCollege" parameterType="java.lang.String"  resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List" /> from college where college=#{college} order by id asc;
+    <select id="selectByCollege"  resultMap="BaseResultMap">
+        select distinct college   from college;
     </select>
 
+    <select id="selectGrade" parameterType="java.lang.String"  resultMap="BaseResultMap">
+        select  *  from college where college=#{college};
+    </select>
 
-
+    <select id="selectAll" parameterType="java.lang.String"  resultMap="BaseResultMap">
+        select  *  from college order by id asc;
+    </select>
 
 
 </mapper>

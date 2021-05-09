@@ -14,5 +14,9 @@ import java.util.List;
 @Mapper
 public interface CollegeMapper {
 
-    List<College> selectByCollege(String college);
+    List<College> selectByCollege();
+
+    List<College> selectGrade(String college);
+
+    List<College> selectAll();
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -55,14 +56,16 @@ public class UserController {
            httpSession.setAttribute("college", teacher.getCollege());
            httpSession.setAttribute("userName", teacher.getUserName());
            httpSession.setAttribute("password", teacher.getPassword());
-
+           httpSession.setAttribute("user", teacher);
            return "home";
        }
 
     }
 
     @GetMapping("/logout")
-    public String loginout(){
+    public String loginout(HttpSession httpSession, SessionStatus sessionStatus){
+        httpSession.invalidate();
+        sessionStatus.setComplete();
         return "index";
     }
 
