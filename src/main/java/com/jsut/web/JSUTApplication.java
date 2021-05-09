@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2020/12/18 10:57
  */
 @SpringBootApplication
-@ComponentScan("com.jsut.web.config")
 public class JSUTApplication extends SpringBootServletInitializer {
 
 
