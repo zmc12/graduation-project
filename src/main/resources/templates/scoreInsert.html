@@ -83,7 +83,7 @@
  -->
 				   
 		
-        <p>录入管理</p>  
+        <!-- <p>录入管理</p>  -->
 		<br>
 		<label for="exampleInputEmail11">学院选择:</label>
 		<select id="college">
@@ -93,12 +93,10 @@
 		<select class="" id="grade">
 		  
 		</select>
-		<br>
-		<button type="button" id="select" class="btn btn-primary">查询</button>
-		<br>
+		<button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
 		<div class="form-group">
 		  <label for="exampleInputEmail1">输入课程名称:</label>
-		  <input type="text" name="number" id="subject">
+		  <input type="text" name="number" id="subject" placeholder="输入课程名称">
 		</div>	  
 		<br>
         <div>
@@ -179,8 +177,7 @@
 						var tbody="";
 						$.each(data,function(n,val) {   
 						   var trs = "";  
-						 
-					       trs += " <tr><td>" +val.id+" </td> <td>" + val.grade +"</td> <td>" + val.name +"</td> <td>" + val.userName +"</td> <td><input type='number' class='score' min='0' max='100'  name='score'></td> </tr>";  
+					       trs += " <tr><td>" + val.id +" </td> <td>" + val.grade +"</td> <td>" + val.name +"</td> <td>" + val.userName +"</td> <td><input type='number' class='score' min='0' max='100'  name='score'></td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  
@@ -229,7 +226,7 @@
 
 	       function Person(name,score,subject) {
 	         this.name = name;
-	         this.score = scoreSearch;
+	         this.score = score;
 	         this.subject = subject;
 	     
 	       }
@@ -240,10 +237,10 @@
 			 	 var name=$(this).children().eq(2).text();
 				 var score=$(this).children().eq(4).children().eq(0).val();
 				 var subject = $("#subject").val();
-				 if(subject == "" || scoreSearch == ""){
+				 if(subject == "" || score == ""){
 					 toastr.error("课程、成绩不能为空");
 				 }else{
-					 _list.push(new Person(name,scoreSearch,subject));
+					 _list.push(new Person(name,score,subject));
 				 }
 				
 		      })

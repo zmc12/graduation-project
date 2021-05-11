@@ -49,9 +49,7 @@
    <div class="jumbotron jumbotron-fluid">
    <div class="container">
     <!-- <h1 class="display-4">学生宿舍信息</h1> -->
-     <p class="lead a1">宿舍名单</p>
-	 <br>
-	 <br>
+    <!-- <p class="lead a1">宿舍名单</p> -->
 	<label for="exampleInputEmail11">学院选择:</label>
 	<select id="college">
 	  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
@@ -60,7 +58,6 @@
 	<select class="" id="grade">
 	  
 	</select>
-	 <br>
 	 <label class="lead">学期选择:</label>
 	 <select class="" id="term">
 	 	<option>2020-2021-1</option>
@@ -74,14 +71,13 @@
 	 	<option>2024-2025-1</option>
 	 	<option>2024-2025-2</option>
 	 </select>
-	 <br>
-	 <button type="button" id="select" class="btn btn-primary">查询</button>
+	 <button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
 	 <br>
 	 <div>
 		 <table class="table table-striped" id="table">
 		   <thead>
 		     <tr>
-		 	  <th scope="col">#</th>
+		 	  <th scope="col">序号</th>
 		      <th scope="col">宿舍号</th>
 		      <th scope="col">得分</th>
 		 	  <th scope="col">成员</th>
@@ -165,13 +161,13 @@
 						toastr.success("查询成功");
 						$("#table tbody").empty();
 						var tbody="";
-						$.each(data,function(n,val) {   
+						$.each(data,function(n,val) {  
 						   var trs = "";  
 						   if(val.fix==null || val.process==null){
 							   val.fix="";
 							   val.process="";
 						   }
-					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+					       trs += " <tr><td> " + val .id +" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  

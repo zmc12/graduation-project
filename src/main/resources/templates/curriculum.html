@@ -38,9 +38,7 @@
 	     <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 	   </select>
  	   <select id="grade">
- 	   
  	   </select>
-	   <br>
 		<label>学期选择:</label>
 		<select  id="term">
 		   <option>2020-2021-1</option>
@@ -54,19 +52,17 @@
 		   <option>2024-2025-1</option>
 		   <option>2024-2025-2</option>
 		</select>
-		<br>
-		<br>
-		<button type="button" id="select" class="btn btn-primary">查询</button>
+		<button type="button" id="select" class="btn btn-primary" style="float: right;">查询</button>
 		<br>
 		
 		<form th:action="@{/curriculum/insert}" method="post">
 			<input type="hidden" name="grade" id="grade1" />
 			<input type="hidden" name="term" id="term1" />
 			
-			<table  height="800" class="table table-bordered">
+			<table  height="800" class="table table-bordered"  align="center">
 			  <thead>
-			    <tr>
-			      <th scope="col">#</th>
+			    <tr style='text-align: center;'>
+			      <th scope="col">时间</th>
 			      <th scope="col">星期一</th>
 			      <th scope="col">星期二</th>
 			      <th scope="col">星期三</th>
@@ -76,7 +72,7 @@
 				  <th scope="col">星期日</th>
 			    </tr>
 			  </thead>
-			  <tbody>
+			  <tbody style='text-align: center;'>
 			    <tr >
 			      <th scope="row">1-2节课</th>
 			      <td id="cur11" name="cur11"></td>

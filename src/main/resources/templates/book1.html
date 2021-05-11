@@ -61,7 +61,12 @@
 			$(".fixer").css("display","none");
 		}
 		
-		
+      $("#filterName").keyup(function() {
+        $("table>tbody>tr")
+            .hide()
+            .filter(":contains('" + ($(this).val()) + "')")
+            .show();
+      });		
 		
 	
 	})
@@ -69,10 +74,10 @@
 <body>
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
-	  <div class="container">
+	  <div class="container" >
 	    <!-- <h1 class="display-4">图书管理</h1> -->
-	    <p class="lead a1">图书名单</p>
-
+	    <p class="lead a1" style="margin-left: 500px;">图书名单</p>
+		<input placeholder="输入图书名称筛选" id="filterName" style="float: right;">
 		<div >
 			<table id="book" class="table table-striped">
 			  <thead>

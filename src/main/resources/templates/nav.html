@@ -55,7 +55,7 @@
               <a class="nav-link" th:href="@{/book/first}">图书管理</a>
           </li>
 		  <li class="nav-item teacher">
-		      <a class="nav-link" th:href="@{/book/first1}">图书管理</a>
+		      <a class="nav-link" th:href="@{/book/first1}">图书查阅</a>
 		  </li>
           <li class="nav-item teacher">
               <a class="nav-link" th:href="@{/notice/first}">通知管理</a>
@@ -70,9 +70,10 @@
 		  <li id="logout" class="nav-item">
 		      <a class="nav-link" th:href="@{/user/logout}">退出</a>
 		  </li>
+		  
 		  <input hidden="hidden"  id="role" th:value="${session.role}" />
       </ul>
-
+	  
   </div>
 </body>
 <script type="application/javascript">

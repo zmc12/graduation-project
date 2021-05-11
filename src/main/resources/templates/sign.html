@@ -45,16 +45,13 @@
 	    <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 	  </select>
 	  <label for="exampleInputEmail11">班级选择:</label>
-	  <select class="" id="grade">
-	    
+	  <select class="" id="grade">  
 	  </select>
-	   <br>
 	   <label for="time">发起时间选择:</label>
 	   <select class=""  id="time">
 	       <option th:each="sign:${signs}" th:value="${sign.time}" th:text="${sign.time}"></option>
 	   </select>
-	   <br>
-	   <button type="button" id="select" class="btn btn-primary">查询</button>
+	   <button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
 	   <br>
 	   <br>
 	    <p class="lead">已签到学生名单</p>
@@ -62,7 +59,7 @@
 			<table id="table1" class="table table-striped">
 			  <thead>
 			    <tr>
-				  <th scope="col">#</th>
+				  <th scope="col">序号</th>
 			      <th scope="col">姓名</th>
 				  <th scope="col">签到方式</th>
 				  <!-- <th scope="col">体温</th> -->
@@ -85,7 +82,7 @@
 			<table id="table2" class="table table-striped">
 			  <thead>
 			    <tr>
-				  <th scope="col">#</th>
+				  <th scope="col">序号</th>
 			      <th scope="col">姓名</th>
 			    </tr>
 			  </thead>
@@ -160,11 +157,12 @@
 						var tbody2=""
 						$.each(data,function(n,val) {   
 						   var trs = "";  
+						   n++;
 						   if(val.stuation == "已签到"){
-							  trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.method +"</td> </tr>";
+							  trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.method +"</td> </tr>";
 							  tbody1 += trs;    
 						   }else{
-							  trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td>  </tr>";   
+							  trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td>  </tr>";   
 							  tbody2 += trs;    
 						   }
 					      

@@ -43,12 +43,11 @@
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
 	  <!--  <h1 class="display-4">学生成绩管理</h1> -->
-	    <p>查询管理</p>
+	    <!-- <p>查询管理</p> -->
         <label for="subject1">课程选择:</label>	
 		<select id="subject1">
 			<option th:each="score:${scores}" th:value="${score.subject}" th:text="${score.subject}"></option>
 		</select>	 			  
-		 <br>
 		<label for="exampleInputEmail11">学院选择:</label>
 		<select id="college">
 		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
@@ -57,15 +56,14 @@
 		<select class="" id="grade">
 		  
 		</select>
-		<br>
-		<button type="button" id="select1" class="btn btn-primary">查询</button>
+		<button style="float: right;" type="button" id="select1" class="btn btn-primary">查询</button>
 		<br>
 		<br>
         <div>
 		 <table  class="table table-striped" id="table1">
 			<thead>
 			  <tr>
-			   <th scope="col">#</th>
+			   <th scope="col">编号</th>
 			   <th scope="col">课程</th>    
 			   <th scope="col">姓名</th>    
 			   <th scope="col">成绩</th> 
@@ -183,7 +181,8 @@
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  
-						
+						 
+                        			 
 					}
 					
 				}
@@ -211,8 +210,8 @@
 						var tbody="";
 						$.each(data,function(n,val) {   
 						   var trs = "";  
-						 
-					       trs += " <tr><td>" +val.id+" </td> <td>" + val.subject +"</td> <td>" + val.name +"</td> <td>" + val.score +"</td></tr>";  
+						   n++;
+					       trs += " <tr><td>" + n +" </td> <td>" + val.subject +"</td> <td>" + val.name +"</td> <td>" + val.score +"</td></tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table1 tbody").append(tbody);  

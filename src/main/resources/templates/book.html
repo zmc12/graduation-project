@@ -109,7 +109,12 @@
 			})
 		})
 		
-	
+		$("#filterName").keyup(function() {
+		  $("table>tbody>tr")
+		      .hide()
+		      .filter(":contains('" + ($(this).val()) + "')")
+		      .show();
+		});		
 	})
 </script>
 <body>
@@ -117,7 +122,8 @@
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
 	    <!-- <h1 class="display-4">图书管理</h1> -->
-	    <p class="lead a1">图书名单</p>
+		<input placeholder="输入图书名称筛选" id="filterName">
+	    <p class="a1" style="margin-left: 350px;">图书名单</p>
 		<button class="btn btn-primary btn-lg a1 a2" data-toggle="modal" data-target="#myModal">
 			新增
 		</button>

@@ -49,12 +49,10 @@
    <div class="jumbotron jumbotron-fluid">
    <div class="container">
     <!-- <h1 class="display-4">学生宿舍信息</h1> -->
-     <p class="lead a1">宿舍名单</p>
+    <!-- <p class="lead a1">宿舍名单</p> -->
 	 <button class="btn btn-primary btn-lg a2" data-toggle="modal" data-target="#myModal">
 	 	新增
 	 </button>
-	 <br>
-	 <br>
 	<label for="exampleInputEmail11">学院选择:</label>
 	<select id="college">
 	  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
@@ -63,7 +61,6 @@
 	<select class="" id="grade">
 	  
 	</select>
-	 <br>
 	 <label class="lead">学期选择:</label>
 	 <select class="" id="term">
 	 	<option>2020-2021-1</option>
@@ -77,14 +74,13 @@
 	 	<option>2024-2025-1</option>
 	 	<option>2024-2025-2</option>
 	 </select>
-	 <br>
 	 <button type="button" id="select" class="btn btn-primary">查询</button>
 	 <br>
 	 <div>
 		 <table class="table table-striped" id="table">
 		   <thead>
 		     <tr>
-		 	  <th scope="col">#</th>
+		 	  <th scope="col">序号</th>
 		      <th scope="col">宿舍号</th>
 		      <th scope="col">得分</th>
 		 	  <th scope="col">成员</th>
