@@ -85,8 +85,14 @@
 		      <th scope="col">得分</th>
 		 	  <th scope="col">成员</th>
 			  <th scope="col">维修项目</th>
-			  <th scope="col">维修进展</th>
-		 	  <th scope="col">操作</th>
+              <th scope="col">维修进展 
+			    <select id="fi">
+					<option>未报修</option>
+					<option>报修中</option>
+					<option>已完成</option>
+				</select>
+			  </th>
+			   <th scope="col">操作</th>
 		     </tr>
 		   </thead>
 		   <tbody>
@@ -96,7 +102,7 @@
 				 <td th:text="${dom.score}"></td>
 				 <td th:text="${dom.students}"></td>
 				 <td th:text="${dom.fix}"></td>
-				 <td th:text="${dom.process}"></td>
+				 <td th:text="${dom.process}"  class="process"></td>
                  <td><a class="change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>		
 				 <td style="display: none;" th:text="${dom.grade}"></td>
 				 <td style="display: none;" th:text="${dom.term}"></td>				  
@@ -197,8 +203,8 @@
 					    <label for="process">维修进展:</label>
 						<select class="form-control" name="process" id="process">
 							<option selected="selected">无</option>
-							<option>未保修</option>
-							<option>保修中</option>
+							<option>未报修</option>
+							<option>报修中</option>
 							<option>已完成</option>
 						</select>
 					  </div>
@@ -236,7 +242,22 @@
 		
 		var x = document.getElementById("college");
 		x.selectedIndex = -1;  
+		var x = document.getElementById("fi");
+		x.selectedIndex = -1;     
 		   
+		   
+		$("#fi").change(function(){
+			var fix = $("#fi option:selected").val();
+			$(".process").each(function(){
+				var process = $(this).text();
+				if(process != fix){
+					$(this).parent().hide();
+				}else{
+					$(this).parent().show();
+				}
+			})
+		})   
+		
 		   
 		$('#college').change(function() {
 		    var college=$("#college option:selected").val();
@@ -275,20 +296,6 @@
 			$("#term").val(term);
 		});
 
-		// $(".change").click(function(){
-		// 	var id=$(this).parent().parent().children('td').eq(0).text();
-		// 	var number=$(this).parent().parent().children('td').eq(1).text();
-		// 	var score=$(this).parent().parent().children('td').eq(2).text();
-		// 	var students=$(this).parent().parent().children('td').eq(3).text();
-		// 	var fix=$(this).parent().parent().children('td').eq(4).text();
-		// 	var process=$(this).parent().parent().children('td').eq(5).text();
-			
-		// 	$("#id").val(id);
-		// 	$("#number").val(number);
-		// 	$("#score").val(score);
-		// 	$("#students").val(students);
-		// 	$("#fix").val(fix);
-		// })
 		
 		
 		$("#select").click(function(){
@@ -306,15 +313,17 @@
 					}
 					else{
 						toastr.success("查询成功");
+						x.selectedIndex = -1;  
 						$("#table tbody").empty();
 						var tbody="";
 						$.each(data,function(n,val) {   
+						   n++;
 						   var trs = "";  
 						   if(val.fix==null || val.process==null){
 							   val.fix="";
 							   val.process="";
 						   }
-					       trs += " <tr><td> " +val.id+" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> <td><a class='nav-link change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+					       trs += " <tr><td> " + n +" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td class='process'>" + val.process +"</td> <td><a class='change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  

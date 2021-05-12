@@ -284,12 +284,13 @@
 						var tbody="";
 						var tbody1="";
 						$.each(data,function(n,val) {
+							n++;
 							var trs = "";
 							if(val.result=="未审批"){					
-								trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
+								trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
 								tbody += trs;    
 							}else{
-								trs += " <tr><td> " +val.id+" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+								trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
 								tbody1 += trs;    
 							}
 						       

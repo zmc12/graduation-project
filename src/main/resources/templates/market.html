@@ -49,7 +49,6 @@
 		 <table class="table table-striped">
 		   <thead>
 		     <tr>
-		 	  <th scope="col">序号</th>
 			  <th scope="col">物品图片</th>
 		      <th scope="col">信息内容</th>
 			  <th scope="col">联系方式</th>
@@ -57,8 +56,7 @@
 		     </tr>
 		   </thead>
 		   <tbody>
-			 <tr th:each="market:${markets}">
-				 <td th:text="${market.id}"></td>
+			   <tr th:each="market:${markets}">
 				 <td><img alt="未上传图片" width="50px" height="50px" th:src="@{'/static/images/'+${market.path}}"/></td>
 				 <td th:text="${market.text}"></td>
 				 <td th:text="${market.contact}"></td>

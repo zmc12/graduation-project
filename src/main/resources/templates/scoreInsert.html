@@ -177,7 +177,8 @@
 						var tbody="";
 						$.each(data,function(n,val) {   
 						   var trs = "";  
-					       trs += " <tr><td>" + val.id +" </td> <td>" + val.grade +"</td> <td>" + val.name +"</td> <td>" + val.userName +"</td> <td><input type='number' class='score' min='0' max='100'  name='score'></td> </tr>";  
+						   n++;
+					       trs += " <tr><td>" + n +" </td> <td>" + val.grade +"</td> <td>" + val.name +"</td> <td>" + val.userName +"</td> <td><input type='number' class='score' min='0' max='100'  name='score'></td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  

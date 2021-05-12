@@ -48,7 +48,6 @@
 		 <table class="table table-striped">
 		   <thead>
 		     <tr>
-		 	  <th scope="col">#</th>
 		       <th scope="col">通知标题</th>
 		       <th scope="col">接收班级</th>
 		 	   <th scope="col">未确认名单</th> 
@@ -57,7 +56,6 @@
 		   </thead>
 		   <tbody>
 			<tr th:each="notice:${notices}">
-				<td th:text="${notice.id}"></td>
 				<td class="ck" style="color: blue;cursor: pointer;" href="#" data-toggle="modal" data-target="#myModal3" th:text="${notice.title}"></td>
 			    <td th:text="${notice.grade}"></td>
  				<td><a class="selectStudent" href="#" data-toggle="modal" data-target="#myModal1">点击查看未签到名单</a></td> 

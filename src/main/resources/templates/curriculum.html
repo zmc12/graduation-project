@@ -59,7 +59,7 @@
 			<input type="hidden" name="grade" id="grade1" />
 			<input type="hidden" name="term" id="term1" />
 			
-			<table  height="800" class="table table-bordered"  align="center">
+			<table  height="800" class="table table-bordered" style="word-break: break-all;table-layout: fixed;"  align="center">
 			  <thead>
 			    <tr style='text-align: center;'>
 			      <th scope="col">时间</th>
@@ -74,7 +74,11 @@
 			  </thead>
 			  <tbody style='text-align: center;'>
 			    <tr >
-			      <th scope="row">1-2节课</th>
+			      <th scope="row">
+					  1-2节课 <br />
+					 <!-- 上课地点<br />
+					  上课老师 -->
+				  </th>
 			      <td id="cur11" name="cur11"></td>
 			      <td id="cur21" name="cur21"></td>
 			      <td id="cur31" name="cur31"></td>
@@ -85,7 +89,11 @@
 				  
 			    </tr>
 			    <tr>
-			      <th scope="row">3-4节课</th>
+			      <th scope="row">
+					  3-4节课 <br />
+					 <!-- 上课地点<br />
+					  上课老师 -->
+				  </th>
 			      <td id="cur12" name="cur12"></td>
 			      <td id="cur22" name="cur22"></td>
 			      <td id="cur32" name="cur32"></td>
@@ -95,7 +103,11 @@
 				  <td id="cur72" name="cur72"></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">5-6节课</th>
+			      <th scope="row">
+					  5-6节课 <br />
+					<!--  上课地点<br />
+					  上课老师 -->
+				  </th>
 			      <td id="cur13" name="cur13"></td>
 			      <td id="cur23" name="cur23"></td>
 				  <td id="cur33" name="cur33"></td>
@@ -105,7 +117,11 @@
 				  <td id="cur73" name="cur73"></td>
 			    </tr>
 				<tr>
-				  <th scope="row">7-8节课</th>
+				  <th scope="row">
+					  7-8节课 <br />
+					<!--  上课地点<br />
+					  上课老师 -->
+				  </th>
 				  <td id="cur14" name="cur14"></td>
 				  <td id="cur24" name="cur24"></td>
 				  <td id="cur34" name="cur34"></td>
@@ -115,7 +131,11 @@
 				  <td id="cur74" name="cur74"></td>
 				</tr>
 				<tr>
-				  <th scope="row">9-10、11节课</th>
+				  <th scope="row">
+					  9-10、11节课 <br />
+					 <!-- 上课地点<br />
+					  上课老师 -->
+				 </th>
 				 <td id="cur15" name="cur15"></td>
 				 <td id="cur25" name="cur25"></td>
 				 <td id="cur35" name="cur35"></td>
@@ -196,42 +216,42 @@
 					
 
 						toastr.success("查询成功");
-						$("#cur11").text(data.cur11);
-						$("#cur21").text(data.cur21);
-						$("#cur31").text(data.cur31);
-						$("#cur41").text(data.cur41);
-						$("#cur51").text(data.cur51);
-						$("#cur12").text(data.cur12);
-						$("#cur22").text(data.cur22);
-						$("#cur32").text(data.cur32);
-						$("#cur42").text(data.cur42);
-						$("#cur52").text(data.cur52);
-						$("#cur13").text(data.cur13);
-						$("#cur23").text(data.cur23);
-						$("#cur33").text(data.cur33);
-						$("#cur43").text(data.cur43);
-						$("#cur53").text(data.cur53);
-						$("#cur14").text(data.cur14);
-						$("#cur24").text(data.cur24);
-						$("#cur34").text(data.cur34);
-						$("#cur44").text(data.cur44);
-						$("#cur54").text(data.cur54);
+						$("#cur11").html(data.cur11);
+						$("#cur21").html(data.cur21);
+						$("#cur31").html(data.cur31);
+						$("#cur41").html(data.cur41);
+						$("#cur51").html(data.cur51);
+						$("#cur12").html(data.cur12);
+						$("#cur22").html(data.cur22);
+						$("#cur32").html(data.cur32);
+						$("#cur42").html(data.cur42);
+						$("#cur52").html(data.cur52);
+						$("#cur13").html(data.cur13);
+						$("#cur23").html(data.cur23);
+						$("#cur33").html(data.cur33);
+						$("#cur43").html(data.cur43);
+						$("#cur53").html(data.cur53);
+						$("#cur14").html(data.cur14);
+						$("#cur24").html(data.cur24);
+						$("#cur34").html(data.cur34);
+						$("#cur44").html(data.cur44);
+						$("#cur54").html(data.cur54);
 						
-						$("#cur61").text(data.cur61);
-						$("#cur62").text(data.cur62);
-						$("#cur63").text(data.cur63);
-						$("#cur64").text(data.cur64);
-						$("#cur65").text(data.cur65);
-						$("#cur71").text(data.cur71);
-						$("#cur72").text(data.cur72);
-						$("#cur73").text(data.cur73);
-						$("#cur74").text(data.cur74);
-						$("#cur75").text(data.cur75);
-						$("#cur15").text(data.cur15);
-						$("#cur25").text(data.cur25);
-						$("#cur35").text(data.cur35);
-						$("#cur45").text(data.cur45);
-						$("#cur55").text(data.cur55);
+						$("#cur61").html(data.cur61);
+						$("#cur62").html(data.cur62);
+						$("#cur63").html(data.cur63);
+						$("#cur64").html(data.cur64);
+						$("#cur65").html(data.cur65);
+						$("#cur71").html(data.cur71);
+						$("#cur72").html(data.cur72);
+						$("#cur73").html(data.cur73);
+						$("#cur74").html(data.cur74);
+						$("#cur75").html(data.cur75);
+						$("#cur15").html(data.cur15);
+						$("#cur25").html(data.cur25);
+						$("#cur35").html(data.cur35);
+						$("#cur45").html(data.cur45);
+						$("#cur55").html(data.cur55);
 						
 				
 				},

@@ -82,7 +82,13 @@
 		      <th scope="col">得分</th>
 		 	  <th scope="col">成员</th>
 			  <th scope="col">维修项目</th>
-			  <th scope="col">维修进展</th>
+			  <th scope="col">维修进展 
+			    <select id="fi">
+					<option>未报修</option>
+					<option>报修中</option>
+					<option>已完成</option>
+				</select>
+			  </th>
 		     </tr>
 		   </thead>
 		   <tbody>
@@ -92,7 +98,7 @@
 				 <td th:text="${dom.score}"></td>
 				 <td th:text="${dom.students}"></td>
 				 <td th:text="${dom.fix}"></td>
-				 <td th:text="${dom.process}"></td>
+				 <td th:text="${dom.process}" class="process"></td>
 				 <td style="display: none;" th:text="${dom.grade}"></td>
 				 <td style="display: none;" th:text="${dom.term}"></td>				  
 			 </tr>			   
@@ -124,9 +130,22 @@
 		
 		
 		var x = document.getElementById("college");
+		x.selectedIndex = -1;
+		var x = document.getElementById("fi");
 		x.selectedIndex = -1;  
 		   
-		   
+		$("#fi").change(function(){
+			var fix = $("#fi option:selected").val();
+			$(".process").each(function(){
+				var process = $(this).text();
+				if(process != fix){
+					$(this).parent().hide();
+				}else{
+					$(this).parent().show();
+				}
+			})
+		})
+		
 		$('#college').change(function() {
 		    var college=$("#college option:selected").val();
 		    $.ajax({
@@ -159,15 +178,17 @@
 					}
 					else{
 						toastr.success("查询成功");
+						x.selectedIndex = -1;  
 						$("#table tbody").empty();
 						var tbody="";
-						$.each(data,function(n,val) {  
+						$.each(data,function(n,val) { 
+						   n++;
 						   var trs = "";  
 						   if(val.fix==null || val.process==null){
 							   val.fix="";
 							   val.process="";
 						   }
-					       trs += " <tr><td> " + val .id +" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td>" + val.process +"</td> </tr>";  
+					       trs += " <tr><td> " + n +" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td class='process'>" + val.process +"</td> </tr>";  
 						   tbody += trs;         
 						 });  
 						 $("#table tbody").append(tbody);  
