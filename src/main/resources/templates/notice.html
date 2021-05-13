@@ -56,6 +56,7 @@
 		   </thead>
 		   <tbody>
 			<tr th:each="notice:${notices}">
+				<td th:text="${notice.id}" style="display:none ;"></td>
 				<td class="ck" style="color: blue;cursor: pointer;" href="#" data-toggle="modal" data-target="#myModal3" th:text="${notice.title}"></td>
 			    <td th:text="${notice.grade}"></td>
  				<td><a class="selectStudent" href="#" data-toggle="modal" data-target="#myModal1">点击查看未签到名单</a></td> 
@@ -226,11 +227,12 @@
 				success:function(data){
 				 $('#students tr:not(#first)').empty();
 				 var groupTable = $('#students');
-				 $.each(data,function(key,val){
+				 $.each(data,function(n,val){
+					 n++;
 					 count++;
 					 if(val.name!=null && val.name!=""){
 						 groupTable.append('<tr> ' +
-						        '<td>' + val.id + '</td>' + 
+						        '<td>' + n + '</td>' + 
 						 		'<td>' + val.name + '</td>' + 
 						 		'</tr>')
 					 }

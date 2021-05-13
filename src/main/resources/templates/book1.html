@@ -61,14 +61,53 @@
 			$(".fixer").css("display","none");
 		}
 		
-      $("#filterName").keyup(function() {
-        $("table>tbody>tr")
-            .hide()
-            .filter(":contains('" + ($(this).val()) + "')")
-            .show();
-      });		
+        $("#filterName").keyup(function() {
+          $("table>tbody>tr")
+              .hide()
+              .filter(":contains('" + ($(this).val()) + "')")
+              .show();
+        });		
+		$(".selectBroswer").click(function(){
+			var bookName=$(this).parent().parent().children('td').eq(0).text();
+			$.ajax({
+				type:"get",
+				url:"/book/selectBroswer?bookName="+bookName,
+				success:function(data){
+				 $('#broswer tr:not(#first)').empty();
+				 var groupTable = $('#broswer');
+				 $.each(data,function(key,val){
+					 if(val.studentName!=null && val.studentName!=""){
+						 groupTable.append('<tr> ' +
+						        '<td>' + val.bookName + '</td>' + 
+						 		'<td>' + val.studentName + '</td>' + 
+						 		'<td>' + val.time + '</td>' +
+						 		'<td><a class="nav-link extern renewal" href="javascript:;">续期</a></td>' +
+						 		'</tr>')
+					 }
+				 	
+				  })	
+				}
+			})
+		})
 		
-	
+		
+		$('#broswer tbody').on('click','.renewal',function(){
+			//toastr.success("已经续期1个月");
+			var bookName=$(this).parent().parent().children('td').eq(0).text();
+			var studentName=$(this).parent().parent().children('td').eq(1).text();
+			var time=$(this).parent().parent().children('td').eq(2).text();
+		
+			$.ajax({
+			type:"put",
+			url:"/book/updateTime?bookName="+bookName+"&studentName="+studentName+"&time="+time,
+			success:function(data){
+				 $(this).parent().parent().children('td').eq(2).text(data.time);
+			     toastr.success("已经续期1个月");
+			  }
+			})
+		});
+		
+		
 	})
 </script>
 <body>
@@ -84,19 +123,45 @@
 			    <tr>
 			      <th scope="col">书名</th>
 			      <th scope="col">数量</th>
+				  <th scope="col">操作</th>
 			    </tr>
 			  </thead>
 			  <tbody>
                 <tr th:each="book:${books}">
 				 <td th:text="${book.bookName}"></td>
 				 <td th:text="${book.amount}"></td>
+				 <td><a class="selectBroswer a1" href="#" data-toggle="modal" data-target="#myModal1">借阅情况</a> </td>	
 			    </tr>				  	 
 			  </tbody>
 			</table>
 		</div>
 	    
 	    <br>
-		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<table id="broswer" class="table table-striped">
+						  <thead>
+						    <tr id="first">
+						      <th scope="col">书名</th>
+						      <th scope="col">借阅人</th>
+						      <th scope="col">到期时间</th>
+							  <th scope="col">操作</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		
 	  </div>
