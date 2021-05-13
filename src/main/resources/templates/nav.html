@@ -72,14 +72,15 @@
 		  </li>
 		  <input hidden="hidden"  id="role" th:value="${session.role}" />
       </ul>
-	  
+      <h5 style="display: inline;float: right">
+          欢迎<span th:text="${session.name}"></span>老师登录
+      </h5>
+
   </div>
 </body>
 <script type="application/javascript">
 	$(function(){
-		
-		
-		
+
 		
 	})
 </script>

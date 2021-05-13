@@ -74,4 +74,15 @@ public class UserController {
         return "home";
     }
 
+
+    @GetMapping("/return")
+    public String index(){
+        return "/index";
+    }
+
+    @GetMapping("/au")
+    public String noAu(){
+        return "noAu";
+    }
+
 }
