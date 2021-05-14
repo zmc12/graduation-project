@@ -19,6 +19,9 @@ public class Market implements Serializable {
     private String contact;
     private MultipartFile file;
     private String path;
+    private String title;
+    private Integer price;
+
 
     @Override
     public String toString() {
@@ -28,7 +31,25 @@ public class Market implements Serializable {
                 ", contact='" + contact + '\'' +
                 ", file=" + file +
                 ", path='" + path + '\'' +
+                ", title='" + title + '\'' +
+                ", price=" + price +
                 '}';
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public MultipartFile getFile() {

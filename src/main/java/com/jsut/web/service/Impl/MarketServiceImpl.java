@@ -37,4 +37,9 @@ public class MarketServiceImpl implements MarketService {
     public void updateById(Market market) {
         marketMapper.updateById(market);
     }
+
+    @Override
+    public Market selectById(Integer id) {
+        return marketMapper.selectById(id);
+    }
 }

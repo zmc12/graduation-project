@@ -20,4 +20,6 @@ public interface MarketService {
     void deleteById(Integer id);
 
     void updateById(Market  market);
+
+    Market selectById(Integer id);
 }

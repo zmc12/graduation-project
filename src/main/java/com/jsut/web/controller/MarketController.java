@@ -96,4 +96,12 @@ public class MarketController {
         model.addAttribute("markets",list);
         return "market";
     }
+
+
+    @GetMapping("/marketDetail")
+    public String detail(@RequestParam("id")Integer id,Model model){
+        Market market = marketService.selectById(id);
+        model.addAttribute("market",market);
+        return "detail";
+    }
 }
