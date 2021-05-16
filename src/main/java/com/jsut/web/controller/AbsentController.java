@@ -8,18 +8,23 @@ import com.jsut.web.service.CollegeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author ZhangMinCong
  * @date 2021/1/20 9:32
  */
+
 @EnableAutoConfiguration
 @Controller
 @Slf4j
@@ -37,14 +42,11 @@ public class AbsentController {
     public String first(Model model, HttpServletRequest request){
         Object college = request.getSession().getAttribute("college");
 
-
         List<Absent> list = absentService.selectAll(college.toString());
         List<College> colleges = collegeService.selectByCollege();
 
         model.addAttribute("absents",list);
         model.addAttribute("colleges",colleges);
-        List<Absent> absents = absentService.selectByResult();
-        model.addAttribute("hasConfirms",absents);
 
         return "absent";
     }
@@ -73,10 +75,15 @@ public class AbsentController {
 
     @ResponseBody
     @GetMapping("/select")
-    public List<Absent> select(@RequestParam("grade")String grade){
-        List<Absent> absents = absentService.select(grade);
+    public List<Absent> select(@RequestParam("grade")String grade,@RequestParam("result")String result){
+        if(("已请假").equals(result)){
+            result = "批准";
+        }
+
+        List<Absent> absents = absentService.select(grade,result);
         return absents;
     }
+
 
 
 }

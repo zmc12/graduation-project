@@ -39,8 +39,8 @@ public class AbsentServiceImpl implements AbsentService {
     }
 
     @Override
-    public List<Absent> select(String grade) {
-        return absentMapper.select(grade);
+    public List<Absent> select(String grade,String result) {
+        return absentMapper.select(grade,result);
     }
 
     @Override

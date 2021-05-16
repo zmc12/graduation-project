@@ -52,35 +52,24 @@
 		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 	    </select>
 		<label for="exampleInputEmail11">班级选择:</label>
-		<select class="" id="grade">
+		<select  id="grade">
+		</select>&nbsp;
+		<label for="exampleInputEmail12">查询类型选择:</label>
+		<select  id="type">
+			<option>未审批</option>
+			<option>已请假</option>
+			<option>未销假</option>
 		</select>
 		<button type="button" id="select" style="float: right;" class="btn btn-primary">查询</button>
 		<br>
 		<br>
-		<p class="lead">学生请假名单</p>
-		<!-- <div id="student" >
-			<ul th:each="absent:${absents}">
-				<a class="choose" href="#" th:text="${absent.name}"></a>
-				<span>请假时间:</span>&nbsp;&nbsp;
-		        <span th:text="${absent.startTime}"></span>&nbsp;&nbsp;-
-		        <span th:text="${absent.endTime}"></span>
-				<span style="display: none;" th:text="${absent.reason}" />
-				<span style="display: none;" th:text="${absent.id}" />
-			</ul>
-		</div>
-		<br>
-		<p class="lead">请假理由</p> -->
-		<!-- <span>时间:</span>&nbsp;&nbsp;
-		<input type="text" readonly="readonly" />&nbsp;&nbsp;-
-		<input type="text" readonly="readonly" /> -->
-<!-- 		<textarea id="reason" class="form-control" rows="3" placeholder="请假理由" readonly="readonly"></textarea>
-		<br>
-		<button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
-		<button type="button" value="不批准" name="result" class="btn btn-secondary">不批准</button> -->
+		<!-- <p class="lead">学生请假名单</p> -->
+
+
 		<table class="table table-striped" id="table">
            <thead>
 		     <tr>
-		 	  <th scope="col">序号</th>
+		 	  <!-- <th scope="col">序号</th> -->
 		      <th scope="col">学生姓名</th>
 		      <th scope="col">请假时间(起)</th>
 			  <th scope="col">请假时间(终)</th>
@@ -90,8 +79,8 @@
 		   </thead>	
 		   <tbody>
 			   <tr th:each="absent:${absents}">
-				   <td th:text="${absent.id}"</td>
-				   <td th:text="${absent.name}"</td>
+				   <td th:text="${absent.id}" style="display: none;"></td>
+				   <td th:text="${absent.name}"></td>
 				   <td th:text="${absent.startTime}"></td>
 				   <td th:text="${absent.endTime}"></td>
 				   <td th:text="${absent.reason}"></td>
@@ -104,7 +93,7 @@
 		
 		
 		
-		<p class="lead">未销假名单</p>
+		<!-- <p class="lead">未销假名单</p>
 		<table class="table table-striped" id="table1">
 		   <thead>
 		     <tr>
@@ -125,7 +114,7 @@
 			   </tr>
 		   </tbody>
 		</table>
-	  </div>
+	  </div> -->
 	  
 	  <!-- 模态框（Modal） -->
 	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -219,30 +208,8 @@
 			id=$(this).parent().parent().children().eq(0).text();
 			parent=$(this).parent().parent();
 		});
-		
-		// $("button[name='result']").click(function(){
-		// 	id=$(this).parent().parent().children().eq(0).text();
-		// 	$(this).parent().parent().remove();
-		// 	$.ajax({
-		// 		type:"put",
-		// 		url:"/absent/update?id="+id+"&result=批准",
-		// 		success:function(data){
-		// 			// toastr.success(data.message);
-		// 			// setTimeout(function(){
-		// 			// 　　window.location.reload();
-		// 			// },2000);
-		// 		},
-		// 		error:function(){
-		// 			toastr.error(data.message);
-		// 		}
-		// 	})					
-		// })
-		
-		
-		// $("button[name='result2']").click(function(){
-		// 	id=$(this).parent().parent().children().eq(0).text();
-		// 	parent=$(this).parent().parent();
-		// })
+
+	
 			
 		$("#sub").click(function(){
 			reply=$("#reply").val();
@@ -266,37 +233,54 @@
 		
 		$("#select").click(function(){
 			var grade = $("#grade").val();
+			var type = $("#type").val();
+			var thead = "";
+			$("#table thead").empty();
+			
+			if(type == "未审批"){
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th> <th scope='col'>" + "操作" +"</th> </tr>";  
+			}else{
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th>  </tr>";  
+			}
+			$("#table thead").append(thead);  
+			
 			
 			$.ajax({
 				type:"GET",
-				url:"/absent/select?grade="+grade,
+				url:"/absent/select?grade="+grade+"&result="+type,
 				dataType:"json",
 				success:function(data){
 					if(data==null || data==""){
 						toastr.error("查询结果为空");
 						$("#table tbody").empty();
-						$("#table1 tbody").empty();
+						//$("#table1 tbody").empty();
 					}
 					else{
 						toastr.success("查询成功");
 						$("#table tbody").empty();
-						$("#table1 tbody").empty();
+						//$("#table1 tbody").empty();
 						var tbody="";
-						var tbody1="";
+						//var tbody1="";
 						$.each(data,function(n,val) {
 							n++;
 							var trs = "";
-							if(val.result=="未审批"){					
-								trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
-								tbody += trs;    
+							if(type == "未审批"){
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td>  </tr>";  
 							}else{
-								trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
-								tbody1 += trs;    
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
 							}
+							tbody += trs;
+							// if(val.result=="未审批"){					
+							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
+							// 	tbody += trs;    
+							// }else{
+							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+							// 	tbody1 += trs;    
+							// }
 						       
 						 });  
 						 $("#table tbody").append(tbody);  
-						 $("#table1 tbody").append(tbody1);  
+						 //$("#table1 tbody").append(tbody1);  
 						
 					}
 					
