@@ -37,20 +37,7 @@ public class UserController {
 
            return "index";
        }else {
-//           Cookie[] cookie = new Cookie[4];
-//           Cookie cookie0 = new Cookie("name", teacher.getName());
-//           Cookie cookie1 = new Cookie("college", teacher.getCollege());
-//           Cookie cookie2 = new Cookie("userName", teacher.getUserName());
-//           Cookie cookie3 = new Cookie("password", teacher.getPassword());
-//           cookie[0]=cookie0;
-//           cookie[1]=cookie1;
-//           cookie[2]=cookie2;
-//           cookie[3]=cookie3;
-//           for(int i=0; i<cookie.length;i++){
-//               cookie[i].setMaxAge(60*60*24*7);
-//               cookie[i].setPath("/");
-//               response.addCookie(cookie[i]);
-//           }
+
            httpSession.setAttribute("role",role);
            httpSession.setAttribute("name", teacher.getName());
            httpSession.setAttribute("college", teacher.getCollege());

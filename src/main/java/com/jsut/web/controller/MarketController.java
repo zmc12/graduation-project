@@ -46,14 +46,14 @@ public class MarketController {
             // 拿到文件名
             String filename = imgFile.getOriginalFilename();
 
-            String staticPath = ClassUtils.getDefaultClassLoader().getResource("static").getPath();
+            //String staticPath = ClassUtils.getDefaultClassLoader().getResource("static").getPath();
 //        // 存放上传图片的文件夹
 //        File fileDir = UploadUtils.getImgDirFile();
 //        // 输出文件夹绝对路径  -- 这里的绝对路径是相当于当前项目的路径而不是“容器”路径
 //        System.out.println(fileDir.getAbsolutePath());
 
             // 构建真实的文件路径
-            File newFile = new File(staticPath+"/images"+ File.separator + filename);
+            File newFile = new File("/opt/pics"+ File.separator + filename);
             System.out.println(newFile.getAbsolutePath());
 
             try {

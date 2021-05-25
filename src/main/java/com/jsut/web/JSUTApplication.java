@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @EnableScheduling
 @SpringBootApplication
-@MapperScan("com.jsut.web.mapper.absent")
+@MapperScan("com.jsut.web.mapper")
 public class JSUTApplication extends SpringBootServletInitializer {
 
     @Autowired
