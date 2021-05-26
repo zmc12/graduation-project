@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>宿舍管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	#dom{
+		height:400px;
+		overflow: scroll;
+	}
+	
+	.a1{
+		display: inline;
+	}
+	
+	.a2{
+		float: right;
+	}
+	
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	
+   <div class="jumbotron jumbotron-fluid">
+   <div class="container">
+    <!-- <h1 class="display-4">学生宿舍信息</h1> -->
+    <!-- <p class="lead a1">宿舍名单</p> -->
+	<!-- <button class="btn btn-primary btn-lg a2" data-toggle="modal" data-target="#myModal">
+	 	新增
+	 </button> -->
+	<label for="exampleInputEmail11">学院选择:</label>
+	<select id="college">
+	  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	</select>
+	<label for="exampleInputEmail11">班级选择:</label>
+	<select class="" id="grade">
+	  
+	</select>
+	 <label class="lead">学期选择:</label>
+	 <select class="" id="term">
+	 	<option>2020-2021-1</option>
+	 	<option>2020-2021-2</option>
+	 	<option>2021-2022-1</option>
+	 	<option>2021-2022-2</option>
+	 	<option>2022-2023-1</option>
+	 	<option>2022-2023-2</option>
+	 	<option>2023-2024-1</option>
+	 	<option>2023-2024-2</option>
+	 	<option>2024-2025-1</option>
+	 	<option>2024-2025-2</option>
+	 </select>
+	 <button type="button" id="select" class="btn btn-primary">查询</button>
+	 <br>
+	 <div>
+		 <table class="table table-striped"  style="table-layout: fixed;" id="table">
+		   <thead>
+		     <tr>
+		 	  <th scope="col">序号</th>
+		      <th scope="col">宿舍号</th>
+		      <th scope="col">得分</th>
+		 	  <th scope="col">成员</th>
+			  <th scope="col">维修项目</th>
+              <th scope="col">维修进展 
+			    <select id="fi">
+					<option>未开始</option>
+					<option>维修中</option>
+					<option>已修复</option>
+				</select>
+			  </th>
+			   <th scope="col">操作</th>
+		     </tr>
+		   </thead>
+		   <tbody>
+             <tr th:each="dom:${doms}">
+				 <td th:text="${dom.id}"></td>
+				 <td th:text="${dom.number}"></td>
+				 <td th:text="${dom.score}"></td>
+				 <td th:text="${dom.students}"></td>
+				 <td th:text="${dom.fix}"></td>
+				 <td th:text="${dom.process}"  class="process"></td>
+                 <td><a class="change a1" href="#"  data-toggle="modal" data-target="#myModal2">更改</a></td>		
+				 <td style="display: none;" th:text="${dom.grade}"></td>
+				 <td style="display: none;" th:text="${dom.term}"></td>				  
+			 </tr>			   
+		
+		   </tbody>
+		 </table>
+	 </div>
+ 	
+ 	<br>
+	
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form th:action="@{/dom/insert}" method="post">
+                      <div class="form-group">
+					    <label for="exampleInputEmail11">班级:</label>
+					    <select class="form-control" name="grade"  id="exampleInputEmail11">
+					    	<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+					    </select>
+					  </div>	
+                       <div class="form-group">
+					    <label for="exampleInputEmail12">学期:</label>
+					    <select class="form-control" name="term" id="exampleInputEmail12">
+					    <option>2020-2021-1</option>
+					    <option>2020-2021-2</option>
+					    <option>2021-2022-1</option>
+					    <option>2021-2022-2</option>
+					    <option>2022-2023-1</option>
+					    <option>2022-2023-2</option>
+					    <option>2023-2024-1</option>
+					    <option>2023-2024-2</option>
+					    <option>2024-2025-1</option>
+					    <option>2024-2025-2</option>
+					    </select>
+					  </div>										  
+					  <div class="form-group">
+					    <label for="exampleInputEmail1">宿舍号:</label>
+					    <input type="text" class="form-control" name="number" id="exampleInputEmail1" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputPassword1">得分:</label>
+					    <input type="number" max="100" min="0" name="score" class="form-control" id="exampleInputPassword1"/>
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputEmail2">宿舍成员:</label>
+					    <input type="text" class="form-control" name="students" id="exampleInputEmail2" aria-describedby="emailHelp">
+					  </div>
+<!-- 					  <div class="form-group">
+					    <label for="exampleInputEmail3">维修项目:</label>
+					    <input type="text" class="form-control" name="fix" id="exampleInputEmail3" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputEmail4">维修进展:</label>
+					    <input type="text" class="form-control" name="process" id="exampleInputEmail4" aria-describedby="emailHelp">
+					  </div> -->
+					  <div class="modal-footer">
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					  	</button>
+					  	<button type="submit" class="btn btn-primary">
+					  		保存
+					  	</button>
+					  </div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	 </div>
+	 
+	 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	 	<div class="modal-dialog">
+	 		<div class="modal-content">
+	 			<div class="modal-body">
+	 				<form th:action="@{/dom/update}" method="post">
+					  <input type="hidden" name="id" id="id">
+					  <input type="hidden" name="grade" id="grade">
+					  <input type="hidden" name="term" id="term">
+	 				  <div class="form-group">
+	 				    <label for="number">宿舍号:</label>
+	 				    <input type="text" class="form-control" name="number" id="number" aria-describedby="emailHelp">
+	 				  </div>
+	 				  <div class="form-group">
+	 				    <label for="score">得分:</label>
+	 				    <input type="number" max="100" min="0" name="score" class="form-control" id="score"/>
+	 				  </div>
+	 				  <div class="form-group">
+	 				    <label for="students">宿舍成员:</label>
+	 				    <input type="text" class="form-control" name="students" id="students" aria-describedby="emailHelp">
+	 				  </div>
+					  <div class="form-group">
+					    <label for="fix">维修项目:</label>
+					    <input type="text" class="form-control" name="fix" id="fix" aria-describedby="emailHelp">
+					  </div>
+					  <div class="form-group">
+					    <label for="process">维修进展:</label>
+						<select class="form-control" name="process" id="process">
+							<option selected="selected">无</option>
+							<option>未报修</option>
+							<option>报修中</option>
+							<option>已完成</option>
+						</select>
+					  </div>
+	 				  <div class="modal-footer">
+	 				  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+	 				  	</button>
+	 				  	<button type="submit" class="btn btn-primary">
+	 				  		保存
+	 				  	</button>
+	 				  </div>
+	 				</form>
+	 			</div>
+	 
+	 		</div>
+	 	</div>
+	  </div>
+	  <br/>
+	  
+    </div>
+   </div>
+</body>
+<script>
+	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		
+		var x = document.getElementById("college");
+		x.selectedIndex = -1;  
+		var x = document.getElementById("fi");
+		x.selectedIndex = -1;     
+		   
+		   
+		$("#fi").change(function(){
+			var fix = $("#fi option:selected").val();
+			$(".process").each(function(){
+				var process = $(this).text();
+				if(process != fix){
+					$(this).parent().hide();
+				}else{
+					$(this).parent().show();
+				}
+			})
+		})   
+		
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		
+		$("#table").on("click",".change",function(){
+			var id=$(this).parent().parent().children('td').eq(0).text();
+			var number=$(this).parent().parent().children('td').eq(1).text();
+			var score=$(this).parent().parent().children('td').eq(2).text();
+			var students=$(this).parent().parent().children('td').eq(3).text();
+			var fix=$(this).parent().parent().children('td').eq(4).text();
+			var process=$(this).parent().parent().children('td').eq(5).text();
+			var grade=$(this).parent().parent().children('td').eq(6).text();
+			var term=$(this).parent().parent().children('td').eq(7).text();
+			
+			
+			$("#id").val(id);
+			$("#number").val(number);
+			$("#score").val(score);
+			$("#students").val(students);
+			$("#fix").val(fix);
+			$("#grade").val(grade);
+			$("#term").val(term);
+		});
+
+		
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+	
+			$.ajax({
+				type:"GET",
+				url:"/dom/select?grade="+grade+"&term="+term,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						x.selectedIndex = -1;  
+						$("#table tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   n++;
+						   var trs = "";  
+						   if(val.fix==null || val.process==null){
+							   val.fix="";
+							   val.process="";
+						   }
+					       trs += " <tr><td> " + n +" </td> <td>" + val.number +"</td> <td>" + val.score +"</td> <td>" + val.students +"</td> <td>" + val.fix +"</td> <td class='process'>" + val.process +"</td> <td><a class='change a1' href='#'  data-toggle='modal' data-target='#myModal2'>更改</a></td> </tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table tbody").append(tbody);  
+						
+					}
+					
+				}
+			})
+		})
+	})
+</script>
+</html>

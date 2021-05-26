@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>签到管理</title>
+	<title>学生请假管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+
+    .sign{
+		height:230px;
+		overflow: scroll;
+	}
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	   <!-- <h1 class="display-4">签到管理</h1> -->
+	  <label for="exampleInputEmail11">学院选择:</label>
+	  <select id="college">
+	    <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	  </select>
+	  <label for="exampleInputEmail11">班级选择:</label>
+	  <select class="" id="grade">  
+	  </select>
+	   <label for="time">发起时间选择:</label>
+	   <select class=""  id="time">
+	       <option th:each="sign:${signs}" th:value="${sign.time}" th:text="${sign.time}"></option>
+	   </select>
+	   <button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
+	   <br>
+	   <br>
+	    <p class="lead">已签到学生名单</p>
+		<div>
+			<table id="table1" class="table table-striped">
+			  <thead>
+			    <tr>
+				  <th scope="col">序号</th>
+			      <th scope="col">姓名</th>
+				  <th scope="col">签到方式</th>
+				  <!-- <th scope="col">体温</th> -->
+			    </tr>
+			  </thead>
+			  <tbody >
+		<!-- 		<tr th:each="list1:${list1}">
+				    <td th:text="${list1.id}"></td>
+				    <td th:text="${list1.name}"></td>
+				    <td th:text="${list1.method}"></td>
+ 					<td th:text="${list1.temperature}"></td> 
+				</tr> -->
+			  </tbody>
+			</table>
+		</div>
+		
+		<br>
+		<p class="lead">未签到学生名单</p>
+		<div>
+			<table id="table2" class="table table-striped">
+			  <thead>
+			    <tr>
+				  <th scope="col">序号</th>
+			      <th scope="col">姓名</th>
+			    </tr>
+			  </thead>
+              <tbody>
+				<!-- <tr th:each="list2:${list2}">
+				  <td th:text="${list2.id}"></td>
+				  <td th:text="${list2.name}"></td>
+				</tr> -->
+			  </tbody>
+			</table>
+		</div>
+		
+	  </div>
+	</div>
+</body>
+
+
+<script>
+	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		
+		
+		var x = document.getElementById("college");
+		x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		
+		$("#select").click(function(){
+			var grade=$("#grade").val();
+			var time=$("#time").val();
+			
+			$.ajax({
+				type:"get",
+				url:"/sign/select?grade="+grade+"&time="+time,
+				success:function(data){
+                    if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table1 tbody").empty();
+						$("#table2 tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table1 tbody").empty();
+						$("#table2 tbody").empty();
+						var tbody1="";
+						var tbody2=""
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						   n++;
+						   if(val.stuation == "已签到"){
+							  trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.method +"</td> </tr>";
+							  tbody1 += trs;    
+						   }else{
+							  trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td>  </tr>";   
+							  tbody2 += trs;    
+						   }
+					      
+						       
+						 });  
+						 $("#table1 tbody").append(tbody1);
+						 $("#table2 tbody").append(tbody2);  
+						
+					}				
+				}
+			})
+		})
+	})
+</script>
+</html>

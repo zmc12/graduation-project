@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生请假管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	
+	
+	#student{
+		height:120px;
+		overflow: scroll;
+	}
+	
+	#reason{
+		height:200px;
+		overflow: scroll;
+	}
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	   <!-- <h1 class="display-4">学生请假管理</h1> -->
+	    <label for="exampleInputEmail11">学院选择:</label>
+	    <select id="college">
+		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	    </select>
+		<label for="exampleInputEmail11">班级选择:</label>
+		<select  id="grade">
+		</select>&nbsp;
+		<label for="exampleInputEmail12">查询类型选择:</label>
+		<select  id="type">
+			<option>未审批</option>
+			<option>已请假</option>
+			<option>未销假</option>
+		</select>
+		<button type="button" id="select" style="float: right;" class="btn btn-primary">查询</button>
+		<br>
+		<br>
+		<!-- <p class="lead">学生请假名单</p> -->
+
+
+		<table class="table table-striped" id="table">
+           <thead>
+		     <tr>
+		 	  <!-- <th scope="col">序号</th> -->
+		      <th scope="col">学生姓名</th>
+		      <th scope="col">请假时间(起)</th>
+			  <th scope="col">请假时间(终)</th>
+		 	  <th scope="col">请假理由</th>
+			  <th scope="col">操作</th>
+		     </tr>
+		   </thead>	
+		   <tbody>
+			   <tr th:each="absent:${absents}">
+				   <td th:text="${absent.id}" style="display: none;"></td>
+				   <td th:text="${absent.name}"></td>
+				   <td th:text="${absent.startTime}"></td>
+				   <td th:text="${absent.endTime}"></td>
+				   <td th:text="${absent.reason}"></td>
+				   <td><button type="button" value="批准" name="result" class="btn btn-primary">批准</button>
+		               <button type="button" value="不批准" name="result2" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">不批准</button>
+				   </td>
+			   </tr>
+		   </tbody>
+		</table>
+		
+		
+		
+		<!-- <p class="lead">未销假名单</p>
+		<table class="table table-striped" id="table1">
+		   <thead>
+		     <tr>
+		 	  <th scope="col">序号</th>
+		      <th scope="col">学生姓名</th>
+		      <th scope="col">请假时间(起)</th>
+			  <th scope="col">请假时间(终)</th>
+		 	  <th scope="col">请假理由</th>
+		     </tr>
+		   </thead>	
+		   <tbody>
+			   <tr th:each="hasConfirm:${hasConfirms}">
+				   <td th:text="${hasConfirm.id}"</td>
+				   <td th:text="${hasConfirm.name}"</td>
+				   <td th:text="${hasConfirm.startTime}"></td>
+				   <td th:text="${hasConfirm.endTime}"></td>
+				   <td th:text="${hasConfirm.reason}"></td>
+			   </tr>
+		   </tbody>
+		</table>
+	  </div> -->
+	  
+	  <!-- 模态框（Modal） -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	  		<div class="modal-content">
+	  			<div class="modal-body">
+	  				  <div class="form-group">
+	  				    <label for="reply">批复:</label>
+	  				    <input type="text" class="form-control" id="reply" aria-describedby="emailHelp">
+	  				  </div>
+					  <div class="modal-footer">
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					  	</button>
+					  	<button type="button" id="sub" class="btn btn-primary" data-dismiss="modal">
+					  		提交
+					  	</button>
+					  </div>
+	  			</div>			
+	  		</div>
+	  	</div>
+	  </div>
+	  
+	  
+	  
+	</div>
+</body>
+<script>
+	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		// $(".choose").click(function(){
+		// 	id=$(this).parent().children().eq(5).text();
+		// 	var reason=$(this).parent().children().eq(4).text();
+		// 	$("#reason").val(reason);
+		// })
+		var id=null;
+		var reply=null;
+		var parent=null;
+		
+		var x = document.getElementById("college");  
+		x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		 		
+		
+		
+		$("#table").on("click","button[name='result']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			$(this).parent().parent().remove();
+			$.ajax({
+				type:"put",
+				url:"/absent/update?id="+id+"&result=批准",
+				success:function(data){
+					// toastr.success(data.message);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		});
+		
+		$("#table").on("click","button[name='result3']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			$(this).parent().parent().remove();
+			$.ajax({
+				type:"put",
+				url:"/absent/cancellationById?id="+id,
+				success:function(data){
+					 toastr.success(data);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		});
+		
+		$("#table").on("click","button[name='result2']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			parent=$(this).parent().parent();
+		});
+
+	
+			
+		$("#sub").click(function(){
+			reply=$("#reply").val();
+			parent.remove();
+			$.ajax({
+				type:"put",
+				url:"/absent/update?id="+id+"&result=不批准&reply="+reply,
+				success:function(data){
+					$(this).parent().parent().remove();
+					// toastr.success(data.message);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		})	
+		
+		
+
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var type = $("#type").val();
+			var thead = "";
+			$("#table thead").empty();
+			
+			if(type == "未审批"){
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th> <th scope='col'>" + "操作" +"</th> </tr>";  
+			}else if(type == "未销假"){
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th> <th scope='col'>" + "操作" +"</th> </tr>";  
+			}else{
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th>  </tr>";  
+			}
+			
+			
+			$("#table thead").append(thead);  
+			
+			
+			$.ajax({
+				type:"GET",
+				url:"/absent/select?grade="+grade+"&result="+type,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
+						//$("#table1 tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table tbody").empty();
+						//$("#table1 tbody").empty();
+						var tbody="";
+						//var tbody1="";
+						$.each(data,function(n,val) {
+							n++;
+							var trs = "";
+							if(type == "未审批"){
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td>  </tr>";  
+							}else if(type == "已请假"){
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+							}else if(type == "未销假"){
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' name='result3' class='cancel btn btn-primary'>批准</button> </td> </tr>";  
+							}
+							tbody += trs;
+							// if(val.result=="未审批"){					
+							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
+							// 	tbody += trs;    
+							// }else{
+							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+							// 	tbody1 += trs;    
+							// }
+						       
+						 });  
+						 $("#table tbody").append(tbody);  
+						 //$("#table1 tbody").append(tbody1);  
+						
+					}
+					
+				}
+			})
+		})
+		
+		
+		
+	})
+</script>
+</html>

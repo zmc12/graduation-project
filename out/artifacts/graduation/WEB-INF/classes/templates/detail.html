@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>物品详情</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+
+	
+		<table border="1px" width="100%" class="table table-sm table-hover" style="margin: 100px auto;table-layout:fixed">
+			<thead class="thead-dark">
+			    <tr>
+			      <th scope="col" style="text-align: center;" colspan="3">物品交易</th>
+			    </tr>
+			 </thead>
+			<tbody>
+				<tr>
+					<td rowspan="6" width="250px" ><img alt="用户未上传图片" width="240px" height="240px"  class="rounded mx-auto d-block"  th:src="@{'/opt/pics/'+${market.path}}"/></td>
+				    <td width="80px">物品名称:</td>
+				    <td width="150px" th:text="${market.title}"></td>
+				</tr>
+				<tr>
+				    <td>物品详情：</td>
+				    <td th:text="${market.text}"></td>
+				</tr>		
+				<tr>
+				    <td>物品价格：</td>
+				    <td th:text="${market.price}"></td>
+				</tr>
+				<tr>
+				    <td>联系方式：</td>
+				    <td th:text="${market.contact}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<br />
+	<div style="margin-top: 170px;">
+		<footer >
+		    <p style="text-align: center;">江苏理工学院跳蚤市场</p>
+		</footer>
+	</div>
+
+</body>
+<script type="application/javascript">
+	
+</script>
+</html>

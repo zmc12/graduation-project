@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>迷你校园系统</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+</style>
+<body>
+  <div th:fragment="header">
+      <ul class="nav justify-content-center myNav">
+		  <li  class="nav-item">
+		      <a class="nav-link active" th:href="@{/user/gotoHome}">首页</a>
+		  </li>
+		  
+          <li class="nav-item teacher">
+              <a class="nav-link active" th:href="@{/absent/first}">学生请假管理</a>
+          </li>
+          <li class="nav-item fixer">
+              <a class="nav-link" th:href="@{/dom/first}">宿舍管理</a>
+          </li>
+		  <li class="nav-item teacher">
+		      <a class="nav-link" th:href="@{/dom/first1}">宿舍管理</a>
+		  </li>
+          <li class="nav-item teacher">
+              <a class="nav-link" th:href="@{/curriculum/first}">课表管理</a>
+          </li>
+          <li class="nav-item teacher">
+              <a class="nav-link" th:href="@{/score/search/first}">成绩查询管理</a>
+          </li>
+		  <li class="nav-item teacher">
+		      <a class="nav-link" th:href="@{/score/insert/first}">成绩插入管理</a>
+		  </li>
+          <li class="nav-item booker">
+              <a class="nav-link" th:href="@{/book/first}">图书管理</a>
+          </li>
+		  <li class="nav-item teacher">
+		      <a class="nav-link" th:href="@{/book/first1}">图书查阅</a>
+		  </li>
+          <li class="nav-item teacher">
+              <a class="nav-link" th:href="@{/notice/first}">通知管理</a>
+          </li>
+          <li class="nav-item teacher">
+              <a class="nav-link" th:href="@{/sign/first}">签到管理</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" th:href="@{/market/first}">跳蚤市场</a>
+          </li>
+
+		  <li id="logout" class="nav-item">
+		      <a class="nav-link" th:href="@{/user/logout}">退出</a>
+		  </li>
+		  <input hidden="hidden"  id="role" th:value="${session.role}" />
+      </ul>
+      <h5 style="display: inline;float: right">
+          欢迎<span th:text="${session.name}"></span>老师登录
+      </h5>
+
+  </div>
+</body>
+<script type="application/javascript">
+	$(function(){
+
+		
+	})
+</script>
+</html>

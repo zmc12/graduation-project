@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<title>课表管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	table,table  td,table  th,table  thead{
+	
+	    border: 1px solid #000;
+	
+	}
+	
+	table  td,table  th{
+	
+	    padding: 10px 30px;
+	
+	}
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <!-- <h1 class="display-4">课表管理</h1> -->
+	   <label>班级选择:</label>
+	   <select id="college">
+	     <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+	   </select>
+ 	   <select id="grade">
+ 	   </select>
+		<label>学期选择:</label>
+		<select  id="term">
+		   <option>2020-2021-1</option>
+		   <option>2020-2021-2</option>
+		   <option>2021-2022-1</option>
+		   <option>2021-2022-2</option>
+		   <option>2022-2023-1</option>
+		   <option>2022-2023-2</option>
+		   <option>2023-2024-1</option>
+		   <option>2023-2024-2</option>
+		   <option>2024-2025-1</option>
+		   <option>2024-2025-2</option>
+		</select>
+		<button type="button" id="select" class="btn btn-primary" style="float: right;margin-bottom: 5px;">查询</button>
+		<br>
+		
+		<form th:action="@{/curriculum/insert}" method="post">
+			<input type="hidden" name="grade" id="grade1" />
+			<input type="hidden" name="term" id="term1" />
+			
+			<table  height="1000" width="1100" style="table-layout: fixed;" >
+			  <thead style="text-align: center; vertical-align: middle;">
+			    <tr style="table-layout: fixed;" >
+			      <th>时间</th>
+			      <th>星期一</th>
+			      <th>星期二</th>
+			      <th>星期三</th>
+				  <th>星期四</th>
+				  <th>星期五</th>
+				  <th>星期六</th>
+				  <th>星期日</th>
+			    </tr>
+			  </thead>
+			  <tbody style='text-align: center;'>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row"> 1-2节课</th>
+			      <td id="cur11" name="cur11"></td>
+			      <td id="cur21" name="cur21"></td>
+			      <td id="cur31" name="cur31"></td>
+				  <td id="cur41" name="cur41"></td>
+				  <td id="cur51" name="cur51"></td>
+				  <td id="cur61" name="cur61"></td>
+				  <td id="cur71" name="cur71"/></td>
+				  
+			    </tr>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row"> 3-4节课</th>
+			      <td id="cur12" name="cur12"></td>
+			      <td id="cur22" name="cur22"></td>
+			      <td id="cur32" name="cur32"></td>
+				  <td id="cur42" name="cur42"></td>
+				  <td id="cur52" name="cur52"></td>
+				  <td id="cur62" name="cur62"></td>
+				  <td id="cur72" name="cur72"></td>
+			    </tr>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row">5-6节课</th>
+			      <td id="cur13" name="cur13"></td>
+			      <td id="cur23" name="cur23"></td>
+				  <td id="cur33" name="cur33"></td>
+				  <td id="cur43" name="cur43"></td>
+				  <td id="cur53" name="cur53"></td>
+				  <td id="cur63" name="cur63"></td>
+				  <td id="cur73" name="cur73"></td>
+			    </tr>
+				<tr style="table-layout: fixed;">
+				  <th scope="row">7-8节课 </th>
+				  <td id="cur14" name="cur14"></td>
+				  <td id="cur24" name="cur24"></td>
+				  <td id="cur34" name="cur34"></td>
+				  <td id="cur44" name="cur44"></td>
+				  <td id="cur54" name="cur54"></td>
+				  <td id="cur64" name="cur64"></td>
+				  <td id="cur74" name="cur74"></td>
+				</tr>
+				<tr style="table-layout: fixed;">
+				  <th scope="row">9-10、11节课</th>
+				 <td id="cur15" name="cur15"></td>
+				 <td id="cur25" name="cur25"></td>
+				 <td id="cur35" name="cur35"></td>
+				 <td id="cur45" name="cur45"></td>
+				 <td id="cur55" name="cur55"></td>
+				 <td id="cur65" name="cur65"></td>
+				 <td id="cur75" name="cur75"></td>
+				</tr>
+			  </tbody>
+			</table>
+			<!-- <button type="submit" id="save" class="btn btn-primary">保存</button> -->
+		</form>
+		
+	  </div>
+	</div>
+</body>
+<script>
+	$(function(){
+		
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		
+		
+		
+		var x = document.getElementById("college");
+		 x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		 		
+		
+		$("#save").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+			
+			$("#grade1").val(grade);
+			$("#term1").val(term);
+		})
+		
+		$("#select").click(function(){
+			var grade = $("#grade").val();
+			var term = $("#term").val();
+		
+			$.ajax({
+				type:"GET",
+				url:"/curriculum/select/"+grade+"/"+term,
+				data:{
+					"grade" : grade,
+					"term" : term
+				},
+				dataType:"json",
+				success:function(data){			
+						
+					
+
+						toastr.success("查询成功");
+						$("#cur11").html(data.cur11);
+						$("#cur21").html(data.cur21);
+						$("#cur31").html(data.cur31);
+						$("#cur41").html(data.cur41);
+						$("#cur51").html(data.cur51);
+						$("#cur12").html(data.cur12);
+						$("#cur22").html(data.cur22);
+						$("#cur32").html(data.cur32);
+						$("#cur42").html(data.cur42);
+						$("#cur52").html(data.cur52);
+						$("#cur13").html(data.cur13);
+						$("#cur23").html(data.cur23);
+						$("#cur33").html(data.cur33);
+						$("#cur43").html(data.cur43);
+						$("#cur53").html(data.cur53);
+						$("#cur14").html(data.cur14);
+						$("#cur24").html(data.cur24);
+						$("#cur34").html(data.cur34);
+						$("#cur44").html(data.cur44);
+						$("#cur54").html(data.cur54);
+						
+						$("#cur61").html(data.cur61);
+						$("#cur62").html(data.cur62);
+						$("#cur63").html(data.cur63);
+						$("#cur64").html(data.cur64);
+						$("#cur65").html(data.cur65);
+						$("#cur71").html(data.cur71);
+						$("#cur72").html(data.cur72);
+						$("#cur73").html(data.cur73);
+						$("#cur74").html(data.cur74);
+						$("#cur75").html(data.cur75);
+						$("#cur15").html(data.cur15);
+						$("#cur25").html(data.cur25);
+						$("#cur35").html(data.cur35);
+						$("#cur45").html(data.cur45);
+						$("#cur55").html(data.cur55);
+						
+				
+				},
+				error:function(data){
+					 toastr.error("查询结果为空");
+					  $("#cur11").text("");
+					  $("#cur21").text("");
+					  $("#cur31").text("");
+					  $("#cur41").text("");
+					  $("#cur51").text("");
+					  $("#cur12").text("");
+					  $("#cur22").text("");
+					  $("#cur32").text("");
+					  $("#cur42").text("");
+					  $("#cur52").text("");
+					  $("#cur13").text("");
+					  $("#cur23").text("");
+					  $("#cur33").text("");
+					  $("#cur43").text("");
+					  $("#cur53").text("");
+					  $("#cur14").text("");
+					  $("#cur24").text("");
+					  $("#cur34").text("");
+					  $("#cur44").text("");
+				      $("#cur54").text("");			
+					  
+					  
+					  $("#cur61").text("");
+					  $("#cur62").text("");
+					  $("#cur63").text("");
+					  $("#cur64").text("");
+					  $("#cur65").text("");
+					  $("#cur71").text("");
+					  $("#cur72").text("");
+					  $("#cur73").text("");
+					  $("#cur74").text("");
+					  $("#cur75").text("");
+					  $("#cur15").text("");
+					  $("#cur25").text("");
+					  $("#cur35").text("");
+					  $("#cur45").text("");
+					  $("#cur55").text("");
+				}
+			})
+		})
+	})
+</script>
+</html>

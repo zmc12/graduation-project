@@ -43,7 +43,7 @@ public class NoticeController {
     @GetMapping("/first")
     public String first(Model model, HttpServletRequest request){
         Object name = request.getSession().getAttribute("name");
-        List <College> colleges= collegeService.selectAll();
+        List <College> colleges= collegeService.selectByCollege();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
@@ -66,8 +66,8 @@ public class NoticeController {
     @PostMapping("/insert")
     public String insert(Notice notice,Model model, HttpServletRequest request){
         Object name = request.getSession().getAttribute("name");
-
-        for(int i=0;i<notice.getGrades().length;i++){
+        System.out.println(notice.toString());
+        for(int i=0;i<notice.getGrades().length-1;i++){
             notice.setName(name.toString());
             notice.setGrade(notice.getGrades()[i]);
             noticeService.insert(notice);
@@ -92,7 +92,7 @@ public class NoticeController {
         notice.setName(name.toString());
         noticeService.updateById(notice);
 
-        List <College> colleges= collegeService.selectAll();
+        List <College> colleges= collegeService.selectByCollege();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);

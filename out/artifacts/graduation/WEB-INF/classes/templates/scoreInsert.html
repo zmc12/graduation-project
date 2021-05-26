@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩管理</title>
+	<title>学生请假管理</title>
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+	<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+	<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</head>
+<style>
+    .myNav{
+        background-color: black;
+    }
+	
+	#logout{
+		padding-left: 120px;
+		
+	}
+	#logout :hover{
+		color:red;
+	}
+	
+	
+	
+	#student{
+		height:250px;
+		overflow: scroll;
+	}
+
+</style>
+<body>
+	<div th:include="../templates/nav.html :: header"></div>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	  <!--  <h1 class="display-4">学生成绩管理</h1> -->
+	   <!-- <p>查询管理</p>
+        <label for="subject1">课程选择:</label>	
+		<select id="subject1">
+			<option th:each="score:${scores}" th:value="${score.subject}" th:text="${score.subject}"></option>
+		</select>	 			  
+		 <br>
+		<label for="grade1">班级选择:</label>	
+		<select  id="grade1">
+			<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
+		</select>	 
+		<br>
+		<button type="button" id="select1" class="btn btn-primary">查询</button>
+		<br>
+		<br>
+        <div>
+		 <table  class="table table-striped" id="table1">
+			<thead>
+			  <tr>
+			   <th scope="col">#</th>
+			   <th scope="col">课程</th>    
+			   <th scope="col">姓名</th>    
+			   <th scope="col">成绩</th> 
+			   </tr>
+			</thead>
+			<tbody id="tbody1">		   
+		    </tbody>
+		</table>		
+	   </div>				
+		
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+ -->
+				   
+		
+        <!-- <p>录入管理</p>  -->
+		<br>
+		<label for="exampleInputEmail11">学院选择:</label>
+		<select id="college">
+		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
+		</select>
+		<label for="exampleInputEmail11">班级选择:</label>
+		<select id="grade">
+		  
+		</select>
+		<label for="subject">课程选择:</label>
+		<select id="subject">
+		   <option th:each="course:${courses}" th:value="${course.subject}" th:text="${course.subject}"></option>
+		</select>
+		<button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
+		<!-- <div class="form-group">
+		  <label for="exampleInputEmail1">输入课程名称:</label>
+		  <input type="text" name="number" id="subject" placeholder="输入课程名称">
+		</div>	  -->
+		<br>
+        <div>
+		   <table  class="table table-striped" id="table">
+			  <thead>
+			    <tr>
+			 	 <th scope="col">序号</th>
+			 	 <th scope="col">班级</th>    
+			     <th scope="col">姓名</th>    
+			 	 <th scope="col">学号</th>   
+			 	 <th scope="col">成绩</th> 
+			    </tr>
+			  </thead>
+			  <tbody id="tbody">		   
+			  </tbody>
+			</table>
+		<button type="button" class="btn btn-primary btn-lg" id="save">保存</button>
+	   </div>		
+
+		
+	  </div>
+	</div>
+</body>
+<script type="application/javascript">
+	$(function(){
+		var role = $("#role").val();
+		if(role == "教师"){
+			$(".fixer").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "维修人员"){
+			$(".teacher").css("display","none");
+			$(".booker").css("display","none");
+		}else if(role == "图书管理人员"){
+			$(".teacher").css("display","none");
+			$(".fixer").css("display","none");
+		}
+		
+		var x = document.getElementById("college");
+		x.selectedIndex = -1;  
+		   
+		   
+		$('#college').change(function() {
+		    var college=$("#college option:selected").val();
+		    $.ajax({
+		    	type:"get",
+		    	url:"/college/selectGrade?college="+college,
+		    	success:function(data){
+		    		$("#grade").empty();
+					$.each(data,function(n,val) {
+						$("#grade").append("<option value='"+val.grade+"'>"+val.grade+"</option>");
+					});  
+		    	},
+		    	error:function(){
+		    		toastr.error("未搜索到班级");
+		    	}
+		    })				
+		})
+		 		
+		
+		
+		$("#select").click(function(){
+			var grade=$("#grade").val();
+			$(".score").val("");
+			
+			
+		    $.ajax({
+				type:"GET",
+				url:"/score/select?grade="+grade,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						   n++;
+					       trs += " <tr><td>" + n +" </td> <td>" + val.grade +"</td> <td>" + val.name +"</td> <td>" + val.userName +"</td> <td><input type='number' class='score' min='0' max='100'  name='score'></td> </tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table tbody").append(tbody);  
+						
+					}
+					
+				}
+			})			
+						
+		})
+		
+		$("#select1").click(function(){
+			var grade1=$("#grade1").val();
+			var subject1=$("#subject1").val();
+			
+			
+		    $.ajax({
+				type:"GET",
+				url:"/score/selectScore?grade="+grade1+"&subject="+subject1,
+				dataType:"json",
+				success:function(data){
+					if(data==null || data==""){
+						toastr.error("查询结果为空");
+						$("#table1 tbody").empty();
+					}
+					else{
+						toastr.success("查询成功");
+						$("#table1 tbody").empty();
+						var tbody="";
+						$.each(data,function(n,val) {   
+						   var trs = "";  
+						 
+					       trs += " <tr><td>" +val.id+" </td> <td>" + val.subject +"</td> <td>" + val.name +"</td> <td>" + val.score +"</td></tr>";  
+						   tbody += trs;         
+						 });  
+						 $("#table1 tbody").append(tbody);  
+						
+					}
+					
+				}
+			})			
+						
+		})
+
+		
+
+	       function Person(name,score,subject) {
+	         this.name = name;
+	         this.score = score;
+	         this.subject = subject;
+	     
+	       }
+
+		   $("#save").click(function(){
+			   var _list=[];
+			   $("#tbody tr").each(function(){
+			 	 var name=$(this).children().eq(2).text();
+				 var score=$(this).children().eq(4).children().eq(0).val();
+				 var subject = $("#subject").val();
+				 if(subject == "" || score == ""){
+					 toastr.error("课程、成绩不能为空");
+				 }else{
+					 _list.push(new Person(name,score,subject));
+				 }
+				
+		      })
+			
+		     if(_list.length != 0){
+				 $.ajax({
+				 	url : '/score/insert',
+				 	data : "scores="+JSON.stringify(_list),
+				 	dataType : "json",
+				 	type : "POST",
+				 	success : function(data) {
+				 		toastr.success(data.message);
+				 		
+				 	}
+				 });
+			 }
+			
+			
+			
+		})
+		
+	})
+</script>
+</html>
