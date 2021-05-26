@@ -27,6 +27,18 @@
 	#logout :hover{
 		color:red;
 	}
+	
+	table,table  td,table  th,table  thead{
+	
+	    border: 1px solid #000;
+	
+	}
+	
+	table  td,table  th{
+	
+	    padding: 10px 30px;
+	
+	}
 </style>
 <body>
 	<div th:include="../templates/nav.html :: header"></div>
@@ -52,33 +64,29 @@
 		   <option>2024-2025-1</option>
 		   <option>2024-2025-2</option>
 		</select>
-		<button type="button" id="select" class="btn btn-primary" style="float: right;">查询</button>
+		<button type="button" id="select" class="btn btn-primary" style="float: right;margin-bottom: 5px;">查询</button>
 		<br>
 		
 		<form th:action="@{/curriculum/insert}" method="post">
 			<input type="hidden" name="grade" id="grade1" />
 			<input type="hidden" name="term" id="term1" />
 			
-			<table  height="800" class="table table-bordered" style="word-break: break-all;table-layout: fixed;"  align="center">
-			  <thead>
-			    <tr style='text-align: center;'>
-			      <th scope="col">时间</th>
-			      <th scope="col">星期一</th>
-			      <th scope="col">星期二</th>
-			      <th scope="col">星期三</th>
-				  <th scope="col">星期四</th>
-				  <th scope="col">星期五</th>
-				  <th scope="col">星期六</th>
-				  <th scope="col">星期日</th>
+			<table  height="1000" width="1100" style="table-layout: fixed;" >
+			  <thead style="text-align: center; vertical-align: middle;">
+			    <tr style="table-layout: fixed;" >
+			      <th>时间</th>
+			      <th>星期一</th>
+			      <th>星期二</th>
+			      <th>星期三</th>
+				  <th>星期四</th>
+				  <th>星期五</th>
+				  <th>星期六</th>
+				  <th>星期日</th>
 			    </tr>
 			  </thead>
 			  <tbody style='text-align: center;'>
-			    <tr >
-			      <th scope="row">
-					  1-2节课 <br />
-					 <!-- 上课地点<br />
-					  上课老师 -->
-				  </th>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row"> 1-2节课</th>
 			      <td id="cur11" name="cur11"></td>
 			      <td id="cur21" name="cur21"></td>
 			      <td id="cur31" name="cur31"></td>
@@ -88,12 +96,8 @@
 				  <td id="cur71" name="cur71"/></td>
 				  
 			    </tr>
-			    <tr>
-			      <th scope="row">
-					  3-4节课 <br />
-					 <!-- 上课地点<br />
-					  上课老师 -->
-				  </th>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row"> 3-4节课</th>
 			      <td id="cur12" name="cur12"></td>
 			      <td id="cur22" name="cur22"></td>
 			      <td id="cur32" name="cur32"></td>
@@ -102,12 +106,8 @@
 				  <td id="cur62" name="cur62"></td>
 				  <td id="cur72" name="cur72"></td>
 			    </tr>
-			    <tr>
-			      <th scope="row">
-					  5-6节课 <br />
-					<!--  上课地点<br />
-					  上课老师 -->
-				  </th>
+			    <tr style="table-layout: fixed;">
+			      <th scope="row">5-6节课</th>
 			      <td id="cur13" name="cur13"></td>
 			      <td id="cur23" name="cur23"></td>
 				  <td id="cur33" name="cur33"></td>
@@ -116,12 +116,8 @@
 				  <td id="cur63" name="cur63"></td>
 				  <td id="cur73" name="cur73"></td>
 			    </tr>
-				<tr>
-				  <th scope="row">
-					  7-8节课 <br />
-					<!--  上课地点<br />
-					  上课老师 -->
-				  </th>
+				<tr style="table-layout: fixed;">
+				  <th scope="row">7-8节课 </th>
 				  <td id="cur14" name="cur14"></td>
 				  <td id="cur24" name="cur24"></td>
 				  <td id="cur34" name="cur34"></td>
@@ -130,12 +126,8 @@
 				  <td id="cur64" name="cur64"></td>
 				  <td id="cur74" name="cur74"></td>
 				</tr>
-				<tr>
-				  <th scope="row">
-					  9-10、11节课 <br />
-					 <!-- 上课地点<br />
-					  上课老师 -->
-				 </th>
+				<tr style="table-layout: fixed;">
+				  <th scope="row">9-10、11节课</th>
 				 <td id="cur15" name="cur15"></td>
 				 <td id="cur25" name="cur25"></td>
 				 <td id="cur35" name="cur35"></td>

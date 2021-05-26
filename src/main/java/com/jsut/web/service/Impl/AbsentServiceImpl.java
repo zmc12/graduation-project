@@ -48,5 +48,10 @@ public class AbsentServiceImpl implements AbsentService {
         return absentMapper.selectByResult();
     }
 
+    @Override
+    public void cancellationById(Integer id) {
+        absentMapper.cancellationById(id);
+    }
+
 
 }

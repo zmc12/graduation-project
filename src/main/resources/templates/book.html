@@ -30,12 +30,6 @@
 	}
 
 	
-/* 	
-	#book1{
-		height:400px;
-		overflow: scroll;
-	} */
-	
 	.a1{
 		display : inline;
 	}
@@ -120,13 +114,10 @@
 <body>
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
-	  <div class="container">
-	    <!-- <h1 class="display-4">图书管理</h1> -->
-		<input placeholder="输入图书名称筛选" id="filterName">
-	    <p class="a1" style="margin-left: 350px;">图书名单</p>
-		<button class="btn btn-primary btn-lg a1 a2" data-toggle="modal" data-target="#myModal">
-			新增
-		</button>
+	  <div class="container" style="text-align: center;">
+		<input placeholder="输入图书名称筛选" id="filterName" style="float: left;"> 
+	    <p class="a1">图书名单</p>
+	    <button class="btn btn-primary btn-lg a1 a2"  data-toggle="modal" data-target="#myModal">新增</button>
 		<div >
 			<table id="book" class="table table-striped">
 			  <thead>

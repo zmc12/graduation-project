@@ -23,4 +23,7 @@ public interface AbsentService {
     List<Absent> select(String grade,String result);
 
     List<Absent> selectByResult();
+
+
+    void cancellationById(Integer id);
 }

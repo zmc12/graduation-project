@@ -86,4 +86,12 @@ public class AbsentController {
 
 
 
+    @ResponseBody
+    @PutMapping("/cancellationById")
+    public String cancellationById(@RequestParam("id")Integer id){
+        absentService.cancellationById(id);
+        return "操作成功";
+    }
+
+
 }

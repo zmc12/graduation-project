@@ -44,4 +44,8 @@
     <update id="setResult" parameterType="java.lang.String">
         update  absent set result="未销假" where result="批准" and end_time &lt; #{time};
     </update>
+
+    <update id="cancellationById"  parameterType="java.lang.Integer" >
+        update  absent set result="已销假" where id=#{id};
+    </update>
 </mapper>

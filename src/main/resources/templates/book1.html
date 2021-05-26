@@ -113,11 +113,10 @@
 <body>
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
-	  <div class="container" >
-	    <!-- <h1 class="display-4">图书管理</h1> -->
-	    <p class="lead a1" style="margin-left: 500px;">图书名单</p>
-		<input placeholder="输入图书名称筛选" id="filterName" style="float: right;">
-		<div >
+	  <div class="container" style="text-align: center;">
+	    <p class="a1">图书名单</p>
+		<input placeholder="输入图书名称筛选" id="filterName" style="float: left;">
+		<div>
 			<table id="book" class="table table-striped">
 			  <thead>
 			    <tr>

@@ -26,4 +26,6 @@ public interface AbsentMapper {
     List<Absent> selectByResult();
 
     void setResult(String time);
+
+    void cancellationById(Integer id);
 }

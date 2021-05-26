@@ -204,6 +204,24 @@
 			})					
 		});
 		
+		$("#table").on("click","button[name='result3']",function(){
+			id=$(this).parent().parent().children().eq(0).text();
+			$(this).parent().parent().remove();
+			$.ajax({
+				type:"put",
+				url:"/absent/cancellationById?id="+id,
+				success:function(data){
+					 toastr.success(data);
+					// setTimeout(function(){
+					// 　　window.location.reload();
+					// },2000);
+				},
+				error:function(){
+					toastr.error(data.message);
+				}
+			})					
+		});
+		
 		$("#table").on("click","button[name='result2']",function(){
 			id=$(this).parent().parent().children().eq(0).text();
 			parent=$(this).parent().parent();
@@ -231,6 +249,8 @@
 		})	
 		
 		
+
+		
 		$("#select").click(function(){
 			var grade = $("#grade").val();
 			var type = $("#type").val();
@@ -239,9 +259,13 @@
 			
 			if(type == "未审批"){
 				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th> <th scope='col'>" + "操作" +"</th> </tr>";  
+			}else if(type == "未销假"){
+				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th> <th scope='col'>" + "操作" +"</th> </tr>";  
 			}else{
 				thead += " <tr> <th scope='col'>" + "学生姓名" +"</th> <th scope='col'>" + "请假时间(起)" +"</th> <th scope='col'>" + "请假时间(终)" +"</th> <th scope='col'>" + "请假理由" +"</th>  </tr>";  
 			}
+			
+			
 			$("#table thead").append(thead);  
 			
 			
@@ -266,8 +290,10 @@
 							var trs = "";
 							if(type == "未审批"){
 								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td>  </tr>";  
-							}else{
+							}else if(type == "已请假"){
 								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
+							}else if(type == "未销假"){
+								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' name='result3' class='cancel btn btn-primary'>批准</button> </td> </tr>";  
 							}
 							tbody += trs;
 							// if(val.result=="未审批"){					

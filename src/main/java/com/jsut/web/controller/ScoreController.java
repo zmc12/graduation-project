@@ -2,11 +2,9 @@ package com.jsut.web.controller;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jsut.web.pojo.College;
-import com.jsut.web.pojo.ResultCode;
-import com.jsut.web.pojo.Score;
-import com.jsut.web.pojo.Student;
+import com.jsut.web.pojo.*;
 import com.jsut.web.service.CollegeService;
+import com.jsut.web.service.CourseService;
 import com.jsut.web.service.ScoreService;
 import com.jsut.web.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +39,9 @@ public class ScoreController {
     @Autowired
     private CollegeService collegeService;
 
+    @Autowired
+    private CourseService courseService;
+
 
     @RequestMapping("/search/first")
     public String searchFirst(Model model, HttpServletRequest request){
@@ -55,7 +56,8 @@ public class ScoreController {
     @RequestMapping("/insert/first")
     public String insertFirst(Model model, HttpServletRequest request){
         List<College> colleges = collegeService.selectByCollege();
-
+        List<Course> courses = courseService.selectAll();
+        model.addAttribute("courses",courses);
         model.addAttribute("colleges",colleges);
         return "scoreInsert";
     }
