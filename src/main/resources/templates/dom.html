@@ -48,21 +48,14 @@
 	
    <div class="jumbotron jumbotron-fluid">
    <div class="container">
-    <!-- <h1 class="display-4">学生宿舍信息</h1> -->
-    <!-- <p class="lead a1">宿舍名单</p> -->
-	<!-- <button class="btn btn-primary btn-lg a2" data-toggle="modal" data-target="#myModal">
-	 	新增
-	 </button> -->
 	<label for="exampleInputEmail11">学院选择:</label>
 	<select id="college">
 	  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 	</select>
 	<label for="exampleInputEmail11">班级选择:</label>
-	<select class="" id="grade">
-	  
-	</select>
+	<select class="" id="grade"> </select>
 	 <label class="lead">学期选择:</label>
-	 <select class="" id="term">
+	 <select id="term">
 	 	<option>2020-2021-1</option>
 	 	<option>2020-2021-2</option>
 	 	<option>2021-2022-1</option>
@@ -107,11 +100,9 @@
 				 <td style="display: none;" th:text="${dom.grade}"></td>
 				 <td style="display: none;" th:text="${dom.term}"></td>				  
 			 </tr>			   
-		
 		   </tbody>
 		 </table>
 	 </div>
- 	
  	<br>
 	
 	

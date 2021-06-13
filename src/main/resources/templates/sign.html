@@ -39,14 +39,12 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	   <!-- <h1 class="display-4">签到管理</h1> -->
 	  <label for="exampleInputEmail11">学院选择:</label>
 	  <select id="college">
 	    <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 	  </select>
 	  <label for="exampleInputEmail11">班级选择:</label>
-	  <select class="" id="grade">  
-	  </select>
+	  <select class="" id="grade"></select>
 	   <label for="time">发起时间选择:</label>
 	   <select class=""  id="time">
 	       <option th:each="sign:${signs}" th:value="${sign.time}" th:text="${sign.time}"></option>
@@ -62,16 +60,9 @@
 				  <th scope="col">序号</th>
 			      <th scope="col">姓名</th>
 				  <th scope="col">签到方式</th>
-				  <!-- <th scope="col">体温</th> -->
 			    </tr>
 			  </thead>
 			  <tbody >
-		<!-- 		<tr th:each="list1:${list1}">
-				    <td th:text="${list1.id}"></td>
-				    <td th:text="${list1.name}"></td>
-				    <td th:text="${list1.method}"></td>
- 					<td th:text="${list1.temperature}"></td> 
-				</tr> -->
 			  </tbody>
 			</table>
 		</div>
@@ -87,14 +78,9 @@
 			    </tr>
 			  </thead>
               <tbody>
-				<!-- <tr th:each="list2:${list2}">
-				  <td th:text="${list2.id}"></td>
-				  <td th:text="${list2.name}"></td>
-				</tr> -->
 			  </tbody>
 			</table>
 		</div>
-		
 	  </div>
 	</div>
 </body>

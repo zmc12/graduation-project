@@ -55,7 +55,7 @@ public class NoticeController {
         Object name = request.getSession().getAttribute("name");
         noticeService.deleteById(id);
         knowService.deleteById(id);
-        List <College> colleges= collegeService.selectAll();
+        List <College> colleges= collegeService.selectByCollege();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);
@@ -78,7 +78,7 @@ public class NoticeController {
             }
         }
 
-        List <College> colleges= collegeService.selectAll();
+        List <College> colleges= collegeService.selectByCollege();
         List<Notice> list=noticeService.selectAll(name.toString());
         model.addAttribute("notices",list);
         model.addAttribute("colleges",colleges);

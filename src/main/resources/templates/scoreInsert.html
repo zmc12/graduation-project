@@ -42,66 +42,18 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	  <!--  <h1 class="display-4">学生成绩管理</h1> -->
-	   <!-- <p>查询管理</p>
-        <label for="subject1">课程选择:</label>	
-		<select id="subject1">
-			<option th:each="score:${scores}" th:value="${score.subject}" th:text="${score.subject}"></option>
-		</select>	 			  
-		 <br>
-		<label for="grade1">班级选择:</label>	
-		<select  id="grade1">
-			<option th:each="college:${colleges}" th:value="${college.grade}" th:text="${college.grade}"></option>
-		</select>	 
-		<br>
-		<button type="button" id="select1" class="btn btn-primary">查询</button>
-		<br>
-		<br>
-        <div>
-		 <table  class="table table-striped" id="table1">
-			<thead>
-			  <tr>
-			   <th scope="col">#</th>
-			   <th scope="col">课程</th>    
-			   <th scope="col">姓名</th>    
-			   <th scope="col">成绩</th> 
-			   </tr>
-			</thead>
-			<tbody id="tbody1">		   
-		    </tbody>
-		</table>		
-	   </div>				
-		
-		
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
- -->
-				   
-		
-        <!-- <p>录入管理</p>  -->
 		<br>
 		<label for="exampleInputEmail11">学院选择:</label>
 		<select id="college">
 		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
 		</select>
 		<label for="exampleInputEmail11">班级选择:</label>
-		<select id="grade">
-		  
-		</select>
+		<select id="grade"></select>
 		<label for="subject">课程选择:</label>
 		<select id="subject">
 		   <option th:each="course:${courses}" th:value="${course.subject}" th:text="${course.subject}"></option>
 		</select>
 		<button style="float: right;" type="button" id="select" class="btn btn-primary">查询</button>
-		<!-- <div class="form-group">
-		  <label for="exampleInputEmail1">输入课程名称:</label>
-		  <input type="text" name="number" id="subject" placeholder="输入课程名称">
-		</div>	  -->
 		<br>
         <div>
 		   <table  class="table table-striped" id="table">
@@ -120,7 +72,6 @@
 		<button type="button" class="btn btn-primary btn-lg" id="save">保存</button>
 	   </div>		
 
-		
 	  </div>
 	</div>
 </body>

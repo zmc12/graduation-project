@@ -46,7 +46,6 @@
 	<div th:include="../templates/nav.html :: header"></div>
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-	   <!-- <h1 class="display-4">学生请假管理</h1> -->
 	    <label for="exampleInputEmail11">学院选择:</label>
 	    <select id="college">
 		  <option class="college" th:each="college:${colleges}" th:value="${college.college}" th:text="${college.college}"></option>
@@ -63,13 +62,9 @@
 		<button type="button" id="select" style="float: right;" class="btn btn-primary">查询</button>
 		<br>
 		<br>
-		<!-- <p class="lead">学生请假名单</p> -->
-
-
 		<table class="table table-striped" id="table">
            <thead>
 		     <tr>
-		 	  <!-- <th scope="col">序号</th> -->
 		      <th scope="col">学生姓名</th>
 		      <th scope="col">请假时间(起)</th>
 			  <th scope="col">请假时间(终)</th>
@@ -90,32 +85,6 @@
 			   </tr>
 		   </tbody>
 		</table>
-		
-		
-		
-		<!-- <p class="lead">未销假名单</p>
-		<table class="table table-striped" id="table1">
-		   <thead>
-		     <tr>
-		 	  <th scope="col">序号</th>
-		      <th scope="col">学生姓名</th>
-		      <th scope="col">请假时间(起)</th>
-			  <th scope="col">请假时间(终)</th>
-		 	  <th scope="col">请假理由</th>
-		     </tr>
-		   </thead>	
-		   <tbody>
-			   <tr th:each="hasConfirm:${hasConfirms}">
-				   <td th:text="${hasConfirm.id}"</td>
-				   <td th:text="${hasConfirm.name}"</td>
-				   <td th:text="${hasConfirm.startTime}"></td>
-				   <td th:text="${hasConfirm.endTime}"></td>
-				   <td th:text="${hasConfirm.reason}"></td>
-			   </tr>
-		   </tbody>
-		</table>
-	  </div> -->
-	  
 	  <!-- 模态框（Modal） -->
 	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  	<div class="modal-dialog">
@@ -126,19 +95,14 @@
 	  				    <input type="text" class="form-control" id="reply" aria-describedby="emailHelp">
 	  				  </div>
 					  <div class="modal-footer">
-					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					  	</button>
-					  	<button type="button" id="sub" class="btn btn-primary" data-dismiss="modal">
-					  		提交
-					  	</button>
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					  	<button type="button" id="sub" class="btn btn-primary" data-dismiss="modal">提交</button>
 					  </div>
 	  			</div>			
 	  		</div>
 	  	</div>
 	  </div>
-	  
-	  
-	  
+	 
 	</div>
 </body>
 <script>
@@ -154,11 +118,6 @@
 			$(".teacher").css("display","none");
 			$(".fixer").css("display","none");
 		}
-		// $(".choose").click(function(){
-		// 	id=$(this).parent().children().eq(5).text();
-		// 	var reason=$(this).parent().children().eq(4).text();
-		// 	$("#reason").val(reason);
-		// })
 		var id=null;
 		var reply=null;
 		var parent=null;
@@ -193,10 +152,6 @@
 				type:"put",
 				url:"/absent/update?id="+id+"&result=批准",
 				success:function(data){
-					// toastr.success(data.message);
-					// setTimeout(function(){
-					// 　　window.location.reload();
-					// },2000);
 				},
 				error:function(){
 					toastr.error(data.message);
@@ -212,9 +167,7 @@
 				url:"/absent/cancellationById?id="+id,
 				success:function(data){
 					 toastr.success(data);
-					// setTimeout(function(){
-					// 　　window.location.reload();
-					// },2000);
+
 				},
 				error:function(){
 					toastr.error(data.message);
@@ -237,10 +190,7 @@
 				url:"/absent/update?id="+id+"&result=不批准&reply="+reply,
 				success:function(data){
 					$(this).parent().parent().remove();
-					// toastr.success(data.message);
-					// setTimeout(function(){
-					// 　　window.location.reload();
-					// },2000);
+
 				},
 				error:function(){
 					toastr.error(data.message);
@@ -296,17 +246,11 @@
 								trs += " <tr><td style='display: none;'> " + val.id +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' name='result3' class='cancel btn btn-primary'>批准</button> </td> </tr>";  
 							}
 							tbody += trs;
-							// if(val.result=="未审批"){					
-							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> <td><button type='button' value='批准' name='result' class='btn btn-primary'>批准</button> <button type='button' value='不批准' name='result2' class='btn btn-secondary' data-toggle='modal' data-target='#myModal'>不批准</button></td> </tr>";  
-							// 	tbody += trs;    
-							// }else{
-							// 	trs += " <tr><td> " + n +" </td> <td>" + val.name +"</td> <td>" + val.startTime +"</td> <td>" + val.endTime +"</td> <td>" + val.reason +"</td> </tr>";  
-							// 	tbody1 += trs;    
-							// }
+
 						       
 						 });  
 						 $("#table tbody").append(tbody);  
-						 //$("#table1 tbody").append(tbody1);  
+					
 						
 					}
 					

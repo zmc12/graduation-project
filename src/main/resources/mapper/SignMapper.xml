@@ -4,7 +4,6 @@
     <resultMap id="BaseResultMap" type="com.jsut.web.pojo.Sign">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <!--<result column="location" jdbcType="VARCHAR" property="location"/>-->
         <result column="method" jdbcType="VARCHAR" property="method"/>
         <result column="stuation" jdbcType="VARCHAR" property="stuation"/>
         <result column="temperature" jdbcType="VARCHAR" property="temperature"/>
